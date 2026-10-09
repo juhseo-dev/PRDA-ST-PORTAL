@@ -1,0 +1,158 @@
+
+/*
+ PRDA S&T
+ 공통 모바일 최적화 스타일
+ 기존 페이지의 기능 및 데이터 유지
+*/
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overflow-wrap: break-word;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
+@media (max-width: 768px) {
+
+  main,
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  header h1,
+  header .logo {
+    font-size: 28px;
+  }
+
+  nav {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    padding: 10px;
+  }
+
+  nav a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .card {
+    min-width: 0;
+  }
+
+  .card h3 {
+    font-size: 16px;
+  }
+
+  .card p {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .panel {
+    max-width: 100%;
+  }
+
+  .grid,
+  .controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  input,
+  select,
+  textarea {
+    max-width: 100%;
+    font-size: 16px;
+  }
+
+  button {
+    min-height: 44px;
+  }
+
+  .search input {
+    min-width: 0;
+  }
+
+  .search button {
+    flex-shrink: 0;
+  }
+
+  .actions,
+  .links,
+  .filters {
+    gap: 8px;
+  }
+
+  .actions button {
+    flex: 1 1 130px;
+  }
+
+  .links a {
+    line-height: 1.5;
+  }
+
+  table {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+
+  header h1,
+  header .logo {
+    font-size: 26px;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero h2,
+  .intro h2 {
+    font-size: 22px;
+  }
+
+  .search input {
+    padding: 12px 9px;
+  }
+
+  .search button {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

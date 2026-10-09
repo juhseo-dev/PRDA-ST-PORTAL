@@ -1,4 +1,91 @@
 
+/*
+ PRDA S&T
+ 정압설비 정비사례 MASTER DB
+
+ 실제 확인된 공개 가능 사례만 등록합니다.
+ 회사명, 관리소명, 설비번호 등 비공개 정보 제외.
+ 확정원인과 추정원인을 구분합니다.
+*/
+
+const PRDA_CASES = [];
+
+/*
+ 신규 사례 등록 양식
+
+ {
+   id: "PCV-0001",
+   manufacturer: "",
+   model: "",
+   pilot: "",
+   equipmentType: "",
+   symptom: "",
+   operatingConditions: {
+     upstreamMPa: null,
+     downstreamMPa: null,
+     flowTonPerHour: null
+   },
+   suspectedCauses: [],
+   confirmedCause: "",
+   inspection: "",
+   action: "",
+   replacedParts: [],
+   result: "",
+   verificationStatus: "검토 중",
+   reference: "",
+   relatedManuals: [],
+   relatedCases: [],
+   publicApproved: false
+ }
+*/
+
+function validatePRDACase(item) {
+  if (!item || typeof item !== "object") {
+    return false;
+  }
+
+  if (!/^PCV-\d{4,}$/.test(item.id || "")) {
+    return false;
+  }
+
+  if (!item.symptom || !item.manufacturer) {
+    return false;
+  }
+
+  if (item.publicApproved !== true) {
+    return false;
+  }
+
+  return true;
+}
+
+function getPublicPRDACases() {
+  return PRDA_CASES.filter(validatePRDACase);
+}
+
+function findPRDACases(keyword) {
+  const query = String(keyword || "")
+    .trim()
+    .toLowerCase();
+
+  return getPublicPRDACases().filter(function(item) {
+    const searchable = [
+      item.id,
+      item.manufacturer,
+      item.model,
+      item.pilot,
+      item.equipmentType,
+      item.symptom,
+      item.confirmedCause,
+      item.inspection,
+      item.action,
+      item.result
+    ].join(" ").toLowerCase();
+
+    return searchable.includes(query);
+  });
+}
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>

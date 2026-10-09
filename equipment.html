@@ -15,7 +15,7 @@ body{
 }
 header{
  background:linear-gradient(135deg,#032c4c,#0874aa);
- color:#fff;
+ color:white;
  text-align:center;
  padding:27px 15px;
 }
@@ -152,9 +152,7 @@ nav a{
  text-align:left;
  cursor:pointer;
 }
-.model:hover,.model:focus{
- background:#d9ecfa;
-}
+.model:hover,.model:focus{background:#d9ecfa}
 .detail{
  margin-top:18px;
  padding:18px;
@@ -210,9 +208,13 @@ footer{
 </nav>
 
 <main class="container">
+
  <section class="title">
   <h1>⚙️ 정압설비 DB</h1>
-  <p>제조사별 정압기 본체 · PILOT · SSV 및 부속장치의 기술정보를 통합 관리합니다.</p>
+  <p>
+   제조사별 정압기 본체 · PILOT · SSV 및
+   부속장치의 기술정보를 통합 관리합니다.
+  </p>
  </section>
 
  <form class="search" id="searchForm">
@@ -257,7 +259,7 @@ footer{
   <div class="category">
    <div class="icon">🎛️</div>
    <h2>PILOT</h2>
-   <p>Pilot 모델 · 설정범위 · 적용 정압기 정보</p>
+   <p>PILOT 모델 · 설정범위 · 적용 정압기 정보</p>
   </div>
   <div class="category">
    <div class="icon">🛑</div>
@@ -268,7 +270,11 @@ footer{
 
  <section class="flow">
   <strong>PRDA S&amp;T 정압설비 DB 기본 구조</strong>
-  <p>제조사 → 정압기 본체 → PILOT → SSV / 부속장치 → 매뉴얼 → Trouble CASE → AI 진단분석</p>
+  <p>
+   제조사 → 정압기 본체 → PILOT →
+   SSV / 부속장치 → 매뉴얼 →
+   Trouble CASE → AI 진단분석
+  </p>
  </section>
 </main>
 
@@ -282,16 +288,30 @@ const database={
  "FISHER":[
   {name:"EZR",type:"정압기 본체"},
   {name:"1098-EGR",type:"정압기 본체"},
-  {name:"627",type:"정압기 본체"},
-  {name:"299H",type:"정압기 본체"},
+  {name:"627",type:"압력조정기"},
+  {name:"299H",type:"압력조정기"},
   {name:"67C",type:"압력조정기"},
   {name:"161AY",type:"PILOT"},
   {name:"PRX",type:"PILOT 계열"}
  ],
- "TARTARINI":[],
- "PIETRO FIORENTINI":[],
- "RMG":[],
- "FLEXFLO / GROVE":[],
+ "TARTARINI":[
+  {name:"FL",type:"정압기 본체"},
+  {name:"BFL",type:"정압기 본체"},
+  {name:"CRONOS",type:"정압기 계열"}
+ ],
+ "PIETRO FIORENTINI":[
+  {name:"REFLUX 819",type:"정압기 본체"},
+  {name:"REFLUX 851",type:"정압기 본체"},
+  {name:"DIVAL 600",type:"정압기 본체"},
+  {name:"APERFLUX 851",type:"정압기 본체"}
+ ],
+ "RMG":[
+  {name:"RMG 512",type:"정압기 본체"},
+  {name:"RMG 402",type:"정압기 계열"}
+ ],
+ "FLEXFLO / GROVE":[
+  {name:"FLEXFLO",type:"정압기 계열"}
+ ],
  "AFV":[],
  "VALVITALIA":[],
  "기타":[]
@@ -318,8 +338,10 @@ function clearDetail(){
 
 function showModels(maker,models){
  makers.forEach(function(button){
-  button.classList.toggle("active",
-   button.textContent.trim()===maker);
+  button.classList.toggle(
+   "active",
+   button.textContent.trim()===maker
+  );
  });
 
  dbTitle.textContent=maker+" 모델 DB";
@@ -327,9 +349,12 @@ function showModels(maker,models){
  clearDetail();
 
  if(!models.length){
-  dbNote.textContent="현재 등록된 상세 모델이 없습니다. 자료 검증 후 추가할 예정입니다.";
+  dbNote.textContent=
+   "현재 등록된 상세 모델이 없습니다. 자료 검증 후 추가할 예정입니다.";
  }else{
-  dbNote.textContent="등록된 모델 "+models.length+"건 · 모델을 선택하면 기본정보를 확인할 수 있습니다.";
+  dbNote.textContent=
+   "등록된 모델 "+models.length+
+   "건 · 모델을 선택하면 기본정보가 표시됩니다.";
 
   models.forEach(function(item){
    const button=document.createElement("button");
@@ -350,61 +375,107 @@ function showModels(maker,models){
     typeText.textContent="분류: "+item.type;
 
     const note=document.createElement("p");
-    note.textContent="상세 사양, 적용 PILOT, 부품 및 공식 매뉴얼은 검증 후 등록 예정입니다.";
+    note.textContent=
+     "모델명 기초 등록 단계입니다. 정확한 사양, PILOT 조합, 부품 및 매뉴얼은 제작사 자료 검증 후 연결합니다.";
 
-    modelDetail.append(title,makerText,typeText,note);
+    modelDetail.append(
+     title,makerText,typeText,note
+    );
     modelDetail.hidden=false;
-    modelDetail.scrollIntoView({behavior:"smooth",block:"nearest"});
+    modelDetail.scrollIntoView({
+     behavior:"smooth",
+     block:"nearest"
+    });
    });
 
    modelList.appendChild(button);
   });
  }
 
- dbSection.scrollIntoView({behavior:"smooth",block:"start"});
+ dbSection.scrollIntoView({
+  behavior:"smooth",
+  block:"start"
+ });
+}
+
+function resetSearch(){
+ makers.forEach(function(button){
+  button.hidden=false;
+  button.classList.remove("active");
+ });
+ info.textContent="제조사를 선택하거나 검색하세요.";
+ dbTitle.textContent="제조사별 모델 DB";
+ dbNote.textContent=
+  "제조사를 선택하면 등록된 모델 목록이 표시됩니다.";
+ modelList.replaceChildren();
+ clearDetail();
 }
 
 function searchEquipment(){
  const query=normalize(input.value.trim());
+
+ if(!query){
+  resetSearch();
+  return;
+ }
+
  let makerCount=0;
  let modelCount=0;
 
  makers.forEach(function(button){
   const maker=button.textContent.trim();
   const makerMatch=normalize(maker).includes(query);
-  const matchingModels=database[maker].filter(function(item){
-   return normalize(item.name).includes(query);
-  });
 
-  const matched=!query||makerMatch||matchingModels.length>0;
+  const matchingModels=database[maker].filter(
+   function(item){
+    return normalize(item.name).includes(query);
+   }
+  );
+
+  const matched=makerMatch||matchingModels.length>0;
   button.hidden=!matched;
+
   if(matched)makerCount++;
   modelCount+=matchingModels.length;
  });
 
- if(!query){
-  info.textContent="제조사를 선택하거나 검색하세요.";
-  return;
- }
+ info.textContent=
+  "검색 결과: 제조사 "+makerCount+
+  "건 · 모델 일치 "+modelCount+"건";
 
- info.textContent="검색 결과: 제조사 "+makerCount+"건 · 등록 모델 "+modelCount+"건";
-
- const matchedMakers=makers.filter(function(button){
-  return !button.hidden;
- });
+ const matchedMakers=makers.filter(
+  function(button){
+   return !button.hidden;
+  }
+ );
 
  if(matchedMakers.length===1){
   const maker=matchedMakers[0].textContent.trim();
   const makerMatch=normalize(maker).includes(query);
+
   const models=makerMatch
    ?database[maker]
    :database[maker].filter(function(item){
      return normalize(item.name).includes(query);
     });
+
   showModels(maker,models);
- }else if(matchedMakers.length===0){
-  dbTitle.textContent="검색 결과 없음";
-  dbNote.textContent="일치하는 제조사 또는 등록 모델이 없습니다.";
+
+ }else{
+  makers.forEach(function(button){
+   button.classList.remove("active");
+  });
+
+  dbTitle.textContent=
+   matchedMakers.length
+   ?"검색된 제조사"
+   :"검색 결과 없음";
+
+  dbNote.textContent=
+   matchedMakers.length
+   ?"제조사를 선택하여 모델을 확인하세요."
+   :"일치하는 제조사 또는 등록 모델이 없습니다.";
+
   modelList.replaceChildren();
   clearDetail();
  }
@@ -417,15 +488,7 @@ form.addEventListener("submit",function(event){
 
 input.addEventListener("input",function(){
  if(!input.value.trim()){
-  makers.forEach(function(button){
-   button.hidden=false;
-   button.classList.remove("active");
-  });
-  info.textContent="제조사를 선택하거나 검색하세요.";
-  dbTitle.textContent="제조사별 모델 DB";
-  dbNote.textContent="제조사를 선택하면 등록된 모델 목록이 표시됩니다.";
-  modelList.replaceChildren();
-  clearDetail();
+  resetSearch();
  }
 });
 
@@ -433,7 +496,11 @@ makers.forEach(function(button){
  button.addEventListener("click",function(){
   const maker=button.textContent.trim();
   input.value=maker;
-  makers.forEach(function(item){item.hidden=false});
+
+  makers.forEach(function(item){
+   item.hidden=false;
+  });
+
   info.textContent=maker+" 선택 완료";
   showModels(maker,database[maker]);
  });

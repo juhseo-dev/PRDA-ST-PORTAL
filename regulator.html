@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>정압기 기술 DB | PRDA S&T</title>
 <style>
 *{box-sizing:border-box}
@@ -35,16 +35,12 @@ main{max-width:1050px;margin:auto;padding:25px 14px 50px}
 .detail h4{color:#0b376c;margin-bottom:7px}
 .links{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
 .links a{background:#edf5fc;border:1px solid #c9deef;padding:11px 13px;border-radius:8px;color:#0755a5;text-decoration:none;font-size:13px;font-weight:bold}
+.links a.primary{background:#1769c2;color:white;border-color:#1769c2}
 .empty{background:white;padding:28px;text-align:center;border-radius:12px;color:#657587}
 .notice{margin-top:25px;background:#fff7df;border-left:5px solid #e4a400;border-radius:9px;padding:18px;font-size:14px;line-height:1.8}
 footer{background:#061d3b;color:#cbd7e8;text-align:center;padding:24px;font-size:13px}
-@media(max-width:750px){
-.cards{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:480px){
-.cards{grid-template-columns:1fr}
-.intro h2{font-size:24px}
-}
+@media(max-width:750px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.cards{grid-template-columns:1fr}.intro h2{font-size:24px}}
 </style>
 </head>
 <body>
@@ -64,13 +60,10 @@ footer{background:#061d3b;color:#cbd7e8;text-align:center;padding:24px;font-size
 </nav>
 
 <main>
-
 <section class="intro">
 <h2>⚙️ 정압기 기술 DB</h2>
-<p>
-제조사 · 정압기 본체 · PILOT · 주요 부품<br>
-모델별 기술정보를 통합 관리합니다.
-</p>
+<p>제조사 · 모델 · PILOT · 주요 부품<br>
+모델별 기술정보와 진단분석을 연결합니다.</p>
 </section>
 
 <section class="panel">
@@ -96,7 +89,7 @@ footer{background:#061d3b;color:#cbd7e8;text-align:center;padding:24px;font-size
 <div id="detailBody"></div>
 
 <div class="links">
-<a href="diagnosis.html">AI 진단분석 →</a>
+<a id="diagnosisLink" class="primary" href="diagnosis.html">이 모델로 진단하기 →</a>
 <a href="cases.html">정비사례 DB →</a>
 <a href="manuals.html">기술자료 DB →</a>
 </div>
@@ -105,26 +98,13 @@ footer{background:#061d3b;color:#cbd7e8;text-align:center;padding:24px;font-size
 <section class="panel">
 <h3>정압기 기술정보 관리체계</h3>
 <p>① 제조사 → ② 정압기 본체 → ③ PILOT → ④ 주요 부품 → ⑤ 작동원리 → ⑥ 매뉴얼 → ⑦ 정비사례</p>
-<p>
-현재는 모델 검색과 기술정보 관리용 기본 화면입니다.
-모델별 상세 사양, PILOT 호환성, 부품번호 및
-작동원리는 제작사 자료 확인 후 등록합니다.
-</p>
+<p>모델별 상세 사양과 PILOT 호환성은 제작사 공식자료 확인 후 등록합니다.</p>
 </section>
 
 <div class="notice">
 <strong>기술정보 안내</strong>
-<p>
-현재 표시된 모델 목록은 기술자료를 정리하기 위한
-기본 색인입니다. 제조사·모델별 사양과 적용 가능 여부는
-공식 자료로 별도 확인해야 합니다.
-</p>
-<p>
-정비 및 설정 변경은 반드시 해당 설비의 제작사
-매뉴얼과 승인된 현장 작업절차에 따라 수행하세요.
-</p>
+<p>현재 모델 목록은 기본 기술 색인입니다. 실제 정비 및 설정 변경은 해당 설비의 제작사 매뉴얼과 승인된 현장 작업절차를 따라야 합니다.</p>
 </div>
-
 </main>
 
 <footer>
@@ -133,15 +113,9 @@ footer{background:#061d3b;color:#cbd7e8;text-align:center;padding:24px;font-size
 </footer>
 
 <script>
-/*
-기술 DB 기본 모델 색인
-
-중요:
-아래 목록은 모델 검색을 위한 초기 데이터입니다.
-상세 사양, PILOT 호환성, 부품번호는
-공식자료 확인 전까지 확정하지 않습니다.
+/* 모델 검색용 색인.
+   상세 기술 사양 및 호환성은 미검증.
 */
-
 const database=[
  {maker:"FISHER",model:"EZR",type:"정압기 본체"},
  {maker:"FISHER",model:"1098-EGR",type:"정압기 본체"},
@@ -152,6 +126,7 @@ const database=[
  {maker:"FISHER",model:"PRX",type:"PILOT"},
 
  {maker:"TARTARINI",model:"FL",type:"정압기 본체"},
+ {maker:"TARTARINI",model:"FL/100-SR-SRS",type:"정압기 본체"},
  {maker:"TARTARINI",model:"BFL",type:"정압기 본체"},
  {maker:"TARTARINI",model:"CRONOS",type:"정압기 본체"},
 
@@ -176,6 +151,7 @@ const summary=document.getElementById("summary");
 const detail=document.getElementById("detail");
 const detailTitle=document.getElementById("detailTitle");
 const detailBody=document.getElementById("detailBody");
+const diagnosisLink=document.getElementById("diagnosisLink");
 
 const makers=[...new Set(database.map(item=>item.maker))].sort();
 
@@ -186,9 +162,9 @@ makers.forEach(function(name){
  makerSelect.appendChild(option);
 });
 
-function addText(parent,tag,text){
+function addText(parent,tag,value){
  const el=document.createElement(tag);
- el.textContent=text;
+ el.textContent=value;
  parent.appendChild(el);
  return el;
 }
@@ -211,8 +187,7 @@ function showDetail(item){
  addField(detailBody,"분류",item.type);
 
  addText(detailBody,"h4","기술자료 등록 현황");
- addText(
-  detailBody,"p",
+ addText(detailBody,"p",
   "기본 모델 색인 등록 완료. 상세 사양 및 공식자료 검증은 진행 예정입니다."
  );
 
@@ -224,18 +199,20 @@ function showDetail(item){
   "적용 압력 및 유량 범위: 미등록",
   "연결 PILOT 및 호환성: 미등록",
   "주요 부품 및 부품번호: 미등록",
-  "분해정비 절차: 공식 매뉴얼 확인 후 등록",
-  "대표 고장 증상 및 정비사례: 추후 연결"
- ].forEach(function(text){
-  addText(ul,"li",text);
+  "분해정비 절차: 공식 매뉴얼 확인 후 등록"
+ ].forEach(function(value){
+  addText(ul,"li",value);
  });
-
  detailBody.appendChild(ul);
+
+ /* 진단 화면에 제조사와 모델 전달 */
+ const params=new URLSearchParams();
+ params.set("maker",item.maker);
+ params.set("model",item.model);
+ diagnosisLink.href="diagnosis.html?"+params.toString();
+
  detail.style.display="block";
- detail.scrollIntoView({
-  behavior:"smooth",
-  block:"start"
- });
+ detail.scrollIntoView({behavior:"smooth",block:"start"});
 }
 
 function render(){
@@ -246,7 +223,6 @@ function render(){
  const filtered=database.filter(function(item){
   if(maker&&item.maker!==maker)return false;
   if(type&&item.type!==type)return false;
-
   return (item.maker+" "+item.model+" "+item.type)
    .toLowerCase().includes(query);
  });
@@ -291,6 +267,5 @@ searchInput.addEventListener("input",render);
 
 render();
 </script>
-
 </body>
 </html>

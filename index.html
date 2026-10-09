@@ -11,201 +11,244 @@
 html{scroll-behavior:smooth}
 
 body{
-  margin:0;
-  font-family:Arial,"Noto Sans KR",sans-serif;
-  background:#f4f7fb;
-  color:#172033;
+margin:0;
+font-family:Arial,"Noto Sans KR",sans-serif;
+background:#f4f7fb;
+color:#172033;
 }
 
+/* 상단 브랜드 */
 header{
-  background:linear-gradient(135deg,#082b5c,#0755a5);
-  color:white;
-  padding:26px 18px 32px;
-  text-align:center;
+background:linear-gradient(135deg,#082b5c,#0755a5);
+color:white;
+text-align:center;
+padding:24px 12px 20px;
 }
 
 header h1{
-  margin:0;
-  font-size:36px;
+margin:0;
+font-size:34px;
+font-weight:800;
+letter-spacing:.5px;
 }
 
-header h2{
-  margin:7px 0;
-  font-size:19px;
+.fullname{
+margin-top:5px;
+font-size:14px;
+opacity:.95;
 }
 
-.slogan{
-  margin-top:12px;
-  font-size:15px;
-}
-
+/* 상단 메뉴 */
 nav{
-  display:flex;
-  overflow-x:auto;
-  background:#061d3b;
-  padding:12px;
-  gap:8px;
+display:flex;
+overflow-x:auto;
+background:#061d3b;
+padding:10px 8px;
+gap:4px;
 }
 
 nav a{
-  color:white;
-  text-decoration:none;
-  white-space:nowrap;
-  padding:8px 11px;
-  font-size:13px;
+color:white;
+text-decoration:none;
+white-space:nowrap;
+padding:8px 10px;
+font-size:12px;
 }
 
+/* 메인 */
 .hero{
-  max-width:1050px;
-  margin:auto;
-  padding:30px 16px 18px;
-  text-align:center;
+max-width:1050px;
+margin:auto;
+padding:28px 15px 18px;
+text-align:center;
 }
 
 .hero h2{
-  font-size:26px;
-  color:#0b376c;
+margin:0 0 18px;
+font-size:25px;
+color:#0b376c;
+}
+
+/* 통합검색 */
+.search-title{
+font-size:18px;
+font-weight:700;
+color:#173e6b;
+margin-bottom:10px;
 }
 
 .search{
-  display:flex;
-  max-width:760px;
-  margin:22px auto 12px;
-  background:white;
-  border:2px solid #1769c2;
-  border-radius:12px;
-  overflow:hidden;
+display:flex;
+max-width:760px;
+margin:auto;
+background:white;
+border:2px solid #1769c2;
+border-radius:12px;
+overflow:hidden;
 }
 
 .search input{
-  flex:1;
-  padding:17px;
-  border:0;
-  outline:none;
-  font-size:15px;
+flex:1;
+min-width:0;
+padding:15px;
+border:0;
+outline:none;
+font-size:14px;
 }
 
 .search button{
-  border:0;
-  background:#1769c2;
-  color:white;
-  padding:0 22px;
-  font-weight:bold;
+border:0;
+background:#1769c2;
+color:white;
+padding:0 18px;
+font-weight:bold;
 }
 
-.quick{
-  margin-top:12px;
-}
-
-.quick span{
-  display:inline-block;
-  background:#e7eff9;
-  color:#174a81;
-  padding:7px 11px;
-  margin:4px;
-  border-radius:20px;
-  font-size:12px;
-}
-
+/* 핵심 메뉴 */
 .cards{
-  max-width:1050px;
-  margin:10px auto 35px;
-  padding:0 15px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
+max-width:1050px;
+margin:10px auto 35px;
+padding:0 14px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
 }
 
 .card{
-  background:white;
-  border-radius:14px;
-  padding:22px 18px;
-  text-decoration:none;
-  color:#172033;
-  box-shadow:0 4px 16px rgba(0,0,0,.07);
-  border-top:5px solid #1671cf;
+background:white;
+border-radius:13px;
+padding:19px 15px;
+text-decoration:none;
+color:#172033;
+box-shadow:0 4px 14px rgba(0,0,0,.07);
+border-top:4px solid #1671cf;
 }
 
 .card h3{
-  margin:0 0 9px;
-  color:#0b376c;
+margin:0 0 7px;
+font-size:17px;
+color:#0b376c;
 }
 
 .card p{
-  margin:0;
-  line-height:1.6;
-  font-size:14px;
+margin:0;
+font-size:13px;
+line-height:1.55;
+color:#566273;
 }
 
+/* 상세 영역 */
 section{
-  max-width:1050px;
-  margin:20px auto;
-  padding:26px 20px;
-  background:white;
-  border-radius:14px;
-  box-shadow:0 4px 16px rgba(0,0,0,.05);
+max-width:1050px;
+margin:18px auto;
+padding:24px 20px;
+background:white;
+border-radius:14px;
+box-shadow:0 4px 14px rgba(0,0,0,.05);
 }
 
 section h2{
-  margin-top:0;
-  color:#0b376c;
+margin-top:0;
+color:#0b376c;
+font-size:21px;
 }
 
 section p{
-  line-height:1.8;
+line-height:1.75;
+font-size:14px;
 }
 
+/* 진단 흐름 */
 .flow{
-  max-width:1050px;
-  margin:30px auto;
-  padding:25px 18px;
-  text-align:center;
+max-width:1050px;
+margin:25px auto;
+padding:22px 18px;
+text-align:center;
 }
 
 .flow h2{
-  color:#0b376c;
+color:#0b376c;
+font-size:20px;
 }
 
 .flowline{
-  line-height:2.2;
-  font-weight:bold;
+line-height:2;
+font-size:14px;
+font-weight:bold;
 }
 
+/* 안내 */
 .notice{
-  max-width:1050px;
-  margin:25px auto;
-  padding:20px;
-  background:#fff7df;
-  border-left:5px solid #f2a900;
-  line-height:1.7;
-  font-size:14px;
+max-width:1050px;
+margin:25px auto;
+padding:19px;
+background:#fff7df;
+border-left:5px solid #f2a900;
+line-height:1.7;
+font-size:13px;
 }
 
+/* 하단 */
 footer{
-  margin-top:40px;
-  background:#061d3b;
-  color:#cbd7e8;
-  padding:25px;
-  text-align:center;
-  font-size:13px;
+margin-top:35px;
+background:#061d3b;
+color:#cbd7e8;
+padding:24px 15px;
+text-align:center;
+font-size:12px;
+line-height:1.7;
 }
 
+/* 모바일 */
 @media(max-width:750px){
-  .cards{
-    grid-template-columns:repeat(2,1fr);
-  }
 
-  header h1{
-    font-size:30px;
-  }
+header{
+padding:21px 10px 17px;
+}
 
-  .hero h2{
-    font-size:22px;
-  }
+header h1{
+font-size:30px;
+}
 
-  .card{
-    padding:18px 14px;
-  }
+.fullname{
+font-size:12px;
+}
+
+.hero{
+padding:23px 12px 15px;
+}
+
+.hero h2{
+font-size:22px;
+}
+
+.cards{
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+padding:0 10px;
+}
+
+.card{
+padding:16px 11px;
+}
+
+.card h3{
+font-size:15px;
+}
+
+.card p{
+font-size:12px;
+}
+
+.search input{
+font-size:13px;
+padding:14px 11px;
+}
+
+.search button{
+padding:0 14px;
+}
+
 }
 </style>
 </head>
@@ -213,42 +256,47 @@ footer{
 <body>
 
 <header>
-  <h1>PRDA S&T</h1>
-  <h2>정압설비 통합 플랫폼</h2>
-  <div class="slogan">
-    현장에서 답을 찾고, 기술을 전하고 기록으로 남긴다.
-  </div>
+
+<h1>PRDA S&amp;T</h1>
+
+<div class="fullname">
+Pressure Regulator Diagnosis &amp; Support
+</div>
+
 </header>
 
 <nav>
-  <a href="#">HOME</a>
-  <a href="#diagnosis">AI 진단분석</a>
-  <a href="#regulator">정압기</a>
-  <a href="#equipment">정압설비</a>
-  <a href="#cases">정비사례</a>
-  <a href="#manuals">매뉴얼·기술자료</a>
-  <a href="#safety">정비안전·특수공기구</a>
-  <a href="#qna">Q&A 기술문의</a>
+
+<a href="#">HOME</a>
+<a href="#diagnosis">AI 진단분석</a>
+<a href="#regulator">정압기</a>
+<a href="#equipment">정압설비</a>
+<a href="#cases">정비사례</a>
+<a href="#manuals">매뉴얼·기술자료</a>
+<a href="#safety">정비안전·특수공기구</a>
+<a href="#qna">Q&amp;A 기술문의</a>
+
 </nav>
 
 <div class="hero">
 
-  <h2>PRDA S&T TECHNICAL PLATFORM</h2>
+<h2>정압설비 통합 플랫폼</h2>
 
-  <div class="search">
-    <input id="searchInput"
-      placeholder="모델 · Pilot · 증상 · 부품 · 매뉴얼 · PCV-#번호 검색">
-    <button onclick="searchPRDA()">검색</button>
-  </div>
+<div class="search-title">
+🔍 통합검색
+</div>
 
-  <div class="quick">
-    <span>BM6X</span>
-    <span>OS/80X</span>
-    <span>헌팅</span>
-    <span>다이어프램</span>
-    <span>매뉴얼</span>
-    <span>PCV-#0001</span>
-  </div>
+<div class="search">
+
+<input
+id="searchInput"
+placeholder="검색어를 입력하세요">
+
+<button onclick="searchPRDA()">
+검색
+</button>
+
+</div>
 
 </div>
 
@@ -256,117 +304,120 @@ footer{
 
 <a class="card" href="#diagnosis">
 <h3>🤖 AI 진단분석</h3>
-<p>증상과 운전조건을 입력하여 예상 원인과 점검순서를 빠르게 확인합니다.</p>
+<p>빠른 진단과 현장 점검을 지원합니다.</p>
 </a>
 
 <a class="card" href="#regulator">
 <h3>⚙️ 정압기</h3>
-<p>제작사별 정압기 본체, PILOT, 모델, 부품 및 매뉴얼을 찾습니다.</p>
+<p>본체·PILOT·모델·부품 정보를 찾습니다.</p>
 </a>
 
 <a class="card" href="#equipment">
 <h3>🏭 정압설비</h3>
-<p>정압설비 개략도와 PIC, Remote Setter, Tubing, Pressure Gauge 등을 확인합니다.</p>
+<p>설비 개략도와 구성 정보를 확인합니다.</p>
 </a>
 
 <a class="card" href="#cases">
 <h3>🔧 정비사례</h3>
-<p>실제 정비사례를 PCV-#번호와 증상·원인·조치별로 검색합니다.</p>
+<p>증상·원인·조치별 사례를 검색합니다.</p>
 </a>
 
 <a class="card" href="#manuals">
 <h3>📚 매뉴얼·기술자료</h3>
-<p>제작사 공식 Manual, Troubleshooting, Maintenance, Parts List를 관리합니다.</p>
+<p>제작사 공식 기술자료를 관리합니다.</p>
 </a>
 
 <a class="card" href="#safety">
 <h3>🛡️ 정비안전·특수공기구</h3>
-<p>정비 안전사항과 모델별 특수공구 및 적용사례를 확인합니다.</p>
+<p>정비안전과 특수공구 정보를 확인합니다.</p>
 </a>
 
 <a class="card" href="#qna">
-<h3>💬 Q&A 기술문의</h3>
-<p>정압기 및 정압설비 관련 기술문의를 위한 공간입니다.</p>
+<h3>💬 Q&amp;A 기술문의</h3>
+<p>정압설비 관련 기술문의를 지원합니다.</p>
 </a>
-
-</div>
-
-<div class="flow">
-
-<h2>PRDA S&T 진단 흐름</h2>
-
-<div class="flowline">
-증상·운전조건
-→ 빠른 진단분석
-→ 예상 원인
-→ 점검순서
-→ 제작사 기준 조치방법
-→ 부품·Part No.
-→ 관련 도면·매뉴얼
-→ 유사 정비사례
-→ 현장 확인·정비
-</div>
 
 </div>
 
 <section id="diagnosis">
+
 <h2>AI 진단분석</h2>
+
 <p>
-증상과 운전조건을 기반으로 예상 원인, 점검순서,
-제작사 기술자료 및 유사 정비사례를 연결하여
-현장 정비를 지원합니다.
+증상과 운전조건을 기반으로 예상 원인,
+점검순서, 제작사 기술자료 및 유사 정비사례를
+연결하여 현장 정비를 지원합니다.
 </p>
+
 </section>
 
 <section id="regulator">
+
 <h2>정압기</h2>
+
 <p>
-제작사 → 정압기 본체 → PILOT → 모델 → 부품 →
-공식 매뉴얼 순으로 기술자료를 체계적으로 연결합니다.
+제작사 → 정압기 본체 → PILOT → 모델 →
+부품 → 공식 매뉴얼 순으로 기술자료를 연결합니다.
 </p>
+
 </section>
 
 <section id="equipment">
+
 <h2>정압설비</h2>
+
 <p>
 제작사별 정압설비 개략도와 Regulator·Monitor,
 PILOT, PIC, Remote Setter, Tubing,
 Pressure Gauge 등 설비 구성을 정리합니다.
 </p>
+
 </section>
 
 <section id="cases">
+
 <h2>정비사례</h2>
+
 <p>
-오래된 정비사례부터 PCV-#0001 형식으로 고유번호를 부여합니다.
-증상·원인·점검·조치·교체부품·결과·관련 매뉴얼 및
-유사사례를 연결합니다.
+정비사례는 PCV-#0001부터 순차적으로 관리하며
+증상·원인·점검·조치·교체부품·결과 및
+관련 기술자료를 연결합니다.
 </p>
+
 </section>
 
 <section id="manuals">
+
 <h2>매뉴얼·기술자료</h2>
+
 <p>
 제작사 공식 Manual, Troubleshooting,
 Maintenance, Parts List 및 기술자료를
-제작사·모델별로 관리합니다.
+제작사와 모델별로 관리합니다.
 </p>
+
 </section>
 
 <section id="safety">
+
 <h2>정비안전·특수공기구</h2>
+
 <p>
-정비 안전사항, 제작사 전용공구,
-현장 적용 특수공구 및 사용사례를 정리합니다.
+정비 안전사항과 제작사 전용공구,
+현장 특수공구 및 적용사례를 정리합니다.
 </p>
+
 </section>
 
 <section id="qna">
-<h2>Q&A 기술문의</h2>
+
+<h2>Q&amp;A 기술문의</h2>
+
 <p>
-향후 공개·비공개 기술문의, 사진 및 자료 첨부,
-접수·검토·답변 완료 상태관리 기능으로 확장합니다.
+정압기 및 정압설비 관련 기술문의와
+답변을 관리하는 공간입니다.
 </p>
+
 </section>
 
 <div class="notice">
@@ -376,30 +427,40 @@ Maintenance, Parts List 및 기술자료를
 본 진단 결과는 현장 정비를 지원하기 위한 참고용 기술정보입니다.
 실제 고장 원인은 설비 상태, 운전조건 및 현장상황에 따라 달라질 수 있으며,
 최종 판단과 정비는 현장 점검을 통해 확인해야 합니다.
-유사 정비사례는 정비 참고자료로 활용하시기 바랍니다.
 
 </div>
 
 <footer>
-PRDA S&T · Pressure Regulation Integrated Technical Platform<br>
-현장에서 답을 찾고, 기술을 전하고 기록으로 남긴다.
+
+PRDA S&amp;T<br>
+Pressure Regulator Diagnosis &amp; Support
+
 </footer>
 
 <script>
+
 function searchPRDA(){
-  const q=document.getElementById("searchInput").value.trim().toUpperCase();
 
-  if(!q){
-    alert("검색어를 입력하세요.");
-    return;
-  }
+const q=document
+.getElementById("searchInput")
+.value
+.trim()
+.toUpperCase();
 
-  if(q.includes("PCV-#") || q.includes("PCV")){
-    location.hash="cases";
-  }else{
-    location.hash="manuals";
-  }
+if(!q){
+alert("검색어를 입력하세요.");
+return;
 }
+
+if(q.includes("PCV")){
+location.hash="cases";
+}
+else{
+location.hash="manuals";
+}
+
+}
+
 </script>
 
 </body>

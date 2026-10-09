@@ -4,6 +4,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRDA S&T | 정압설비 통합 플랫폼</title>
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,"Noto Sans KR",sans-serif;background:#f4f7fb;color:#172033}
+header{background:linear-gradient(135deg,#082b5c,#0755a5);color:white;text-align:center;padding:24px 12px 20px}
+header h1{margin:0;font-size:34px;font-weight:800}
+.fullname{margin-top:5px;font-size:14px;opacity:.95}
+nav{display:flex;overflow-x:auto;background:#061d3b;padding:10px 8px;gap:4px}
+nav a{color:white;text-decoration:none;white-space:nowrap;padding:8px 10px;font-size:12px}
+.hero{max-width:1050px;margin:auto;padding:28px 15px 18px;text-align:center}
+.hero h2{margin:0 0 18px;font-size:25px;color:#0b376c}
+.search-title{font-size:18px;font-weight:700;color:#173e6b;margin-bottom:10px}
+.search{display:flex;max-width:760px;margin:auto;background:white;border:2px solid #1769c2;border-radius:12px;overflow:hidden}
+.search input{flex:1;min-width:0;padding:15px;border:0;outline:none;font-size:14px}
+.search button{border:0;background:#1769c2;color:white;padding:0 18px;font-weight:bold;cursor:pointer}
+.search-results{display:none;max-width:760px;margin:15px auto 0;background:white;border:1px solid #dce6f1;border-radius:12px;padding:15px;text-align:left}
+.search-results h3{color:#0b376c;margin:0 0 12px;font-size:17px}
+.result-item{display:block;padding:12px;border-bottom:1px solid #e8edf3;text-decoration:none;color:#172033}
+.result-item:last-child{border-bottom:0}
+.result-item strong{color:#0755a5}
+.result-item p{font-size:13px;margin:5px 0 0;color:#566273;line-height:1.5}
+mark{background:#fff0a6;border-radius:3px;padding:0 2px}
+.cards{max-width:1050px;margin:10px auto 35px;padding:0 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.card{background:white;border-radius:13px;padding:19px 15px;text-decoration:none;color:#172033;box-shadow:0 4px 14px rgba(0,0,0,.07);border-top:4px solid #1671cf}
+.card h3{margin:0 0 7px;font-size:17px;color:#0b376c}
+.card p{margin:0;font-size:13px;line-height:1.55;color:#566273}
+section{max-width:1050px;margin:18px auto;padding:24px 20px;background:white;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+section h2{margin-top:0;color:#0b376c;font-size:21px}
+section p{line-height:1.75;font-size:14px}
+.notice{max-width:1050px;margin:25px auto;padding:19px;background:#fff7df;border-left:5px solid #f2a900;line-height:1.7;font-size:13px}
+footer{margin-top:35px;background:#061d3b;color:#cbd7e8;padding:24px 15px;text-align:center;font-size:12px;line-height:1.7}
+@media(max-width:750px){
+header{padding:21px 10px 17px}
+header h1{font-size:30px}
+.fullname{font-size:12px}
+.hero{padding:23px 12px 15px}
+.hero h2{font-size:22px}
+.cards{grid-template-columns:repeat(2,1fr);gap:10px;padding:0 10px}
+.card{padding:16px 11px}
+.card h3{font-size:15px}
+.card p{font-size:12px}
+.search input{font-size:13px;padding:14px 11px}
+.search button{padding:0 14px}
+}
+</style>
+</head>
+<body>
+<header>
+<h1>PRDA S&amp;T</h1>
+<div class="fullname">Pressure Regulator Diagnosis &amp; Support</div>
+</header>
+
+<nav>
+<a href="#">HOME</a>
+<a href="#diagnosis">AI 진단분석</a>
+<a href="#regulator">정압기</a>
+<a href="equipment.html">정압설비</a>
+<a href="#cases">정비사례</a>
+<a href="#manuals">매뉴얼·기술자료</a>
+<a href="#safety">정비안전·특수공기구</a>
+<a href="#qna">Q&amp;A 기술문의</a>
+</nav>
+
+<div class="hero">
+<h2>정압설비 통합 플랫폼</h2>
+<div class="search-title">🔍 통합검색</div>
+<form class="search" id="searchForm">
+<input id="searchInput" type="search" placeholder="검색어를 입력하세요" aria-label="통합검색">
+<button type="submit">검색</button>
+</form>
+<div id="searchResults" class="search-results" aria-live="polite"></div>
+</div>
+
+<div class="cards">
+<a class="card" href="#diagnosis"><h3>🤖 AI 진단분석</h3><p>빠른 진단과 현장 점검을 지원합니다.</p></a>
+<a class="card" href="#regulator"><h3>⚙️ 정압기</h3><p>본체·PILOT·모델·부품 정보를 찾습니다.</p></a>
+<a class="card" href="equipment.html"><h3>🏭 정압설비</h3><p>설비 개략도와 구성 정보를 확인합니다.</p></a>
+<a class="card" href="#cases"><h3>🔧 정비사례</h3><p>증상·원인·조치별 사례를 검색합니다.</p></a>
+<a class="card" href="#manuals"><h3>📚 매뉴얼·기술자료</h3><p>제작사 공식 기술자료를 관리합니다.</p></a>
+<a class="card" href="#safety"><h3>🛡️ 정비안전·특수공기구</h3><p>정비안전과 특수공구 정보를 확인합니다.</p></a>
+<a class="card" href="#qna"><h3>💬 Q&amp;A 기술문의</h3><p>정압설비 관련 기술문의를 지원합니다.</p></a>
+</div>
+
+<section id="diagnosis">
+<h2>AI 진단분석</h2>
+<p>증상과 운전조건을 기반으로 예상 원인, 점검순서, 제작사 기술자료 및 유사 정비사례를 연결하여 현장 정비를 지원합니다.</p>
+</section>
+<section id="regulator">
+<h2>정압기</h2>
+<p>제작사 → 정압기 본체 → PILOT → 모델 → 부품 → 공식 매뉴얼 순으로 기술자료를 연결합니다.</p>
+</section>
+<section id="equipment">
+<h2>정압설비</h2>
+<p>제작사별 정압설비 개략도와 Regulator·Monitor, PILOT, PIC, Remote Setter, Tubing, Pressure Gauge 등 설비 구성을 정리합니다.</p>
+</section>
+<section id="cases">
+<h2>정비사례</h2>
+<p>정비사례는 PCV-#0001부터 순차적으로 관리하며 증상·원인·점검·조치·교체부품·결과 및 관련 기술자료를 연결합니다.</p>
+</section>
+<section id="manuals">
+<h2>매뉴얼·기술자료</h2>
+<p>제작사 공식 Manual, Troubleshooting, Maintenance, Parts List 및 기술자료를 제작사와 모델별로 관리합니다.</p>
+</section>
+<section id="safety">
+<h2>정비안전·특수공기구</h2>
+<p>정비 안전사항과 제작사 전용공구, 현장 특수공구 및 적용사례를 정리합니다.</p>
+</section>
+<section id="qna">
+<h2>Q&amp;A 기술문의</h2>
+<p>정압기 및 정압설비 관련 기술문의와 답변을 관리하는 공간입니다.</p>
+</section>
+
+<div class="notice">
+<strong>진단 안내</strong>
+<p>본 진단 결과는 현장 정비를 지원하기 위한 참고용 기술정보입니다. 실제 고장 원인은 설비 상태, 운전조건 및 현장상황에 따라 달라질 수 있으며, 최종 판단과 정비는 현장 점검을 통해 확인해야 합니다.</p>
+</div>
+
+<footer>
+PRDA S&amp;T
+<p>Pressure Regulator Diagnosis &amp; Support</p>
+</footer>
+
+<script>
+const searchForm=document.getElementById("searchForm");
+const searchInput=document.getElementById("searchInput");
+const searchResults=document.getElementById("searchResults");
+
+function escapeHTML(text){
+return text.replace(/[&<>"']/g,function(c){
+return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+});
+}
+
+function highlight(text,query){
+const source=text.toLowerCase();
+const needle=query.toLowerCase();
+let result="",pos=0,index;
+while((index=source.indexOf(needle,pos))!==-1){
+result+=escapeHTML(text.slice(pos,index));
+result+="<mark>"+escapeHTML(text.slice(index,index+query.length))+"</mark>";
+pos=index+query.length;
+}
+return result+escapeHTML(text.slice(pos));
+}
+
+function searchPRDA(){
+const q=searchInput.value.trim();
+searchResults.style.display="block";
+if(!q){
+searchResults.innerHTML="<p>검색어를 입력하세요.</p>";
+return;
+}
+const sections=document.querySelectorAll("section");
+const matches=[];
+sections.forEach(function(section){
+const title=section.querySelector("h2");
+if(!title)return;
+const heading=title.textContent.trim();
+const description=(section.querySelector("p")?.textContent||"").replace(/\s+/g," ").trim();
+if((heading+" "+description).toLowerCase().includes(q.toLowerCase())){
+matches.push({id:section.id,title:heading,description:description});
+}
+});
+let html="<h3>🔍 검색 결과 ("+matches.length+"건)</h3>";
+if(matches.length===0){
+html+="<p>등록된 홈페이지 내용에서 일치하는 항목이 없습니다.</p>";
+}else{
+matches.forEach(function(item){
+html+='<a class="result-item" href="#'+encodeURIComponent(item.id)+'">';
+html+="<strong>"+highlight(item.title,q)+"</strong>";
+html+="<p>"+highlight(item.description,q)+"</p></a>";
+});
+}
+searchResults.innerHTML=html;
+}
+
+searchForm.addEventListener("submit",function(e){
+e.preventDefault();
+searchPRDA();
+});
+</script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>정압설비 DB | PRDA S&T</title>
 
 <style>

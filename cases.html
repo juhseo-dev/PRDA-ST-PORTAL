@@ -66,12 +66,12 @@ header h1{font-size:29px}
 <main>
 <section class="intro">
 <h2>🔧 정비사례 MASTER DB</h2>
-<p>제조사 · 모델 · PILOT · 증상 · 원인 · 조치 · 결과를 검색하고 확인합니다.</p>
+<p>제조사 · 모델 · 규격 · 설비 구성 · 고장 위치 · 증상 · 원인 · 조치 · 결과를 검색합니다.</p>
 </section>
 
 <form class="search" id="searchForm">
 <input id="searchInput" type="search"
-placeholder="모델명, 증상, 원인, 조치 검색"
+placeholder="제목, 모델, 규격, 증상, 원인 검색"
 aria-label="정비사례 검색">
 <button type="submit">검색</button>
 </form>
@@ -98,14 +98,15 @@ aria-label="정비사례 검색">
 <section class="guide">
 <h2>정비사례 표준 등록항목</h2>
 <p>
-CASE ID → 제조사 → 모델 → PILOT →
-증상 → 운전조건 → 추정원인 → 확정원인 →
+CASE ID → 제목 → 제조사 → 모델 → 규격 →
+설비 구성 → 고장 위치 → PILOT → 증상 →
+운전조건 → 추정원인 → 확정원인 →
 점검 → 조치 → 교체부품 → 정비결과 → 출처
 </p>
 <p>
-실제 확인된 자료만 등록하며 확정원인과
-추정원인을 구분합니다.
-공개 승인되지 않은 자료는 표시하지 않습니다.
+MONITOR &amp; WORK는 복합 구성,
+SINGLE은 단독 정압기로 구분합니다.
+설비 태그번호 및 비공개 정보는 공개 DB에 기록하지 않습니다.
 </p>
 </section>
 
@@ -125,7 +126,6 @@ CASE ID → 제조사 → 모델 → PILOT →
 </footer>
 
 <script src="cases-data.js"></script>
-
 <script>
 const input=document.getElementById("searchInput");
 const form=document.getElementById("searchForm");
@@ -141,183 +141,194 @@ const dbReady=typeof getPublicPRDACases==="function";
 const cases=dbReady?getPublicPRDACases():[];
 
 dataStatus.textContent=dbReady
- ?"MASTER DB 연결 정상"
- :"MASTER DB 연결 실패: cases-data.js 확인 필요";
+  ?"MASTER DB 연결 정상"
+  :"MASTER DB 연결 실패: cases-data.js 확인 필요";
 
 function normalize(value){
- return String(value??"").toLowerCase().trim();
+  return String(value??"").toLowerCase().trim();
 }
 
 function formatValue(value){
- if(value===null||value===undefined||value===""){
-  return "미등록";
- }
- if(Array.isArray(value)){
-  return value.length?value.join(", "):"미등록";
- }
- return String(value);
+  if(value===null||value===undefined||value===""){
+    return "미등록";
+  }
+  if(Array.isArray(value)){
+    return value.length?value.join(", "):"미등록";
+  }
+  return String(value);
 }
 
 function classifyCase(item){
- const text=normalize(item.symptom);
- if(/헌팅|hunting|진동|맥동/.test(text))return "헌팅";
- if(/누설|leak/.test(text))return "누설";
- if(/작동 불량|작동안됨|고착|불작동/.test(text))return "작동 불량";
- if(/압력|승압|감압|과압/.test(text))return "압력 이상";
- return "기타";
+  const value=normalize(item.symptom);
+  if(/헌팅|hunting|진동|맥동/.test(value))return "헌팅";
+  if(/누설|leak/.test(value))return "누설";
+  if(/작동 불량|작동안됨|고착|불작동/.test(value))return "작동 불량";
+  if(/압력|승압|감압|과압/.test(value))return "압력 이상";
+  return "기타";
 }
 
 function addField(container,label,value){
- const p=document.createElement("p");
- const strong=document.createElement("strong");
- strong.textContent=label+": ";
- p.appendChild(strong);
- p.appendChild(document.createTextNode(formatValue(value)));
- container.appendChild(p);
+  const p=document.createElement("p");
+  const strong=document.createElement("strong");
+  strong.textContent=label+": ";
+  p.appendChild(strong);
+  p.appendChild(document.createTextNode(formatValue(value)));
+  container.appendChild(p);
 }
 
 function operatingText(item){
- const op=item.operatingConditions||{};
- const values=[];
+  const op=item.operatingConditions||{};
+  const values=[];
 
- if(op.upstreamMPa!=null){
-  values.push("전단 "+op.upstreamMPa+" MPa");
- }
- if(op.downstreamMPa!=null){
-  values.push("후단 "+op.downstreamMPa+" MPa");
- }
- if(op.flowTonPerHour!=null){
-  values.push("유량 "+op.flowTonPerHour+" ton/h");
- }
+  if(op.upstreamMPa!=null){
+    values.push("전단 "+op.upstreamMPa+" MPa");
+  }
+  if(op.downstreamMPa!=null){
+    values.push("후단 "+op.downstreamMPa+" MPa");
+  }
+  if(op.flowTonPerHour!=null){
+    values.push("유량 "+op.flowTonPerHour+" ton/h");
+  }
 
- return values.length?values.join(" / "):"미등록";
+  return values.length?values.join(" / "):"미등록";
 }
 
 function createCaseCard(item){
- const card=document.createElement("article");
- card.className="case-card";
+  const card=document.createElement("article");
+  card.className="case-card";
 
- const heading=document.createElement("h3");
- heading.textContent=item.id+" | "+(item.model||"모델 미등록");
- card.appendChild(heading);
+  const heading=document.createElement("h3");
+  heading.textContent=item.id+" | "+(item.title||item.model||"제목 미등록");
+  card.appendChild(heading);
 
- addField(card,"제조사",item.manufacturer);
- addField(card,"분류",classifyCase(item));
- addField(card,"증상",item.symptom);
- addField(card,"검증 상태",item.verificationStatus);
+  addField(card,"제조사",item.manufacturer);
+  addField(card,"모델",item.model);
+  addField(card,"규격",item.size);
+  addField(card,"설비 구성",item.equipmentType);
+  addField(card,"고장 위치",item.faultPosition);
+  addField(card,"분류",classifyCase(item));
+  addField(card,"증상",item.symptom);
+  addField(card,"검증 상태",item.verificationStatus);
 
- const button=document.createElement("button");
- button.type="button";
- button.textContent="상세정보 보기";
- card.appendChild(button);
+  const button=document.createElement("button");
+  button.type="button";
+  button.textContent="상세정보 보기";
+  card.appendChild(button);
 
- const detail=document.createElement("div");
- detail.className="detail";
- detail.hidden=true;
+  const detail=document.createElement("div");
+  detail.className="detail";
+  detail.hidden=true;
 
- addField(detail,"설비 유형",item.equipmentType);
- addField(detail,"PILOT",item.pilot);
- addField(detail,"운전조건",operatingText(item));
- addField(detail,"추정원인",item.suspectedCauses);
- addField(detail,"확정원인",item.confirmedCause);
- addField(detail,"점검내용",item.inspection);
- addField(detail,"조치",item.action);
- addField(detail,"교체부품",item.replacedParts);
- addField(detail,"정비결과",item.result);
- addField(detail,"출처",item.reference);
- addField(detail,"관련 매뉴얼",item.relatedManuals);
- addField(detail,"관련 사례",item.relatedCases);
+  addField(detail,"사례 제목",item.title);
+  addField(detail,"제조사",item.manufacturer);
+  addField(detail,"모델",item.model);
+  addField(detail,"규격",item.size);
+  addField(detail,"설비 구성",item.equipmentType);
+  addField(detail,"고장 위치",item.faultPosition);
+  addField(detail,"PILOT",item.pilot);
+  addField(detail,"운전조건",operatingText(item));
+  addField(detail,"추정원인",item.suspectedCauses);
+  addField(detail,"확정원인",item.confirmedCause);
+  addField(detail,"점검내용",item.inspection);
+  addField(detail,"조치",item.action);
+  addField(detail,"교체부품",item.replacedParts);
+  addField(detail,"정비결과",item.result);
+  addField(detail,"출처",item.reference);
+  addField(detail,"관련 매뉴얼",item.relatedManuals);
+  addField(detail,"관련 사례",item.relatedCases);
 
- button.addEventListener("click",function(){
-  detail.hidden=!detail.hidden;
-  button.textContent=detail.hidden
-   ?"상세정보 보기"
-   :"상세정보 닫기";
- });
+  button.addEventListener("click",function(){
+    detail.hidden=!detail.hidden;
+    button.textContent=detail.hidden
+      ?"상세정보 보기"
+      :"상세정보 닫기";
+  });
 
- card.appendChild(detail);
- return card;
+  card.appendChild(detail);
+  return card;
 }
 
 function renderCases(){
- const query=normalize(input.value);
+  const query=normalize(input.value);
 
- const matched=cases.filter(function(item){
-  if(activeFilter!=="전체" &&
-     classifyCase(item)!==activeFilter){
-   return false;
+  const matched=cases.filter(function(item){
+    if(activeFilter!=="전체" &&
+       classifyCase(item)!==activeFilter){
+      return false;
+    }
+
+    const searchable=[
+      item.id,
+      item.title,
+      item.manufacturer,
+      item.model,
+      item.size,
+      item.equipmentType,
+      item.faultPosition,
+      item.pilot,
+      item.symptom,
+      item.suspectedCauses,
+      item.confirmedCause,
+      item.inspection,
+      item.action,
+      item.replacedParts,
+      item.result,
+      item.reference,
+      item.verificationStatus
+    ].map(formatValue).join(" ").toLowerCase();
+
+    return searchable.includes(query);
+  });
+
+  count.textContent="등록된 공개 사례: "+cases.length+"건";
+  resultCount.textContent="검색 결과: "+matched.length+"건";
+
+  list.replaceChildren();
+
+  if(matched.length===0){
+    const empty=document.createElement("div");
+    empty.className="empty";
+
+    if(!dbReady){
+      empty.textContent=
+        "MASTER DB 연결 실패. cases-data.js 파일을 확인하세요.";
+    }else if(cases.length===0){
+      empty.textContent=
+        "현재 공개 승인된 정비사례가 없습니다. 승인된 사례가 등록되면 이곳에 표시됩니다.";
+    }else{
+      empty.textContent=
+        "검색 조건에 일치하는 정비사례가 없습니다.";
+    }
+
+    list.appendChild(empty);
+    return;
   }
 
-  const searchable=[
-   item.id,
-   item.manufacturer,
-   item.model,
-   item.pilot,
-   item.equipmentType,
-   item.symptom,
-   item.suspectedCauses,
-   item.confirmedCause,
-   item.inspection,
-   item.action,
-   item.replacedParts,
-   item.result,
-   item.reference,
-   item.verificationStatus
-  ].map(formatValue).join(" ").toLowerCase();
-
-  return searchable.includes(query);
- });
-
- count.textContent="등록된 공개 사례: "+cases.length+"건";
- resultCount.textContent="검색 결과: "+matched.length+"건";
-
- list.replaceChildren();
-
- if(matched.length===0){
-  const empty=document.createElement("div");
-  empty.className="empty";
-
-  if(!dbReady){
-   empty.textContent=
-    "MASTER DB 연결 실패. cases-data.js 파일을 확인하세요.";
-  }else if(cases.length===0){
-   empty.textContent=
-    "현재 등록된 공개 정비사례가 없습니다. 검증된 사례를 MASTER DB에 등록하면 표시됩니다.";
-  }else{
-   empty.textContent=
-    "검색 조건에 일치하는 정비사례가 없습니다.";
-  }
-
-  list.appendChild(empty);
-  return;
- }
-
- matched.forEach(function(item){
-  list.appendChild(createCaseCard(item));
- });
+  matched.forEach(function(item){
+    list.appendChild(createCaseCard(item));
+  });
 }
 
 form.addEventListener("submit",function(event){
- event.preventDefault();
- renderCases();
+  event.preventDefault();
+  renderCases();
 });
 
 input.addEventListener("input",renderCases);
 
 filterButtons.forEach(function(button){
- button.addEventListener("click",function(){
-  activeFilter=button.dataset.filter;
+  button.addEventListener("click",function(){
+    activeFilter=button.dataset.filter;
 
-  filterButtons.forEach(function(item){
-   item.classList.toggle("active",item===button);
+    filterButtons.forEach(function(item){
+      item.classList.toggle("active",item===button);
+    });
+
+    renderCases();
   });
-
-  renderCases();
- });
 });
 
 renderCases();
 </script>
-
 </body>
 </html>

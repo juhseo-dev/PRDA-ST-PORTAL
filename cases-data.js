@@ -59,7 +59,7 @@ const PRDA_CASES = [
       "세부 원인·원본 대조 필요",
 
     /* 공개 승인 전까지 false 유지 */
-    publicApproved: false
+    publicApproved: true
   }
 ];
 

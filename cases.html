@@ -7,299 +7,164 @@
 <title>정비사례 DB | PRDA S&T</title>
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,"Noto Sans KR",sans-serif;
- background:#f3f6f9;
- color:#203041;
-}
-header{
- background:linear-gradient(135deg,#032c4c,#0874aa);
- color:white;
- text-align:center;
- padding:26px 14px;
-}
+body{margin:0;font-family:Arial,"Noto Sans KR",sans-serif;background:#f3f6f9;color:#203041}
+header{background:linear-gradient(135deg,#032c4c,#0874aa);color:white;text-align:center;padding:26px 14px}
 header h1{margin:0;font-size:32px}
 header p{margin:8px 0 0;font-size:14px}
-nav{
- background:#063b60;
- padding:14px;
- display:flex;
- justify-content:center;
- gap:20px;
-}
-nav a{
- color:white;
- text-decoration:none;
- font-weight:bold;
- font-size:14px;
-}
-main{
- max-width:1000px;
- margin:auto;
- padding:25px 15px 55px;
-}
+nav{background:#063b60;padding:14px;display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
+nav a{color:white;text-decoration:none;font-weight:bold;font-size:13px}
+main{max-width:1000px;margin:auto;padding:25px 15px 55px}
 .intro{text-align:center}
-.intro h2{
- font-size:27px;
- color:#064a76;
- margin-bottom:10px;
-}
-.intro p{
- color:#657887;
- line-height:1.7;
-}
-.search{
- display:flex;
- margin:25px 0 14px;
- border:2px solid #1688c9;
- border-radius:10px;
- overflow:hidden;
- background:white;
-}
-.search input{
- flex:1;
- min-width:0;
- border:0;
- outline:0;
- padding:16px;
- font-size:15px;
-}
-.search button{
- background:#087fbd;
- border:0;
- color:white;
- font-weight:bold;
- padding:0 20px;
- cursor:pointer;
-}
-.filters{
- display:flex;
- flex-wrap:wrap;
- gap:8px;
- margin:20px 0;
-}
-.filter{
- padding:11px 15px;
- border:1px solid #b8d5e8;
- border-radius:9px;
- background:white;
- color:#075b8c;
- font-weight:bold;
- cursor:pointer;
-}
-.filter.active{
- background:#075b8c;
- color:white;
-}
-.summary{
- background:#e7f3fa;
- border-left:5px solid #1184bf;
- border-radius:9px;
- padding:18px;
- margin:22px 0;
- line-height:1.7;
-}
+.intro h2{font-size:27px;color:#064a76;margin-bottom:10px}
+.intro p{color:#657887;line-height:1.7;font-size:14px}
+.search{display:flex;margin:25px 0 14px;border:2px solid #1688c9;border-radius:10px;overflow:hidden;background:white}
+.search input{flex:1;min-width:0;border:0;outline:0;padding:16px;font-size:15px}
+.search button{background:#087fbd;border:0;color:white;font-weight:bold;padding:0 20px;cursor:pointer}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+.filter{padding:11px 15px;border:1px solid #b8d5e8;border-radius:9px;background:white;color:#075b8c;font-weight:bold;cursor:pointer}
+.filter.active{background:#075b8c;color:white}
+.summary{background:#e7f3fa;border-left:5px solid #1184bf;border-radius:9px;padding:18px;margin:22px 0;line-height:1.7}
 .summary strong{color:#064a76}
-.section-title{
- font-size:21px;
- color:#064a76;
- margin:30px 0 15px;
-}
-.case-list{
- display:grid;
- gap:15px;
-}
-.case-card{
- background:white;
- border-radius:12px;
- padding:20px;
- box-shadow:0 3px 12px rgba(0,0,0,.07);
- border-top:4px solid #087fbd;
-}
-.case-card h3{
- color:#064a76;
- margin:0 0 10px;
-}
-.case-card p{
- font-size:14px;
- line-height:1.7;
- margin:7px 0;
-}
-.case-card button{
- margin-top:12px;
- border:0;
- border-radius:8px;
- background:#087fbd;
- color:white;
- padding:11px 15px;
- font-weight:bold;
- cursor:pointer;
-}
-.detail{
- background:#f7fbff;
- border:1px solid #c7ddeb;
- border-radius:10px;
- padding:16px;
- margin-top:15px;
-}
-.empty{
- background:white;
- border-radius:12px;
- padding:30px 18px;
- text-align:center;
- color:#657887;
- line-height:1.8;
-}
-.guide{
- background:white;
- border-radius:12px;
- padding:22px;
- margin-top:30px;
-}
-.guide h2{
- color:#064a76;
- font-size:20px;
-}
-.guide p{
- line-height:1.8;
- font-size:14px;
-}
-footer{
- background:#032c4c;
- color:#dcebf5;
- text-align:center;
- padding:25px;
- font-size:13px;
-}
+.section-title{font-size:21px;color:#064a76;margin:30px 0 15px}
+.case-list{display:grid;gap:15px}
+.case-card{background:white;border-radius:12px;padding:20px;box-shadow:0 3px 12px rgba(0,0,0,.07);border-top:4px solid #087fbd}
+.case-card h3{color:#064a76;margin:0 0 10px}
+.case-card p{font-size:14px;line-height:1.7;margin:7px 0}
+.case-card button{margin-top:12px;border:0;border-radius:8px;background:#087fbd;color:white;padding:11px 15px;font-weight:bold;cursor:pointer}
+.detail{background:#f7fbff;border:1px solid #c7ddeb;border-radius:10px;padding:16px;margin-top:15px}
+.empty{background:white;border-radius:12px;padding:30px 18px;text-align:center;color:#657887;line-height:1.8}
+.guide{background:white;border-radius:12px;padding:22px;margin-top:30px}
+.guide h2{color:#064a76;font-size:20px}
+.guide p{line-height:1.8;font-size:14px}
+.notice{background:#fff7df;border-left:5px solid #e4a400;border-radius:9px;padding:18px;margin-top:20px;font-size:14px;line-height:1.7}
+footer{background:#032c4c;color:#dcebf5;text-align:center;padding:25px;font-size:13px}
 [hidden]{display:none!important}
 @media(max-width:600px){
- header h1{font-size:29px}
- .intro h2{font-size:24px}
- nav{gap:13px}
- nav a{font-size:12px}
- .search input{padding:13px}
- .search button{padding:0 15px}
+header h1{font-size:29px}
+.intro h2{font-size:24px}
+.search input{padding:13px}
+.search button{padding:0 15px}
 }
 </style>
 </head>
 <body>
 
 <header>
- <h1>PRDA S&amp;T</h1>
- <p>정압설비 통합 플랫폼</p>
+<h1>PRDA S&amp;T</h1>
+<p>정압설비 통합 플랫폼</p>
 </header>
 
 <nav>
- <a href="index.html">HOME</a>
- <a href="equipment.html">정압설비 DB</a>
- <a href="cases.html">정비사례 DB</a>
+<a href="index.html">HOME</a>
+<a href="diagnosis.html">AI 진단분석</a>
+<a href="regulator.html">정압기</a>
+<a href="equipment.html">정압설비</a>
+<a href="cases.html">정비사례</a>
+<a href="manuals.html">기술자료</a>
 </nav>
 
 <main>
- <section class="intro">
-  <h2>🔧 정비사례 DB</h2>
-  <p>
-   정압설비의 증상 · 원인 · 점검 · 조치 · 결과를
-   체계적으로 관리합니다.
-  </p>
- </section>
+<section class="intro">
+<h2>🔧 정비사례 MASTER DB</h2>
+<p>제조사 · 모델 · PILOT · 증상 · 원인 · 조치 · 결과를 검색하고 확인합니다.</p>
+</section>
 
- <form class="search" id="searchForm">
-  <input
-   id="searchInput"
-   type="search"
-   placeholder="모델명, 증상, 원인, 조치 검색"
-   aria-label="정비사례 검색">
-  <button type="submit">검색</button>
- </form>
+<form class="search" id="searchForm">
+<input id="searchInput" type="search"
+placeholder="모델명, 증상, 원인, 조치 검색"
+aria-label="정비사례 검색">
+<button type="submit">검색</button>
+</form>
 
- <div class="filters" id="filters">
-  <button class="filter active" data-filter="전체">전체</button>
-  <button class="filter" data-filter="헌팅">헌팅</button>
-  <button class="filter" data-filter="압력 이상">압력 이상</button>
-  <button class="filter" data-filter="누설">누설</button>
-  <button class="filter" data-filter="작동 불량">작동 불량</button>
-  <button class="filter" data-filter="기타">기타</button>
- </div>
+<div class="filters">
+<button type="button" class="filter active" data-filter="전체">전체</button>
+<button type="button" class="filter" data-filter="헌팅">헌팅</button>
+<button type="button" class="filter" data-filter="압력 이상">압력 이상</button>
+<button type="button" class="filter" data-filter="누설">누설</button>
+<button type="button" class="filter" data-filter="작동 불량">작동 불량</button>
+<button type="button" class="filter" data-filter="기타">기타</button>
+</div>
 
- <div class="summary">
-  <strong>정비사례 등록 현황</strong>
-  <div id="caseCount">등록된 사례: 0건</div>
-  <div id="resultCount">검색 결과: 0건</div>
- </div>
+<div class="summary" aria-live="polite">
+<strong>정비사례 등록 현황</strong>
+<div id="caseCount">등록된 공개 사례: 0건</div>
+<div id="resultCount">검색 결과: 0건</div>
+<div id="dataStatus">MASTER DB 연결 확인 중</div>
+</div>
 
- <h2 class="section-title">정비사례 목록</h2>
- <div class="case-list" id="caseList"></div>
+<h2 class="section-title">정비사례 목록</h2>
+<div class="case-list" id="caseList"></div>
 
- <section class="guide">
-  <h2>정비사례 표준 등록항목</h2>
-  <p>
-   CASE ID → 제조사 → 정압기 모델 → PILOT →
-   증상 → 운전조건 → 점검내용 → 원인 →
-   조치 → 교체부품 → 정비결과 →
-   사진 → 기술자료 → 출처
-  </p>
-  <p>
-   확정된 원인과 추정 원인을 구분하고,
-   원본 및 출처를 보존합니다.
-   공개용 자료에는 관리소명, 설비번호,
-   회사 내부정보를 포함하지 않습니다.
-  </p>
- </section>
+<section class="guide">
+<h2>정비사례 표준 등록항목</h2>
+<p>
+CASE ID → 제조사 → 모델 → PILOT →
+증상 → 운전조건 → 추정원인 → 확정원인 →
+점검 → 조치 → 교체부품 → 정비결과 → 출처
+</p>
+<p>
+실제 확인된 자료만 등록하며 확정원인과
+추정원인을 구분합니다.
+공개 승인되지 않은 자료는 표시하지 않습니다.
+</p>
+</section>
+
+<div class="notice">
+<strong>기술정보 안내</strong>
+<p>
+검색 결과는 현장 정비 참고자료입니다.
+실제 작업은 제작사 매뉴얼과 승인된
+현장 안전절차에 따라 수행해야 합니다.
+</p>
+</div>
 </main>
 
 <footer>
- <strong>PRDA S&amp;T</strong>
- <p>Pressure Regulator Diagnosis &amp; Support</p>
+<strong>PRDA S&amp;T</strong>
+<p>Pressure Regulator Diagnosis &amp; Support</p>
 </footer>
 
+<script src="cases-data.js"></script>
+
 <script>
-/*
-정비사례 DB
-
-검증된 공개 가능 사례만 등록합니다.
-
-아래 배열에 다음 형식으로 추가할 수 있습니다.
-
-{
- id:"PCV-0001",
- maker:"제조사",
- model:"모델명",
- pilot:"PILOT 모델",
- category:"헌팅",
- symptom:"증상",
- condition:"운전조건",
- inspection:"점검내용",
- cause:"원인",
- causeStatus:"확정",
- action:"조치내용",
- parts:"교체부품",
- result:"정비결과",
- source:"출처"
-}
-
-causeStatus:
-"확정" 또는 "추정"
-
-현재 실제 등록된 사례는 없습니다.
-*/
-
-const cases=[];
-
 const input=document.getElementById("searchInput");
 const form=document.getElementById("searchForm");
 const list=document.getElementById("caseList");
 const count=document.getElementById("caseCount");
 const resultCount=document.getElementById("resultCount");
-const filterButtons=[
- ...document.querySelectorAll(".filter")
-];
+const dataStatus=document.getElementById("dataStatus");
+const filterButtons=[...document.querySelectorAll(".filter")];
 
 let activeFilter="전체";
 
+const dbReady=typeof getPublicPRDACases==="function";
+const cases=dbReady?getPublicPRDACases():[];
+
+dataStatus.textContent=dbReady
+ ?"MASTER DB 연결 정상"
+ :"MASTER DB 연결 실패: cases-data.js 확인 필요";
+
 function normalize(value){
- return String(value||"").toLowerCase().trim();
+ return String(value??"").toLowerCase().trim();
+}
+
+function formatValue(value){
+ if(value===null||value===undefined||value===""){
+  return "미등록";
+ }
+ if(Array.isArray(value)){
+  return value.length?value.join(", "):"미등록";
+ }
+ return String(value);
+}
+
+function classifyCase(item){
+ const text=normalize(item.symptom);
+ if(/헌팅|hunting|진동|맥동/.test(text))return "헌팅";
+ if(/누설|leak/.test(text))return "누설";
+ if(/작동 불량|작동안됨|고착|불작동/.test(text))return "작동 불량";
+ if(/압력|승압|감압|과압/.test(text))return "압력 이상";
+ return "기타";
 }
 
 function addField(container,label,value){
@@ -307,10 +172,25 @@ function addField(container,label,value){
  const strong=document.createElement("strong");
  strong.textContent=label+": ";
  p.appendChild(strong);
- p.appendChild(
-  document.createTextNode(value||"미등록")
- );
+ p.appendChild(document.createTextNode(formatValue(value)));
  container.appendChild(p);
+}
+
+function operatingText(item){
+ const op=item.operatingConditions||{};
+ const values=[];
+
+ if(op.upstreamMPa!=null){
+  values.push("전단 "+op.upstreamMPa+" MPa");
+ }
+ if(op.downstreamMPa!=null){
+  values.push("후단 "+op.downstreamMPa+" MPa");
+ }
+ if(op.flowTonPerHour!=null){
+  values.push("유량 "+op.flowTonPerHour+" ton/h");
+ }
+
+ return values.length?values.join(" / "):"미등록";
 }
 
 function createCaseCard(item){
@@ -318,14 +198,13 @@ function createCaseCard(item){
  card.className="case-card";
 
  const heading=document.createElement("h3");
- heading.textContent=
-  item.id+" | "+item.model;
-
+ heading.textContent=item.id+" | "+(item.model||"모델 미등록");
  card.appendChild(heading);
 
- addField(card,"제조사",item.maker);
- addField(card,"분류",item.category);
+ addField(card,"제조사",item.manufacturer);
+ addField(card,"분류",classifyCase(item));
  addField(card,"증상",item.symptom);
+ addField(card,"검증 상태",item.verificationStatus);
 
  const button=document.createElement("button");
  button.type="button";
@@ -336,15 +215,18 @@ function createCaseCard(item){
  detail.className="detail";
  detail.hidden=true;
 
+ addField(detail,"설비 유형",item.equipmentType);
  addField(detail,"PILOT",item.pilot);
- addField(detail,"운전조건",item.condition);
+ addField(detail,"운전조건",operatingText(item));
+ addField(detail,"추정원인",item.suspectedCauses);
+ addField(detail,"확정원인",item.confirmedCause);
  addField(detail,"점검내용",item.inspection);
- addField(detail,"원인",item.cause);
- addField(detail,"원인 판정",item.causeStatus);
  addField(detail,"조치",item.action);
- addField(detail,"교체부품",item.parts);
+ addField(detail,"교체부품",item.replacedParts);
  addField(detail,"정비결과",item.result);
- addField(detail,"출처",item.source);
+ addField(detail,"출처",item.reference);
+ addField(detail,"관련 매뉴얼",item.relatedManuals);
+ addField(detail,"관련 사례",item.relatedCases);
 
  button.addEventListener("click",function(){
   detail.hidden=!detail.hidden;
@@ -362,33 +244,32 @@ function renderCases(){
 
  const matched=cases.filter(function(item){
   if(activeFilter!=="전체" &&
-     item.category!==activeFilter){
+     classifyCase(item)!==activeFilter){
    return false;
   }
 
   const searchable=[
    item.id,
-   item.maker,
+   item.manufacturer,
    item.model,
    item.pilot,
-   item.category,
+   item.equipmentType,
    item.symptom,
-   item.condition,
+   item.suspectedCauses,
+   item.confirmedCause,
    item.inspection,
-   item.cause,
    item.action,
-   item.parts,
-   item.result
-  ].map(normalize).join(" ");
+   item.replacedParts,
+   item.result,
+   item.reference,
+   item.verificationStatus
+  ].map(formatValue).join(" ").toLowerCase();
 
   return searchable.includes(query);
  });
 
- count.textContent=
-  "등록된 사례: "+cases.length+"건";
-
- resultCount.textContent=
-  "검색 결과: "+matched.length+"건";
+ count.textContent="등록된 공개 사례: "+cases.length+"건";
+ resultCount.textContent="검색 결과: "+matched.length+"건";
 
  list.replaceChildren();
 
@@ -396,9 +277,16 @@ function renderCases(){
   const empty=document.createElement("div");
   empty.className="empty";
 
-  empty.textContent=cases.length===0
-   ?"현재 등록된 정비사례가 없습니다. 검증된 공개용 자료를 순차적으로 등록할 예정입니다."
-   :"검색 조건에 일치하는 정비사례가 없습니다.";
+  if(!dbReady){
+   empty.textContent=
+    "MASTER DB 연결 실패. cases-data.js 파일을 확인하세요.";
+  }else if(cases.length===0){
+   empty.textContent=
+    "현재 등록된 공개 정비사례가 없습니다. 검증된 사례를 MASTER DB에 등록하면 표시됩니다.";
+  }else{
+   empty.textContent=
+    "검색 조건에 일치하는 정비사례가 없습니다.";
+  }
 
   list.appendChild(empty);
   return;
@@ -421,10 +309,7 @@ filterButtons.forEach(function(button){
   activeFilter=button.dataset.filter;
 
   filterButtons.forEach(function(item){
-   item.classList.toggle(
-    "active",
-    item===button
-   );
+   item.classList.toggle("active",item===button);
   });
 
   renderCases();
@@ -433,5 +318,6 @@ filterButtons.forEach(function(button){
 
 renderCases();
 </script>
+
 </body>
 </html>

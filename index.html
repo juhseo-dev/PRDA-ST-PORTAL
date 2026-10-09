@@ -52,6 +52,7 @@ header h1{font-size:30px}
 </style>
 </head>
 <body>
+
 <header>
 <h1>PRDA S&amp;T</h1>
 <div class="fullname">Pressure Regulator Diagnosis &amp; Support</div>
@@ -64,7 +65,7 @@ header h1{font-size:30px}
 <a href="equipment.html">정압설비</a>
 <a href="cases.html">정비사례</a>
 <a href="manuals.html">매뉴얼·기술자료</a>
-<a href="#safety">정비안전·특수공기구</a>
+<a href="safety.html">정비안전·특수공기구</a>
 <a href="#qna">Q&amp;A 기술문의</a>
 </nav>
 
@@ -79,13 +80,42 @@ header h1{font-size:30px}
 </div>
 
 <div class="cards">
-<a class="card" href="#diagnosis"><h3>🤖 AI 진단분석</h3><p>빠른 진단과 현장 점검을 지원합니다.</p></a>
-<a class="card" href="#regulator"><h3>⚙️ 정압기</h3><p>본체·PILOT·모델·부품 정보를 찾습니다.</p></a>
-<a class="card" href="equipment.html"><h3>🏭 정압설비</h3><p>설비 개략도와 구성 정보를 확인합니다.</p></a>
-<a class="card" href="cases.html"><h3>🔧 정비사례</h3><p>증상·원인·조치별 사례를 검색합니다.</p></a>
-<a class="card" href="manuals.html"><h3>📚 매뉴얼·기술자료</h3><p>제작사 공식 기술자료를 관리합니다.</p></a>
-<a class="card" href="#safety"><h3>🛡️ 정비안전·특수공기구</h3><p>정비안전과 특수공구 정보를 확인합니다.</p></a>
-<a class="card" href="#qna"><h3>💬 Q&amp;A 기술문의</h3><p>정압설비 관련 기술문의를 지원합니다.</p></a>
+
+<a class="card" href="#diagnosis">
+<h3>🤖 AI 진단분석</h3>
+<p>빠른 진단과 현장 점검을 지원합니다.</p>
+</a>
+
+<a class="card" href="#regulator">
+<h3>⚙️ 정압기</h3>
+<p>본체·PILOT·모델·부품 정보를 찾습니다.</p>
+</a>
+
+<a class="card" href="equipment.html">
+<h3>🏭 정압설비</h3>
+<p>설비 개략도와 구성 정보를 확인합니다.</p>
+</a>
+
+<a class="card" href="cases.html">
+<h3>🔧 정비사례</h3>
+<p>증상·원인·조치별 사례를 검색합니다.</p>
+</a>
+
+<a class="card" href="manuals.html">
+<h3>📚 매뉴얼·기술자료</h3>
+<p>제작사 공식 기술자료를 관리합니다.</p>
+</a>
+
+<a class="card" href="safety.html">
+<h3>🛡️ 정비안전·특수공기구</h3>
+<p>정비안전과 특수공구 정보를 확인합니다.</p>
+</a>
+
+<a class="card" href="#qna">
+<h3>💬 Q&amp;A 기술문의</h3>
+<p>정압설비 관련 기술문의를 지원합니다.</p>
+</a>
+
 </div>
 
 <section id="diagnosis">
@@ -140,7 +170,13 @@ const searchResults=document.getElementById("searchResults");
 
 function escapeHTML(text){
 return text.replace(/[&<>"']/g,function(c){
-return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+return {
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+}[c];
 });
 }
 
@@ -148,11 +184,13 @@ function highlight(text,query){
 const source=text.toLowerCase();
 const needle=query.toLowerCase();
 let result="",pos=0,index;
+
 while((index=source.indexOf(needle,pos))!==-1){
 result+=escapeHTML(text.slice(pos,index));
 result+="<mark>"+escapeHTML(text.slice(index,index+query.length))+"</mark>";
 pos=index+query.length;
 }
+
 return result+escapeHTML(text.slice(pos));
 }
 
@@ -171,24 +209,35 @@ const matches=[];
 sections.forEach(function(section){
 const title=section.querySelector("h2");
 if(!title)return;
-const heading=title.textContent.trim();
-const description=(section.querySelector("p")?.textContent||"").replace(/\s+/g," ").trim();
 
-if((heading+" "+description).toLowerCase().includes(q.toLowerCase())){
-matches.push({id:section.id,title:heading,description:description});
+const heading=title.textContent.trim();
+const description=(
+section.querySelector("p")?.textContent||""
+).replace(/\s+/g," ").trim();
+
+if((heading+" "+description).toLowerCase()
+.includes(q.toLowerCase())){
+matches.push({
+id:section.id,
+title:heading,
+description:description
+});
 }
 });
 
-let html="<h3>🔍 검색 결과 ("+matches.length+"건)</h3>";
+let html="<h3>🔍 검색 결과 ("+
+matches.length+"건)</h3>";
 
 if(matches.length===0){
 html+="<p>등록된 홈페이지 내용에서 일치하는 항목이 없습니다.</p>";
 }else{
 matches.forEach(function(item){
+
 const target={
 equipment:"equipment.html",
 cases:"cases.html",
-manuals:"manuals.html"
+manuals:"manuals.html",
+safety:"safety.html"
 }[item.id]||"#"+encodeURIComponent(item.id);
 
 html+='<a class="result-item" href="'+target+'">';
@@ -196,6 +245,7 @@ html+="<strong>"+highlight(item.title,q)+"</strong>";
 html+="<p>"+highlight(item.description,q)+"</p></a>";
 });
 }
+
 searchResults.innerHTML=html;
 }
 
@@ -204,5 +254,6 @@ event.preventDefault();
 searchPRDA();
 });
 </script>
+
 </body>
 </html>

@@ -66,7 +66,7 @@ header h1{font-size:30px}
 <a href="cases.html">정비사례</a>
 <a href="manuals.html">매뉴얼·기술자료</a>
 <a href="safety.html">정비안전·특수공기구</a>
-<a href="#qna">Q&amp;A 기술문의</a>
+<a href="qna.html">Q&amp;A 기술문의</a>
 </nav>
 
 <div class="hero">
@@ -111,7 +111,7 @@ header h1{font-size:30px}
 <p>정비안전과 특수공구 정보를 확인합니다.</p>
 </a>
 
-<a class="card" href="#qna">
+<a class="card" href="qna.html">
 <h3>💬 Q&amp;A 기술문의</h3>
 <p>정압설비 관련 기술문의를 지원합니다.</p>
 </a>
@@ -237,7 +237,8 @@ const target={
 equipment:"equipment.html",
 cases:"cases.html",
 manuals:"manuals.html",
-safety:"safety.html"
+safety:"safety.html",
+qna:"qna.html"
 }[item.id]||"#"+encodeURIComponent(item.id);
 
 html+='<a class="result-item" href="'+target+'">';

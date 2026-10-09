@@ -20,3 +20,25 @@
   }
 })();
 </script>
+
+<script>
+(function () {
+  const params = new URLSearchParams(window.location.search);
+  const maker = params.get("maker");
+  const model = params.get("model");
+
+  const makerInput = document.getElementById("maker");
+  const modelInput = document.getElementById("model");
+
+  if (maker && makerInput) {
+    const exists = Array.from(makerInput.options)
+      .some(option => option.value === maker);
+
+    if (exists) makerInput.value = maker;
+  }
+
+  if (model && modelInput) {
+    modelInput.value = model;
+  }
+})();
+</script>

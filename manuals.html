@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>매뉴얼·기술자료 | PRDA S&T</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#f4f7fb;
+ color:#172033;
+ font-family:Arial,"Noto Sans KR",sans-serif;
+}
+header{
+ background:linear-gradient(135deg,#082b5c,#0755a5);
+ color:white;
+ text-align:center;
+ padding:28px 12px;
+}
+header h1{margin:0;font-size:32px}
+header p{margin:8px 0 0;font-size:14px}
+nav{
+ display:flex;
+ justify-content:center;
+ gap:18px;
+ flex-wrap:wrap;
+ background:#061d3b;
+ padding:15px;
+}
+nav a{
+ color:white;
+ text-decoration:none;
+ font-size:13px;
+ font-weight:bold;
+}
+main{
+ max-width:1000px;
+ margin:auto;
+ padding:25px 15px 50px;
+}
+.intro{text-align:center}
+.intro h2{
+ color:#0b376c;
+ font-size:27px;
+}
+.intro p{
+ color:#657587;
+ line-height:1.7;
+}
+.search{
+ display:flex;
+ margin:25px 0 16px;
+ background:white;
+ border:2px solid #1769c2;
+ border-radius:10px;
+ overflow:hidden;
+}
+.search input{
+ flex:1;
+ min-width:0;
+ border:0;
+ outline:0;
+ padding:15px;
+ font-size:15px;
+}
+.search button{
+ border:0;
+ background:#1769c2;
+ color:white;
+ padding:0 20px;
+ font-weight:bold;
+ cursor:pointer;
+}
+.filters{
+ display:flex;
+ flex-wrap:wrap;
+ gap:9px;
+ margin:20px 0;
+}
+.filter{
+ background:white;
+ border:1px solid #bdd4e8;
+ color:#0b376c;
+ border-radius:9px;
+ padding:11px 14px;
+ font-weight:bold;
+ cursor:pointer;
+}
+.filter.active{
+ background:#0755a5;
+ color:white;
+}
+.status{
+ padding:17px;
+ background:#e7f3fa;
+ border-left:5px solid #1769c2;
+ border-radius:9px;
+ line-height:1.7;
+}
+.status strong{color:#0b376c}
+h3{
+ color:#0b376c;
+ margin-top:30px;
+}
+.results{
+ display:grid;
+ gap:13px;
+}
+.document{
+ background:white;
+ padding:20px;
+ border-radius:12px;
+ border-top:4px solid #1769c2;
+ box-shadow:0 3px 12px rgba(0,0,0,.06);
+}
+.document h4{
+ margin:0 0 12px;
+ font-size:18px;
+ color:#0b376c;
+}
+.document p{
+ margin:7px 0;
+ font-size:14px;
+ line-height:1.6;
+}
+.document a{
+ display:inline-block;
+ margin-top:12px;
+ color:#0755a5;
+ font-weight:bold;
+}
+.empty{
+ background:white;
+ border-radius:12px;
+ padding:30px 18px;
+ text-align:center;
+ color:#657587;
+ line-height:1.8;
+}
+.guide{
+ margin-top:28px;
+ padding:20px;
+ background:white;
+ border-radius:12px;
+}
+.guide p{
+ font-size:14px;
+ line-height:1.8;
+}
+footer{
+ text-align:center;
+ background:#061d3b;
+ color:#cbd7e8;
+ padding:25px;
+ font-size:13px;
+}
+@media(max-width:600px){
+ .intro h2{font-size:24px}
+ .search input{padding:13px}
+ .search button{padding:0 15px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <h1>PRDA S&amp;T</h1>
+ <p>Pressure Regulator Diagnosis &amp; Support</p>
+</header>
+
+<nav>
+ <a href="index.html">HOME</a>
+ <a href="equipment.html">정압설비 DB</a>
+ <a href="cases.html">정비사례 DB</a>
+ <a href="manuals.html">매뉴얼·기술자료</a>
+</nav>
+
+<main>
+ <section class="intro">
+  <h2>📚 매뉴얼·기술자료 DB</h2>
+  <p>
+   정압기 및 PILOT 제작사 기술자료를
+   모델별로 검색하고 관리합니다.
+  </p>
+ </section>
+
+ <form class="search" id="searchForm">
+  <input
+   id="searchInput"
+   type="search"
+   placeholder="제조사 · 모델 · 자료명 검색"
+   aria-label="기술자료 검색">
+  <button type="submit">검색</button>
+ </form>
+
+ <div class="filters" id="filters">
+  <button class="filter active" data-type="전체">전체</button>
+  <button class="filter" data-type="Manual">Manual</button>
+  <button class="filter" data-type="Maintenance">Maintenance</button>
+  <button class="filter" data-type="Parts List">Parts List</button>
+  <button class="filter" data-type="Troubleshooting">Troubleshooting</button>
+  <button class="filter" data-type="기타">기타</button>
+ </div>
+
+ <div class="status" aria-live="polite">
+  <strong>기술자료 등록 현황</strong>
+  <div id="totalCount">전체 등록: 0건</div>
+  <div id="resultCount">검색 결과: 0건</div>
+ </div>
+
+ <h3>기술자료 목록</h3>
+ <div class="results" id="results"></div>
+
+ <section class="guide">
+  <h3>기술자료 등록 기준</h3>
+  <p>
+   제조사 → 모델 → 자료 종류 → 문서명 →
+   문서번호 → 개정일 → 원본 출처 → 공식 자료 링크
+  </p>
+  <p>
+   제작사 공식자료를 우선 등록합니다.
+   공개 권한이 확인되지 않은 사내 문서나
+   비공개 설비자료는 등록하지 않습니다.
+  </p>
+ </section>
+</main>
+
+<footer>
+ <strong>PRDA S&amp;T</strong>
+ <p>정압설비 통합 플랫폼</p>
+</footer>
+
+<script>
+/*
+검증된 기술자료를 다음 형식으로 등록합니다.
+
+{
+ maker:"제조사",
+ model:"모델명",
+ type:"Manual",
+ title:"문서명",
+ number:"문서번호",
+ revision:"개정일",
+ source:"공식 출처",
+ url:"https://제작사-공식-자료주소"
+}
+
+현재 실제 등록된 기술자료는 없습니다.
+*/
+
+const documents=[];
+
+const form=document.getElementById("searchForm");
+const input=document.getElementById("searchInput");
+const results=document.getElementById("results");
+const totalCount=document.getElementById("totalCount");
+const resultCount=document.getElementById("resultCount");
+const filters=[
+ ...document.querySelectorAll(".filter")
+];
+
+let selectedType="전체";
+
+function normalize(value){
+ return String(value||"").toLowerCase().trim();
+}
+
+function addField(container,label,value){
+ const p=document.createElement("p");
+ const strong=document.createElement("strong");
+ strong.textContent=label+": ";
+ p.appendChild(strong);
+ p.appendChild(
+  document.createTextNode(value||"미등록")
+ );
+ container.appendChild(p);
+}
+
+function createDocument(item){
+ const card=document.createElement("article");
+ card.className="document";
+
+ const title=document.createElement("h4");
+ title.textContent=item.title||"제목 미등록";
+ card.appendChild(title);
+
+ addField(card,"제조사",item.maker);
+ addField(card,"모델",item.model);
+ addField(card,"자료 종류",item.type);
+ addField(card,"문서번호",item.number);
+ addField(card,"개정일",item.revision);
+ addField(card,"출처",item.source);
+
+ if(item.url){
+  try{
+   const parsed=new URL(item.url);
+   if(parsed.protocol==="https:"||
+      parsed.protocol==="http:"){
+    const link=document.createElement("a");
+    link.href=parsed.href;
+    link.target="_blank";
+    link.rel="noopener noreferrer";
+    link.textContent="공식 기술자료 열기 ↗";
+    card.appendChild(link);
+   }
+  }catch(error){
+   // 유효하지 않은 주소는 표시하지 않습니다.
+  }
+ }
+
+ return card;
+}
+
+function render(){
+ const query=normalize(input.value);
+
+ const matched=documents.filter(function(item){
+  if(selectedType!=="전체" &&
+     item.type!==selectedType){
+   return false;
+  }
+
+  const text=[
+   item.maker,
+   item.model,
+   item.type,
+   item.title,
+   item.number,
+   item.source
+  ].map(normalize).join(" ");
+
+  return text.includes(query);
+ });
+
+ totalCount.textContent=
+  "전체 등록: "+documents.length+"건";
+
+ resultCount.textContent=
+  "검색 결과: "+matched.length+"건";
+
+ results.replaceChildren();
+
+ if(matched.length===0){
+  const empty=document.createElement("div");
+  empty.className="empty";
+
+  empty.textContent=documents.length===0
+   ?"현재 등록된 기술자료가 없습니다. 제작사 공식자료 확인 후 순차적으로 등록할 예정입니다."
+   :"검색 조건에 맞는 기술자료가 없습니다.";
+
+  results.appendChild(empty);
+  return;
+ }
+
+ matched.forEach(function(item){
+  results.appendChild(createDocument(item));
+ });
+}
+
+form.addEventListener("submit",function(event){
+ event.preventDefault();
+ render();
+});
+
+input.addEventListener("input",render);
+
+filters.forEach(function(button){
+ button.addEventListener("click",function(){
+  selectedType=button.dataset.type;
+
+  filters.forEach(function(item){
+   item.classList.toggle(
+    "active",
+    item===button
+   );
+  });
+
+  render();
+ });
+});
+
+render();
+</script>
+</body>
+</html>

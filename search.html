@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>통합 검색 | PRDA S&T</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7fb;color:#172033;font-family:Arial,"Noto Sans KR",sans-serif}
+header{background:linear-gradient(135deg,#082b5c,#0755a5);color:white;text-align:center;padding:28px 12px}
+header h1{font-size:30px;margin:0}
+header p{font-size:14px;margin:8px 0 0}
+nav{background:#061d3b;padding:15px;text-align:center}
+nav a{color:white;text-decoration:none;font-weight:bold;margin:0 10px;font-size:13px}
+main{max-width:900px;margin:auto;padding:25px 14px 55px}
+h2{text-align:center;color:#0b376c}
+.desc{text-align:center;color:#63768a;font-size:14px;line-height:1.7}
+.search{display:flex;gap:8px;margin:25px 0 15px}
+.search input{flex:1;min-width:0;padding:15px;border:2px solid #1769c2;border-radius:9px;font-size:16px}
+button{background:#1769c2;color:white;border:0;border-radius:9px;padding:13px 19px;font-weight:bold;cursor:pointer}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.filters button{background:#e4edf6;color:#234467;padding:10px 14px}
+.filters button.active{background:#1769c2;color:white}
+#count{font-size:14px;color:#526b83;margin-bottom:15px}
+.card{display:block;background:white;padding:19px;border-radius:12px;margin-bottom:12px;text-decoration:none;color:#172033;box-shadow:0 3px 12px rgba(0,0,0,.06)}
+.card h3{color:#0b376c;margin:8px 0;font-size:18px}
+.card p{font-size:14px;line-height:1.7;margin:5px 0}
+.tag{display:inline-block;background:#e8f2fb;color:#0755a5;padding:5px 9px;border-radius:6px;font-size:12px;font-weight:bold}
+.empty{background:white;padding:25px;border-radius:12px;text-align:center;color:#647588}
+footer{background:#061d3b;color:white;text-align:center;padding:22px;font-size:13px}
+@media(max-width:480px){.search button{padding:12px}.filters button{font-size:12px}}
+</style>
+</head>
+<body>
+
+<header>
+<h1>PRDA S&amp;T</h1>
+<p>정압설비 통합 검색</p>
+</header>
+
+<nav>
+<a href="index.html">HOME</a>
+<a href="diagnosis.html">진단분석</a>
+<a href="regulator.html">정압기</a>
+<a href="cases.html">정비사례</a>
+</nav>
+
+<main>
+<h2>🔎 통합 검색</h2>
+<p class="desc">
+제조사, 정압기 모델, 고장 증상, 정비사례를 검색하세요.
+</p>
+
+<form class="search" id="form">
+<input id="keyword" type="search"
+placeholder="예: TARTARINI, 헌팅, PSA/80P"
+aria-label="검색어">
+<button type="submit">검색</button>
+</form>
+
+<div class="filters">
+<button type="button" class="active" data-type="all">전체</button>
+<button type="button" data-type="model">정압기 모델</button>
+<button type="button" data-type="case">정비사례</button>
+<button type="button" data-type="menu">주요 메뉴</button>
+</div>
+
+<p id="count" aria-live="polite"></p>
+<div id="results"></div>
+
+<p class="desc">
+검색 범위는 현재 공개 등록된 자료입니다.
+미등록 자료나 비공개 정비사례는 검색되지 않습니다.
+</p>
+</main>
+
+<footer>PRDA S&amp;T | SEO TECH</footer>
+
+<script src="cases-data.js"></script>
+<script>
+const models=[
+["FISHER","EZR"],["FISHER","1098-EGR"],
+["FISHER","627"],["FISHER","299H"],
+["FISHER","67C"],["FISHER","161AY"],
+["FISHER","PRX"],
+["TARTARINI","FL"],["TARTARINI","FL/100-SR-SRS"],
+["TARTARINI","BFL"],["TARTARINI","CRONOS"],
+["PIETRO FIORENTINI","REFLUX 819"],
+["PIETRO FIORENTINI","REFLUX 851"],
+["PIETRO FIORENTINI","DIVAL 600"],
+["PIETRO FIORENTINI","APERFLUX 851"],
+["PIETRO FIORENTINI","PSA/80P"],
+["PIETRO FIORENTINI","PSA/79P"],
+["RMG","RMG 512"],["RMG","RMG 402"],
+["FLEXFLO / GROVE","FLEXFLO"]
+];
+
+const menus=[
+["AI 진단분석","증상, 압력, 유량 입력 및 관련 정비사례 확인","diagnosis.html"],
+["정압기 기술 DB","제조사 및 정압기 모델 검색","regulator.html"],
+["정압설비 DB","정압설비 제조사 및 설비 정보","equipment.html"],
+["정비사례 DB","공개 정비사례 검색 및 정비 결과","cases.html"],
+["기술자료","매뉴얼 및 기술자료","manuals.html"],
+["안전정보","정압설비 안전정보","safety.html"],
+["질문과 답변","기술 질문 및 답변","qna.html"],
+["현장 사진","사진 첨부 및 미리보기","photo.html"]
+];
+
+let items=[];
+
+models.forEach(function(m){
+ const params=new URLSearchParams();
+ params.set("maker",m[0]);
+ params.set("model",m[1]);
+
+ items.push({
+  type:"model",
+  title:m[1],
+  description:"제조사: "+m[0]+" / 모델 색인",
+  url:"diagnosis.html?"+params.toString()
+ });
+});
+
+menus.forEach(function(m){
+ items.push({
+  type:"menu",
+  title:m[0],
+  description:m[1],
+  url:m[2]
+ });
+});
+
+if(typeof getPublicPRDACases==="function"){
+ getPublicPRDACases().forEach(function(c){
+  items.push({
+   type:"case",
+   title:c.id+" | "+c.title,
+   description:[
+    c.manufacturer,c.model,c.symptom,
+    c.action,c.result
+   ].filter(Boolean).join(" / "),
+   url:"cases.html"
+  });
+ });
+}
+
+const form=document.getElementById("form");
+const keyword=document.getElementById("keyword");
+const results=document.getElementById("results");
+const count=document.getElementById("count");
+const buttons=Array.from(document.querySelectorAll("[data-type]"));
+
+let activeType="all";
+
+function addText(parent,tag,value){
+ const el=document.createElement(tag);
+ el.textContent=value;
+ parent.appendChild(el);
+ return el;
+}
+
+function render(){
+ const q=keyword.value.trim().toLowerCase();
+
+ const filtered=items.filter(function(item){
+  if(activeType!=="all"&&item.type!==activeType){
+   return false;
+  }
+  const searchable=(item.title+" "+item.description).toLowerCase();
+  return searchable.includes(q);
+ });
+
+ results.replaceChildren();
+ count.textContent="검색 결과: "+filtered.length+"건";
+
+ if(!filtered.length){
+  const empty=document.createElement("div");
+  empty.className="empty";
+  empty.textContent="일치하는 공개 등록 자료가 없습니다.";
+  results.appendChild(empty);
+  return;
+ }
+
+ const names={
+  model:"정압기 모델",
+  case:"정비사례",
+  menu:"주요 메뉴"
+ };
+
+ filtered.forEach(function(item){
+  const card=document.createElement("a");
+  card.className="card";
+  card.href=item.url;
+
+  addText(card,"span",names[item.type]).className="tag";
+  addText(card,"h3",item.title);
+  addText(card,"p",item.description);
+
+  results.appendChild(card);
+ });
+}
+
+form.addEventListener("submit",function(event){
+ event.preventDefault();
+ render();
+});
+
+keyword.addEventListener("input",render);
+
+buttons.forEach(function(button){
+ button.addEventListener("click",function(){
+  activeType=button.dataset.type;
+
+  buttons.forEach(function(b){
+   b.classList.toggle("active",b===button);
+  });
+
+  render();
+ });
+});
+
+const params=new URLSearchParams(window.location.search);
+if(params.get("q")){
+ keyword.value=params.get("q");
+}
+
+render();
+</script>
+</body>
+</html>

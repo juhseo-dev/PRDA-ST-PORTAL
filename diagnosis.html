@@ -1,44 +1,575 @@
 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 진단분석 | PRDA S&T</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f4f7fb;color:#172033;font-family:Arial,"Noto Sans KR",sans-serif}
+header{background:linear-gradient(135deg,#082b5c,#0755a5);color:white;text-align:center;padding:27px 12px}
+header h1{font-size:32px;margin:0}
+header p{font-size:14px;margin:8px 0 0}
+nav{background:#061d3b;display:flex;justify-content:center;flex-wrap:wrap;gap:16px;padding:15px}
+nav a{color:white;text-decoration:none;font-weight:bold;font-size:13px}
+main{max-width:900px;margin:auto;padding:24px 14px 50px}
+.intro{text-align:center}
+.intro h2{font-size:27px;color:#0b376c}
+.intro p{font-size:14px;color:#647588;line-height:1.7}
+.panel{background:white;border-radius:14px;padding:22px;margin-top:22px;box-shadow:0 3px 14px rgba(0,0,0,.06)}
+.panel h3{color:#0b376c;margin:0 0 20px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font-weight:bold;font-size:14px;color:#304761}
+.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid #c9d8e6;border-radius:9px;font:inherit;font-size:14px;background:white;color:#172033}
+.field textarea{resize:vertical;min-height:90px}
+.full{grid-column:1/-1}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.actions button{padding:14px 20px;border:0;border-radius:9px;font-weight:bold;font-size:15px;cursor:pointer}
+.primary{background:#1769c2;color:white;flex:2}
+.secondary{background:#e8eef5;color:#234467;flex:1}
+.result{display:none;border-top:5px solid #1769c2}
+.result h3{font-size:22px}
+.result h4{color:#0b376c;margin:22px 0 9px}
+.result p,.result li{font-size:14px;line-height:1.8}
+.result ul{padding-left:22px}
+.tag{display:inline-block;background:#e7f3fa;color:#0755a5;border-radius:7px;padding:7px 11px;font-size:13px;font-weight:bold}
+.info{background:#eef6fc;border-left:4px solid #1769c2;border-radius:7px;padding:14px;margin-top:14px;line-height:1.7;font-size:14px}
+.warning{background:#fff7df;border-left:5px solid #e4a400;border-radius:9px;padding:18px;margin-top:22px;line-height:1.8;font-size:14px}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.links a{background:#edf5fc;border:1px solid #c9deef;border-radius:8px;padding:11px 13px;text-decoration:none;color:#0755a5;font-size:13px;font-weight:bold}
+.case-card{background:#f7fbff;border:1px solid #bfd8eb;border-radius:12px;padding:17px;margin:14px 0}
+.case-card h5{font-size:17px;color:#0755a5;margin:0 0 12px}
+.case-card p{margin:6px 0}
+.case-card a{display:inline-block;margin-top:12px;color:#0755a5;font-weight:bold}
+footer{background:#061d3b;color:#cbd7e8;text-align:center;padding:25px;font-size:13px}
+@media(max-width:600px){
+.grid{grid-template-columns:1fr}
+.intro h2{font-size:24px}
+.panel{padding:18px}
+.actions button{font-size:14px}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>PRDA S&amp;T</h1>
+<p>Pressure Regulator Diagnosis &amp; Support</p>
+</header>
+
+<nav>
+<a href="index.html">HOME</a>
+<a href="diagnosis.html">AI 진단분석</a>
+<a href="regulator.html">정압기</a>
+<a href="equipment.html">정압설비</a>
+<a href="cases.html">정비사례</a>
+<a href="manuals.html">기술자료</a>
+</nav>
+
+<main>
+
+<section class="intro">
+<h2>🤖 정압설비 AI 진단분석</h2>
+<p>현장 증상과 운전조건을 입력하면<br>
+1차 점검 항목과 관련 정비사례를 안내합니다.</p>
+</section>
+
+<section class="panel">
+<h3>1. 설비 및 운전조건 입력</h3>
+
+<form id="diagnosisForm">
+<div class="grid">
+
+<div class="field">
+<label for="maker">제조사</label>
+<select id="maker">
+<option value="">제조사 선택</option>
+<option>FISHER</option>
+<option>TARTARINI</option>
+<option>PIETRO FIORENTINI</option>
+<option>RMG</option>
+<option>FLEXFLO / GROVE</option>
+<option>AFV</option>
+<option>VALVITALIA</option>
+<option>기타</option>
+</select>
+</div>
+
+<div class="field">
+<label for="model">정압기 모델</label>
+<input id="model" placeholder="예: FL/100-SR-SRS">
+</div>
+
+<div class="field">
+<label for="pilot">PILOT 모델</label>
+<input id="pilot" placeholder="예: PSA/80P">
+</div>
+
+<div class="field">
+<label for="symptom">주요 증상 *</label>
+<select id="symptom" required>
+<option value="">증상 선택</option>
+<option value="hunting">압력 헌팅·진동</option>
+<option value="high">후단압력 상승</option>
+<option value="low">후단압력 저하</option>
+<option value="leak">가스누설 의심</option>
+<option value="operation">정압기 작동 불량</option>
+<option value="ssv">SSV 작동 이상</option>
+<option value="noise">이상 소음</option>
+<option value="other">기타 증상</option>
+</select>
+</div>
+
+<div class="field">
+<label for="upstream">전단압력 (MPa)</label>
+<input id="upstream" type="number" min="0" step="any" placeholder="측정값">
+</div>
+
+<div class="field">
+<label for="downstream">후단압력 (MPa)</label>
+<input id="downstream" type="number" min="0" step="any" placeholder="측정값">
+</div>
+
+<div class="field">
+<label for="setpoint">후단 설정압력 (MPa)</label>
+<input id="setpoint" type="number" min="0" step="any" placeholder="설정값">
+</div>
+
+<div class="field">
+<label for="flow">유량 (ton/h)</label>
+<input id="flow" type="number" min="0" step="any" placeholder="측정값">
+</div>
+
+<div class="field full">
+<label for="details">추가 증상 및 현장 관찰내용</label>
+<textarea id="details" placeholder="발생 시점, 부하 변화, 압력 변동 양상 등을 입력하세요. 관리소명·설비번호 등 비공개 정보는 입력하지 마세요."></textarea>
+</div>
+
+</div>
+
+<div class="actions">
+<button class="primary" type="submit">🔍 1차 진단분석</button>
+<button class="secondary" type="reset">초기화</button>
+</div>
+</form>
+</section>
+
+<section class="panel result" id="result" aria-live="polite">
+<h3>2. 1차 진단분석 결과</h3>
+<span class="tag">규칙 기반 참고 분석</span>
+<div id="resultBody"></div>
+
+<h3 style="margin-top:28px">3. 관련 실제 정비사례</h3>
+<div id="relatedCases"></div>
+
+<div class="links">
+<a href="cases.html">정비사례 DB 확인 →</a>
+<a href="manuals.html">공식 기술자료 확인 →</a>
+<a href="equipment.html">정압설비 DB 확인 →</a>
+</div>
+</section>
+
+<div class="warning">
+<strong>⚠️ 안전 및 진단 안내</strong>
+<p>
+현재 진단 기능은 규칙 기반 참고 분석입니다.
+관련 정비사례는 제조사·모델·증상에 따른
+검색 결과이며, 고장 원인을 자동 확정하지 않습니다.
+</p>
+<p>
+가스누설, 비정상 압력 상승, 보호장치 이상 등
+위험 징후가 있다면 현장 비상대응 절차와
+승인된 안전조치를 우선 적용하세요.
+</p>
+<p>
+입력한 정보는 현재 화면에서 처리되며
+진단 입력값을 별도 서버로 전송하지 않습니다.
+</p>
+</div>
+
+</main>
+
+<footer>
+<strong>PRDA S&amp;T</strong>
+<p>정압설비 통합 플랫폼</p>
+</footer>
+
+<script src="cases-data.js"></script>
+
 <script>
-(function () {
-  const params = new URLSearchParams(window.location.search);
-  const maker = params.get("maker");
-  const model = params.get("model");
+const form=document.getElementById("diagnosisForm");
+const result=document.getElementById("result");
+const resultBody=document.getElementById("resultBody");
+const relatedCases=document.getElementById("relatedCases");
 
-  const makerInput = document.getElementById("maker");
-  const modelInput = document.getElementById("model");
+const knowledge={
+hunting:{
+ title:"압력 헌팅·진동",
+ causes:[
+  "부하 및 유량 변화와 제어계통 응답의 상호작용",
+  "PILOT 제어압력 변동 가능성",
+  "정압기 내부 구동부의 마찰 또는 움직임 이상 가능성",
+  "압력 검출계통의 응답 이상 가능성"
+ ],
+ checks:[
+  "헌팅 발생 시 유량과 전·후단압력 변화 추이 확인",
+  "PILOT 공급압력과 제어압력 변동 여부 확인",
+  "압력 검출라인의 막힘·누설·연결 상태 확인",
+  "제작사 매뉴얼에 따른 구동부 및 내부 상태 점검"
+ ]
+},
+high:{
+ title:"후단압력 상승",
+ causes:[
+  "정압기 시트부 기밀 이상 가능성",
+  "PILOT 또는 제어압력 계통 이상 가능성",
+  "압력 검출계통 이상 가능성"
+ ],
+ checks:[
+  "승인 절차에 따라 후단압력 상승 추세 확인",
+  "계기 지시값과 독립 측정값 비교",
+  "정압기 차단 성능 및 제어계통 상태 점검",
+  "보호장치 상태 및 제작사 기준 확인"
+ ]
+},
+low:{
+ title:"후단압력 저하",
+ causes:[
+  "공급압력 또는 공급능력 부족 가능성",
+  "필터 등 유로 저항 증가 가능성",
+  "PILOT 제어계통 또는 정압기 응답 이상 가능성"
+ ],
+ checks:[
+  "전단압력·후단압력·유량의 동시 변화 확인",
+  "필터 차압 및 상류 공급조건 확인",
+  "PILOT 제어압력과 정압기 작동 상태 확인",
+  "계기 및 압력 검출라인 상태 확인"
+ ]
+},
+leak:{
+ title:"가스누설 의심",
+ causes:[
+  "접속부 또는 씰링부 기밀 이상 가능성",
+  "배관·튜빙·피팅 연결부 이상 가능성",
+  "설비 부품 손상 가능성"
+ ],
+ checks:[
+  "현장 비상대응 및 가스누설 관리절차 우선 적용",
+  "허가된 방법과 적합한 검지장비로 누설 확인",
+  "작업허가 및 격리조치 필요성 검토",
+  "승인된 절차에 따라 누설 부위와 원인 확인"
+ ]
+},
+operation:{
+ title:"정압기 작동 불량",
+ causes:[
+  "구동부 움직임 저하 가능성",
+  "PILOT 또는 제어계통 이상 가능성",
+  "압력 검출·공급라인 이상 가능성"
+ ],
+ checks:[
+  "설비 운전조건과 작동 상태 비교",
+  "제어압력과 검출압력 상태 확인",
+  "제작사 매뉴얼에 따른 구동부 점검",
+  "기계적 간섭 또는 내부 부품 이상 확인"
+ ]
+},
+ssv:{
+ title:"SSV 작동 이상",
+ causes:[
+  "감지압력 계통 이상 가능성",
+  "기계적 래치 또는 구동부 이상 가능성",
+  "설정조건 또는 계기 이상 가능성"
+ ],
+ checks:[
+  "보호장치 작동 상태와 경보 이력 확인",
+  "감지라인 및 계기 상태 확인",
+  "제작사 기준에 따른 시험·정비 절차 검토",
+  "임의 재설정 또는 보호기능 우회 금지"
+ ]
+},
+noise:{
+ title:"이상 소음",
+ causes:[
+  "유량 및 차압 조건에 따른 유동 소음 가능성",
+  "내부 부품 진동 또는 마찰 가능성",
+  "배관·지지부 공진 가능성"
+ ],
+ checks:[
+  "소음 발생 시점과 유량·압력 변화 비교",
+  "소음 발생 위치 및 진동 양상 확인",
+  "제작사 허용 운전범위 검토",
+  "설비 내부 상태와 배관 지지조건 확인"
+ ]
+},
+other:{
+ title:"기타 증상",
+ causes:[
+  "입력 정보만으로 원인 범위를 특정하기 어려움",
+  "운전조건 및 추가 현장 관찰정보 검토 필요"
+ ],
+ checks:[
+  "증상 발생 시점과 운전조건 기록",
+  "압력·유량·온도 및 경보 이력 확인",
+  "제작사 매뉴얼과 과거 정비사례 검토",
+  "현장 전문가의 추가 점검 및 원인 검증"
+ ]
+}
+};
 
-  if (maker && makerInput) {
-    const exists = Array.from(makerInput.options)
-      .some(option => option.value === maker);
+function addText(parent,tag,value){
+ const element=document.createElement(tag);
+ element.textContent=value;
+ parent.appendChild(element);
+ return element;
+}
 
-    if (exists) makerInput.value = maker;
+function addList(parent,title,items){
+ addText(parent,"h4",title);
+ const ul=document.createElement("ul");
+ items.forEach(function(item){
+  addText(ul,"li",item);
+ });
+ parent.appendChild(ul);
+}
+
+function getNumber(id){
+ const value=document.getElementById(id).value;
+ return value===""?null:Number(value);
+}
+
+function normalize(value){
+ return String(value||"")
+  .toUpperCase()
+  .replace(/[\s\-_/]/g,"");
+}
+
+function symptomMatches(item,selected){
+ const value=String(item.symptom||"").toLowerCase();
+
+ const patterns={
+  hunting:/헌팅|hunting|진동|맥동/,
+  high:/후단압.*(상승|증가)|압력 상승|과압/,
+  low:/후단압.*(저하|하락)|압력 저하/,
+  leak:/누설|leak/,
+  operation:/작동 불량|불작동|고착/,
+  ssv:/ssv/,
+  noise:/소음|noise/
+ };
+
+ if(selected==="other")return false;
+
+ return patterns[selected]
+  ?patterns[selected].test(value)
+  :false;
+}
+
+function findRelatedCases(maker,model,symptom){
+ if(typeof getPublicPRDACases!=="function"){
+  return null;
+ }
+
+ if(!maker||!model)return [];
+
+ return getPublicPRDACases().filter(function(item){
+  return normalize(item.manufacturer)===normalize(maker)
+   && normalize(item.model)===normalize(model)
+   && symptomMatches(item,symptom);
+ });
+}
+
+function showRelatedCases(maker,model,symptom){
+ relatedCases.replaceChildren();
+
+ const matched=findRelatedCases(maker,model,symptom);
+
+ if(matched===null){
+  addText(
+   relatedCases,"p",
+   "정비사례 DB 연결에 실패했습니다."
+  );
+  return;
+ }
+
+ if(!maker||!model){
+  addText(
+   relatedCases,"p",
+   "관련 사례 검색을 위해 제조사와 모델을 모두 입력하세요."
+  );
+  return;
+ }
+
+ if(matched.length===0){
+  addText(
+   relatedCases,"p",
+   "현재 제조사·모델·증상이 모두 일치하는 공개 정비사례가 없습니다."
+  );
+  return;
+ }
+
+ addText(
+  relatedCases,"p",
+  "일치하는 공개 정비사례 "+matched.length+"건"
+ );
+
+ matched.forEach(function(item){
+  const card=document.createElement("div");
+  card.className="case-card";
+
+  addText(
+   card,"h5",
+   item.id+" | "+(item.title||"정비사례")
+  );
+
+  addText(card,"p","모델: "+(item.model||"미등록"));
+  addText(card,"p","규격: "+(item.size||"미등록"));
+  addText(card,"p","설비 구성: "+(item.equipmentType||"미등록"));
+  addText(card,"p","고장 위치: "+(item.faultPosition||"미등록"));
+  addText(card,"p","증상: "+(item.symptom||"미등록"));
+  addText(card,"p","조치: "+(item.action||"미등록"));
+  addText(card,"p","결과: "+(item.result||"미등록"));
+
+  addText(
+   card,"p",
+   "※ 관련 사례이며 현재 설비의 원인 확정은 아닙니다."
+  );
+
+  const link=document.createElement("a");
+  link.href="cases.html";
+  link.textContent="정비사례 DB에서 확인 →";
+  card.appendChild(link);
+
+  relatedCases.appendChild(card);
+ });
+}
+
+form.addEventListener("submit",function(event){
+ event.preventDefault();
+
+ const symptom=document.getElementById("symptom").value;
+ if(!symptom)return;
+
+ const data=knowledge[symptom];
+ const maker=document.getElementById("maker").value;
+ const model=document.getElementById("model").value.trim();
+ const pilot=document.getElementById("pilot").value.trim();
+ const upstream=getNumber("upstream");
+ const downstream=getNumber("downstream");
+ const setpoint=getNumber("setpoint");
+ const flow=getNumber("flow");
+
+ resultBody.replaceChildren();
+
+ addText(resultBody,"h4","선택된 증상");
+ addText(resultBody,"p",data.title);
+
+ const equipment=[
+  maker||"제조사 미입력",
+  model||"모델 미입력",
+  pilot?"PILOT: "+pilot:"PILOT 미입력"
+ ].join(" / ");
+
+ addText(resultBody,"p","설비 정보: "+equipment);
+
+ const values=[];
+ if(upstream!==null)values.push("전단 "+upstream+" MPa");
+ if(downstream!==null)values.push("후단 "+downstream+" MPa");
+ if(setpoint!==null)values.push("설정 "+setpoint+" MPa");
+ if(flow!==null)values.push("유량 "+flow+" ton/h");
+
+ if(values.length){
+  addText(resultBody,"p","입력값: "+values.join(" / "));
+ }
+
+ if(upstream!==null&&downstream!==null&&
+    downstream>upstream){
+  const warning=addText(
+   resultBody,"p",
+   "입력 확인: 후단압력이 전단압력보다 높습니다. 단위와 측정값을 재확인하세요."
+  );
+  warning.className="info";
+ }
+
+ if(downstream!==null&&setpoint!==null&&setpoint>0){
+  const difference=downstream-setpoint;
+  const percent=(difference/setpoint*100).toFixed(1);
+
+  addText(
+   resultBody,"p",
+   "후단 측정압력과 설정압력 차이: "+
+   difference.toFixed(3)+" MPa ("+percent+"%)"
+  );
+
+  addText(
+   resultBody,"p",
+   "이 차이는 단순 계산값이며 허용오차나 고장 여부를 판정한 결과가 아닙니다."
+  );
+ }
+
+ addList(
+  resultBody,
+  "가능성 검토 항목 (원인 확정 아님)",
+  data.causes
+ );
+
+ addList(
+  resultBody,
+  "우선 확인할 점검 항목",
+  data.checks
+ );
+
+ const details=document.getElementById("details").value.trim();
+
+ if(details){
+  addText(resultBody,"h4","입력한 추가 관찰내용");
+  addText(resultBody,"p",details);
+ }
+
+ const info=addText(
+  resultBody,"p",
+  "분석 단계: 1차 규칙 기반 점검 안내. 실제 정비사례는 제조사·모델·증상 기준으로 별도 검색합니다."
+ );
+ info.className="info";
+
+ showRelatedCases(maker,model,symptom);
+
+ result.style.display="block";
+ result.scrollIntoView({behavior:"smooth",block:"start"});
+});
+
+form.addEventListener("reset",function(){
+ result.style.display="none";
+ resultBody.replaceChildren();
+ relatedCases.replaceChildren();
+});
+
+/* 정압기 DB에서 전달된 제조사·모델 자동 입력 */
+(function(){
+ const params=new URLSearchParams(window.location.search);
+ const maker=params.get("maker");
+ const model=params.get("model");
+
+ const makerInput=document.getElementById("maker");
+ const modelInput=document.getElementById("model");
+
+ if(maker&&makerInput){
+  const exists=Array.from(makerInput.options)
+   .some(function(option){
+    return option.value===maker;
+   });
+
+  if(exists){
+   makerInput.value=maker;
   }
+ }
 
-  if (model && modelInput) {
-    modelInput.value = model;
-  }
+ if(model&&modelInput){
+  modelInput.value=model;
+ }
 })();
 </script>
 
-<script>
-(function () {
-  const params = new URLSearchParams(window.location.search);
-  const maker = params.get("maker");
-  const model = params.get("model");
-
-  const makerInput = document.getElementById("maker");
-  const modelInput = document.getElementById("model");
-
-  if (maker && makerInput) {
-    const exists = Array.from(makerInput.options)
-      .some(option => option.value === maker);
-
-    if (exists) makerInput.value = maker;
-  }
-
-  if (model && modelInput) {
-    modelInput.value = model;
-  }
-})();
-</script>
+</body>
+</html>

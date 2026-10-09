@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PRDA S&T | 정압설비 통합 플랫폼</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,"Noto Sans KR",sans-serif;
+  background:#f3f6f9;
+  color:#1b2633;
+}
+
+header{
+  background:linear-gradient(135deg,#052c50,#075d91);
+  color:white;
+  text-align:center;
+  padding:30px 15px 25px;
+}
+
+.logo{
+  font-size:38px;
+  font-weight:800;
+}
+
+.subtitle{
+  font-size:21px;
+  font-weight:700;
+  margin-top:6px;
+}
+
+.slogan{
+  margin-top:12px;
+  font-size:16px;
+  color:#d7ecff;
+}
+
+nav{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  background:#073b63;
+}
+
+nav a{
+  color:white;
+  text-decoration:none;
+  padding:15px 18px;
+  font-weight:bold;
+}
+
+nav a:hover{
+  background:#0b6fa4;
+}
+
+.hero{
+  background:linear-gradient(135deg,#e8f3fa,#ffffff);
+  text-align:center;
+  padding:45px 20px;
+}
+
+.hero h1{
+  font-size:30px;
+  color:#073b63;
+}
+
+.hero p{
+  margin-top:10px;
+  color:#52616f;
+}
+
+.search{
+  max-width:750px;
+  margin:25px auto 0;
+  display:flex;
+}
+
+.search input{
+  flex:1;
+  padding:17px;
+  border:2px solid #1688c9;
+  border-radius:9px 0 0 9px;
+  font-size:16px;
+}
+
+.search button{
+  border:0;
+  padding:0 24px;
+  background:#0879bd;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+  border-radius:0 9px 9px 0;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:35px 18px;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.card{
+  background:white;
+  border-radius:13px;
+  padding:27px 18px;
+  text-align:center;
+  box-shadow:0 4px 14px rgba(0,0,0,.08);
+}
+
+.icon{
+  font-size:38px;
+}
+
+.card h2{
+  margin-top:12px;
+  font-size:20px;
+  color:#075b91;
+}
+
+.card p{
+  margin-top:9px;
+  font-size:14px;
+  line-height:1.6;
+  color:#61717f;
+}
+
+.section{
+  background:white;
+  margin-top:30px;
+  padding:25px;
+  border-radius:13px;
+}
+
+.section h2{
+  color:#073b63;
+  margin-bottom:18px;
+}
+
+.manufacturers{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.manufacturers span{
+  background:#eef4f8;
+  border:1px solid #cad9e3;
+  padding:11px 15px;
+  border-radius:7px;
+  font-weight:bold;
+}
+
+footer{
+  margin-top:30px;
+  background:#052c50;
+  color:#d6e6f2;
+  text-align:center;
+  padding:25px 15px;
+  font-size:13px;
+}
+
+@media(max-width:700px){
+  .logo{font-size:30px;}
+  .subtitle{font-size:18px;}
+  .hero h1{font-size:24px;}
+  .cards{grid-template-columns:repeat(2,1fr);}
+  nav a{padding:12px 8px;font-size:13px;}
+}
+
+@media(max-width:450px){
+  .cards{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">PRDA S&T</div>
+  <div class="subtitle">정압설비 통합 플랫폼</div>
+  <div class="slogan">
+    “현장에서 답을 찾고, 기술을 전하고 기록으로 남긴다.”
+  </div>
+</header>
+
+<nav>
+  <a href="#">HOME</a>
+  <a href="#">AI 진단분석</a>
+  <a href="#">정압설비 DB</a>
+  <a href="#">Trouble DB</a>
+  <a href="#">매뉴얼</a>
+  <a href="#">기술자료</a>
+  <a href="#">통합검색</a>
+</nav>
+
+<section class="hero">
+
+  <h1>정압설비 기술정보를 한 곳에서</h1>
+
+  <p>
+    정압기 · Pilot · SSV · 매뉴얼 · Trouble CASE · AI 진단분석
+  </p>
+
+  <div class="search">
+    <input
+      type="text"
+      placeholder="모델 / Pilot / 증상 / 부품 / 매뉴얼 검색"
+    >
+    <button>검색</button>
+  </div>
+
+</section>
+
+<main class="container">
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="icon">🧠</div>
+      <h2>AI 진단분석</h2>
+      <p>운전조건과 증상을 분석하여 원인과 점검방향을 제시합니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">⚙️</div>
+      <h2>정압설비 DB</h2>
+      <p>제조사 → 정압기 본체 → Pilot → SSV 및 부속장치</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔧</div>
+      <h2>Trouble DB</h2>
+      <p>실제 정비사례의 증상 · 원인 · 조치 · 결과를 검색합니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📘</div>
+      <h2>매뉴얼</h2>
+      <p>제조사별 공식 매뉴얼과 기술자료를 확인합니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">📚</div>
+      <h2>기술자료</h2>
+      <p>구조 · 작동원리 · 정비기술 · 기술정보를 제공합니다.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🔍</div>
+      <h2>통합검색</h2>
+      <p>모델 · Pilot · 증상 · 부품 · CASE를 한번에 검색합니다.</p>
+    </div>
+
+  </div>
+
+  <section class="section">
+
+    <h2>주요 제조사</h2>
+
+    <div class="manufacturers">
+      <span>FISHER</span>
+      <span>TARTARINI</span>
+      <span>PIETRO FIORENTINI</span>
+      <span>RMG</span>
+      <span>FLEXFLO / GROVE</span>
+      <span>AFV</span>
+      <span>VALVITALIA</span>
+      <span>기타</span>
+    </div>
+
+  </section>
+
+  <section class="section">
+    <h2>최근 등록자료</h2>
+    <p>정압설비 모델 · 매뉴얼 · Trouble CASE가 이곳에 표시됩니다.</p>
+  </section>
+
+</main>
+
+<footer>
+  <strong>PRDA S&T</strong><br><br>
+  Pressure Regulator Diagnosis & Support<br>
+  정압설비 통합 플랫폼
+</footer>
+
+</body>
+</html>

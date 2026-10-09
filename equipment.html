@@ -1,316 +1,271 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>정압설비 DB | PRDA S&T</title>
-
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
+*{box-sizing:border-box}
 body{
-  font-family:Arial,"Noto Sans KR",sans-serif;
-  background:#f3f6f9;
-  color:#1e2b35;
+ margin:0;
+ font-family:Arial,"Noto Sans KR",sans-serif;
+ background:#f3f6f9;
+ color:#1e2b35;
 }
-
-/* 상단 */
 header{
-  background:linear-gradient(135deg,#032c4c,#0874aa);
-  color:white;
-  text-align:center;
-  padding:27px 15px;
+ background:linear-gradient(135deg,#032c4c,#0874aa);
+ color:white;
+ text-align:center;
+ padding:27px 15px;
 }
-
-.logo{
-  font-size:32px;
-  font-weight:900;
-}
-
-.platform{
-  margin-top:5px;
-  font-size:18px;
-  font-weight:bold;
-}
-
-.slogan{
-  margin-top:10px;
-  color:#d9efff;
-  font-size:14px;
-}
-
-/* 메뉴 */
+.logo{font-size:32px;font-weight:900}
+.platform{margin-top:5px;font-size:18px;font-weight:bold}
+.slogan{margin-top:10px;color:#d9efff;font-size:14px}
 nav{
-  background:#063b60;
-  text-align:center;
-  padding:13px 8px;
+ background:#063b60;
+ text-align:center;
+ padding:13px 8px;
 }
-
 nav a{
-  color:white;
-  text-decoration:none;
-  font-weight:bold;
-  margin:0 10px;
+ color:white;
+ text-decoration:none;
+ font-weight:bold;
+ margin:0 10px;
 }
-
-/* 본문 */
 .container{
-  max-width:1000px;
-  margin:auto;
-  padding:30px 16px 50px;
+ max-width:1000px;
+ margin:auto;
+ padding:30px 16px 50px;
 }
-
-.title{
-  text-align:center;
-  margin-bottom:28px;
-}
-
-.title h1{
-  color:#064a76;
-  font-size:28px;
-}
-
-.title p{
-  margin-top:10px;
-  color:#667682;
-  line-height:1.6;
-}
-
-/* 검색 */
+.title{text-align:center;margin-bottom:28px}
+.title h1{color:#064a76;font-size:28px}
+.title p{color:#667682;line-height:1.6}
 .search{
-  max-width:700px;
-  margin:0 auto 30px;
-  display:flex;
+ max-width:700px;
+ margin:0 auto 15px;
+ display:flex;
 }
-
 .search input{
-  min-width:0;
-  flex:1;
-  padding:15px;
-  border:2px solid #1688c9;
-  border-right:0;
-  border-radius:9px 0 0 9px;
-  font-size:15px;
+ min-width:0;
+ flex:1;
+ padding:15px;
+ border:2px solid #1688c9;
+ border-right:0;
+ border-radius:9px 0 0 9px;
+ font-size:15px;
 }
-
 .search button{
-  width:75px;
-  border:0;
-  background:#087fbd;
-  color:white;
-  font-weight:bold;
-  border-radius:0 9px 9px 0;
+ width:75px;
+ border:0;
+ background:#087fbd;
+ color:white;
+ font-weight:bold;
+ border-radius:0 9px 9px 0;
+ cursor:pointer;
 }
-
-/* 제조사 */
+.search-info{
+ text-align:center;
+ font-size:14px;
+ color:#526779;
+ min-height:22px;
+}
 .section-title{
-  margin:30px 0 15px;
-  color:#064a76;
-  font-size:20px;
+ margin:30px 0 15px;
+ color:#064a76;
+ font-size:20px;
 }
-
 .manufacturers{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:12px;
 }
-
 .maker{
-  background:white;
-  border:1px solid #dce4e9;
-  border-radius:10px;
-  padding:18px 8px;
-  text-align:center;
-  font-weight:bold;
-  box-shadow:0 3px 10px rgba(0,0,0,.05);
+ background:white;
+ border:1px solid #dce4e9;
+ border-radius:10px;
+ padding:18px 8px;
+ text-align:center;
+ font-weight:bold;
+ box-shadow:0 3px 10px rgba(0,0,0,.05);
+ cursor:pointer;
+ color:#064a76;
+ font-size:14px;
 }
-
-/* 설비 분류 */
+.maker:hover,.maker:focus{
+ background:#e7f3fa;
+ border-color:#1688c9;
+}
 .categories{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:14px;
 }
-
 .category{
-  background:white;
-  border-radius:13px;
-  padding:25px 12px;
-  text-align:center;
-  box-shadow:0 4px 14px rgba(0,0,0,.07);
+ background:white;
+ border-radius:13px;
+ padding:25px 12px;
+ text-align:center;
+ box-shadow:0 4px 14px rgba(0,0,0,.07);
 }
-
-.icon{
-  font-size:35px;
-}
-
+.icon{font-size:35px}
 .category h2{
-  margin-top:10px;
-  color:#075b8c;
-  font-size:18px;
+ margin-top:10px;
+ color:#075b8c;
+ font-size:18px;
 }
-
 .category p{
-  margin-top:8px;
-  font-size:13px;
-  color:#667682;
-  line-height:1.5;
+ font-size:13px;
+ color:#667682;
+ line-height:1.5;
 }
-
-/* 안내 */
 .flow{
-  margin-top:30px;
-  background:#e7f3fa;
-  border-left:5px solid #1184bf;
-  border-radius:8px;
-  padding:20px;
+ margin-top:30px;
+ background:#e7f3fa;
+ border-left:5px solid #1184bf;
+ border-radius:8px;
+ padding:20px;
 }
-
-.flow strong{
-  color:#064a76;
-}
-
-.flow p{
-  margin-top:9px;
-  line-height:1.8;
-}
-
-/* 하단 */
+.flow strong{color:#064a76}
+.flow p{line-height:1.8}
 footer{
-  background:#032c4c;
-  color:#dcebf5;
-  text-align:center;
-  padding:25px;
-  font-size:13px;
+ background:#032c4c;
+ color:#dcebf5;
+ text-align:center;
+ padding:25px;
+ font-size:13px;
 }
-
-/* 모바일 */
+[hidden]{display:none!important}
 @media(max-width:700px){
-
-  .manufacturers{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .categories{
-    grid-template-columns:1fr;
-  }
-
-  .title h1{
-    font-size:25px;
-  }
-
-  nav a{
-    margin:0 5px;
-    font-size:13px;
-  }
+ .manufacturers{grid-template-columns:repeat(2,1fr)}
+ .categories{grid-template-columns:1fr}
+ .title h1{font-size:25px}
+ nav a{margin:0 5px;font-size:13px}
 }
 </style>
 </head>
 
 <body>
-
 <header>
-  <div class="logo">PRDA S&T</div>
-  <div class="platform">정압설비 통합 플랫폼</div>
-  <div class="slogan">
-    “현장에서 답을 찾고, 기술을 전하고 기록으로 남긴다.”
-  </div>
+ <div class="logo">PRDA S&amp;T</div>
+ <div class="platform">정압설비 통합 플랫폼</div>
+ <div class="slogan">
+ 현장에서 답을 찾고, 기술을 전하고 기록으로 남긴다.
+ </div>
 </header>
 
 <nav>
-  <a href="index.html">HOME</a>
-  <a href="equipment.html">정압설비 DB</a>
+ <a href="index.html">HOME</a>
+ <a href="equipment.html">정압설비 DB</a>
 </nav>
 
 <main class="container">
 
-  <section class="title">
-    <h1>⚙️ 정압설비 DB</h1>
-    <p>
-      제조사별 정압기 본체 · Pilot · SSV 및 부속장치의<br>
-      기술정보를 통합 관리합니다.
-    </p>
-  </section>
+ <section class="title">
+  <h1>⚙️ 정압설비 DB</h1>
+  <p>제조사별 정압기 본체 · PILOT · SSV 및 부속장치의 기술정보를 통합 관리합니다.</p>
+ </section>
 
-  <div class="search">
-    <input
-      type="text"
-      placeholder="제조사 또는 모델명을 검색하세요"
-    >
-    <button>검색</button>
+ <form class="search" id="searchForm">
+  <input id="searchInput"
+   type="search"
+   placeholder="제조사 또는 모델명을 검색하세요"
+   aria-label="정압설비 검색">
+  <button type="submit">검색</button>
+ </form>
+ <div id="searchInfo" class="search-info" aria-live="polite">
+  제조사를 선택하거나 검색하세요.
+ </div>
+
+ <h2 class="section-title">제조사 선택</h2>
+
+ <section class="manufacturers" id="manufacturers">
+  <button class="maker" type="button">FISHER</button>
+  <button class="maker" type="button">TARTARINI</button>
+  <button class="maker" type="button">PIETRO FIORENTINI</button>
+  <button class="maker" type="button">RMG</button>
+  <button class="maker" type="button">FLEXFLO / GROVE</button>
+  <button class="maker" type="button">AFV</button>
+  <button class="maker" type="button">VALVITALIA</button>
+  <button class="maker" type="button">기타</button>
+ </section>
+
+ <h2 class="section-title">설비 분류</h2>
+
+ <section class="categories">
+  <div class="category">
+   <div class="icon">⚙️</div>
+   <h2>정압기 본체</h2>
+   <p>제조사별 Main Regulator 모델과 사양 및 적용정보</p>
   </div>
+  <div class="category">
+   <div class="icon">🎛️</div>
+   <h2>PILOT</h2>
+   <p>Pilot 모델 · 설정범위 · 적용 정압기 정보</p>
+  </div>
+  <div class="category">
+   <div class="icon">🛑</div>
+   <h2>SSV / 부속장치</h2>
+   <p>SSV · 안전장치 · 주요 부속품의 기술정보</p>
+  </div>
+ </section>
 
-  <h2 class="section-title">제조사 선택</h2>
-
-  <section class="manufacturers">
-
-    <div class="maker">FISHER</div>
-    <div class="maker">TARTARINI</div>
-    <div class="maker">PIETRO FIORENTINI</div>
-    <div class="maker">RMG</div>
-
-    <div class="maker">FLEXFLO / GROVE</div>
-    <div class="maker">AFV</div>
-    <div class="maker">VALVITALIA</div>
-    <div class="maker">기타</div>
-
-  </section>
-
-  <h2 class="section-title">설비 분류</h2>
-
-  <section class="categories">
-
-    <div class="category">
-      <div class="icon">⚙️</div>
-      <h2>정압기 본체</h2>
-      <p>
-        제조사별 Main Regulator 모델과
-        사양 및 적용정보
-      </p>
-    </div>
-
-    <div class="category">
-      <div class="icon">🎛️</div>
-      <h2>PILOT</h2>
-      <p>
-        Pilot 모델 · 설정범위 ·
-        적용 정압기 정보
-      </p>
-    </div>
-
-    <div class="category">
-      <div class="icon">🛑</div>
-      <h2>SSV / 부속장치</h2>
-      <p>
-        SSV · 안전장치 · 주요 부속품의
-        기술정보
-      </p>
-    </div>
-
-  </section>
-
-  <section class="flow">
-
-    <strong>PRDA S&T 정압설비 DB 기본 구조</strong>
-
-    <p>
-      제조사 → 정압기 본체 → PILOT → SSV / 부속장치
-      → 매뉴얼 → Trouble CASE → AI 진단분석
-    </p>
-
-  </section>
+ <section class="flow">
+  <strong>PRDA S&amp;T 정압설비 DB 기본 구조</strong>
+  <p>제조사 → 정압기 본체 → PILOT → SSV / 부속장치 → 매뉴얼 → Trouble CASE → AI 진단분석</p>
+ </section>
 
 </main>
 
 <footer>
-  <strong>PRDA S&T</strong><br><br>
-  정압설비 통합 플랫폼
+ <strong>PRDA S&amp;T</strong>
+ <p>정압설비 통합 플랫폼</p>
 </footer>
 
+<script>
+const form=document.getElementById("searchForm");
+const input=document.getElementById("searchInput");
+const info=document.getElementById("searchInfo");
+const makers=[...document.querySelectorAll(".maker")];
+
+function normalize(value){
+ return value.toLowerCase().replace(/[\s\/-]/g,"");
+}
+
+function searchEquipment(){
+ const query=normalize(input.value.trim());
+ let count=0;
+
+ makers.forEach(function(maker){
+  const matched=!query||normalize(maker.textContent).includes(query);
+  maker.hidden=!matched;
+  if(matched)count++;
+ });
+
+ if(!query){
+  info.textContent="제조사를 선택하거나 검색하세요.";
+ }else if(count){
+  info.textContent="제조사 검색 결과: "+count+"건";
+ }else{
+  info.textContent="일치하는 제조사가 없습니다. 모델별 상세 DB는 추후 등록됩니다.";
+ }
+}
+
+form.addEventListener("submit",function(event){
+ event.preventDefault();
+ searchEquipment();
+});
+
+input.addEventListener("input",searchEquipment);
+
+makers.forEach(function(maker){
+ maker.addEventListener("click",function(){
+  input.value=maker.textContent.trim();
+  searchEquipment();
+  info.textContent=maker.textContent.trim()+
+   " 선택 완료 · 상세 모델 DB는 추후 연결 예정입니다.";
+ });
+});
+</script>
 </body>
 </html>

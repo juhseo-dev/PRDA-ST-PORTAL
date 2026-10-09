@@ -67,16 +67,16 @@ header h1{font-size:30px}
 <a href="manuals.html">매뉴얼·기술자료</a>
 <a href="safety.html">정비안전·특수공기구</a>
 <a href="qna.html">Q&amp;A 기술문의</a>
+<a href="search.html">통합검색</a>
 </nav>
 
 <div class="hero">
 <h2>정압설비 통합 플랫폼</h2>
 <div class="search-title">🔍 통합검색</div>
 <form class="search" id="searchForm">
-<input id="searchInput" type="search" placeholder="검색어를 입력하세요" aria-label="통합검색">
+<input id="searchInput" type="search" placeholder="제조사·모델·증상 검색" aria-label="통합검색">
 <button type="submit">검색</button>
 </form>
-<div id="searchResults" class="search-results" aria-live="polite"></div>
 </div>
 
 <div class="cards">
@@ -166,95 +166,20 @@ PRDA S&amp;T
 <script>
 const searchForm=document.getElementById("searchForm");
 const searchInput=document.getElementById("searchInput");
-const searchResults=document.getElementById("searchResults");
-
-function escapeHTML(text){
-return text.replace(/[&<>"']/g,function(c){
-return {
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#39;"
-}[c];
-});
-}
-
-function highlight(text,query){
-const source=text.toLowerCase();
-const needle=query.toLowerCase();
-let result="",pos=0,index;
-
-while((index=source.indexOf(needle,pos))!==-1){
-result+=escapeHTML(text.slice(pos,index));
-result+="<mark>"+escapeHTML(text.slice(index,index+query.length))+"</mark>";
-pos=index+query.length;
-}
-
-return result+escapeHTML(text.slice(pos));
-}
-
-function searchPRDA(){
-const q=searchInput.value.trim();
-searchResults.style.display="block";
-
-if(!q){
-searchResults.textContent="검색어를 입력하세요.";
-return;
-}
-
-const sections=document.querySelectorAll("section");
-const matches=[];
-
-sections.forEach(function(section){
-const title=section.querySelector("h2");
-if(!title)return;
-
-const heading=title.textContent.trim();
-const description=(
-section.querySelector("p")?.textContent||""
-).replace(/\s+/g," ").trim();
-
-if((heading+" "+description).toLowerCase()
-.includes(q.toLowerCase())){
-matches.push({
-id:section.id,
-title:heading,
-description:description
-});
-}
-});
-
-let html="<h3>🔍 검색 결과 ("+
-matches.length+"건)</h3>";
-
-if(matches.length===0){
-html+="<p>등록된 홈페이지 내용에서 일치하는 항목이 없습니다.</p>";
-}else{
-matches.forEach(function(item){
-
-const target={
-diagnosis:"diagnosis.html",
-regulator:"regulator.html",
-equipment:"equipment.html",
-cases:"cases.html",
-manuals:"manuals.html",
-safety:"safety.html",
-qna:"qna.html"
-}[item.id]||"#"+encodeURIComponent(item.id);
-
-html+='<a class="result-item" href="'+target+'">';
-html+="<strong>"+highlight(item.title,q)+"</strong>";
-html+="<p>"+highlight(item.description,q)+"</p></a>";
-});
-}
-
-searchResults.innerHTML=html;
-}
 
 searchForm.addEventListener("submit",function(event){
-event.preventDefault();
-searchPRDA();
+ event.preventDefault();
+
+ const keyword=searchInput.value.trim();
+
+ if(!keyword){
+  alert("검색어를 입력하세요.");
+  searchInput.focus();
+  return;
+ }
+
+ window.location.href=
+  "search.html?q="+encodeURIComponent(keyword);
 });
 </script>
 

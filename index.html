@@ -81,6 +81,25 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 .prda-backup-preview{margin-top:14px;padding:16px;border:1px solid #c9d9e9;background:#f2f8fd;border-radius:12px}
 .prda-backup-preview p{margin:0 0 12px;line-height:1.65}
 @media print{.prda-backup{display:none!important}}
+</style><style>
+.prda-photo-panel{margin:20px 0;padding:18px;border:1px solid #d6e4f0;border-radius:14px;background:#f7fbff}
+.prda-photo-panel h3{margin:0 0 8px;color:#123d69}
+.prda-photo-toolbar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:14px 0}
+.prda-photo-pick{cursor:pointer}
+.prda-photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px}
+.prda-photo-item{background:#fff;border:1px solid #d6e4ef;border-radius:12px;padding:10px;min-width:0;break-inside:avoid}
+.prda-photo-item img{width:100%;height:145px;object-fit:contain;border-radius:8px;background:#eef3f7}
+.prda-photo-item label{display:block;font-weight:600;font-size:13px;margin:7px 0 5px}
+.prda-photo-item select{width:100%;padding:9px;border:1px solid #d0dce7;border-radius:8px;background:#fff;font:inherit}
+.prda-photo-item button{margin-top:8px}
+@media print{
+ body.view-report .prda-photo-panel{display:block!important;border:0!important;padding:0!important;background:#fff!important;break-inside:avoid-page}
+ body.view-report .prda-photo-panel .helper,body.view-report .prda-photo-toolbar,body.view-report .prda-photo-item button{display:none!important}
+ body.view-report .prda-photo-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ body.view-report .prda-photo-item{border:1px solid #ccc!important;break-inside:avoid-page!important}
+ body.view-report .prda-photo-item img{height:190px!important;object-fit:contain!important}
+ body.view-report .prda-photo-item select{border:0!important;appearance:none!important}
+}
 </style></head><body>
 <a class="skip" href="#content">본문으로 이동</a>
 <header class="topbar"><div class="top-inner"><a aria-label="PRDA S&amp;T 홈" class="brand" href="index.html"><b>PRDA <span>S&amp;T</span></b><small>정압설비 통합 플랫폼</small></a><nav aria-label="주요 메뉴" class="desktop-nav"><a class="selected" href="index.html">홈</a><a href="index.html#diagnosis">AI 진단분석</a><a href="index.html#report">정비보고서</a><a href="index.html#history">정비이력</a><a href="regulator.html">정압기</a><a href="equipment.html">정압설비</a><a href="cases.html">정비사례</a><a href="manuals.html">매뉴얼·기술자료</a><a href="safety.html">정비안전</a><a href="qna.html">Q&amp;A</a></nav><button aria-label="전체 메뉴 열기" class="menu-top" id="menuOpen">☰</button></div></header>
@@ -187,7 +206,17 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 <option value="확정">확정 · 검증 근거 확보</option>
 </select></div><div class="field"><label for="verification">원인 검증 근거</label>
 <input id="verification" name="verification" placeholder="확정 시 확인한 객관적 근거"/></div><div class="field wide"><label for="cause">원인 및 확인 상태</label><textarea id="cause" name="cause" placeholder="확정 원인 / 추정 원인을 구분하여 기록하세요"></textarea></div><div class="field wide"><label for="action">정비 조치</label><textarea id="action" name="action" placeholder="제조사 매뉴얼에 따른 실제 수행 내용을 기록하세요"></textarea></div><div class="field wide"><label for="result">정비 결과 및 재시험</label><textarea id="result" name="result" placeholder="정비 후 결과, 재시험 확인 사항"></textarea></div><div class="field wide"><label for="followup">추가 점검·후속 조치</label>
-<textarea id="followup" name="followup" placeholder="미확인 사항, 재발 방지 및 추후 확인 계획"></textarea></div><div class="field wide"><label for="reference">참고 자료</label><input id="reference" name="reference" placeholder="제조사 매뉴얼명 · 출처"/></div></div><p class="helper report-cause-notice" id="causeNotice">원인은 검증 전까지 미확정 또는 추정으로 기록하세요. 확정 시 검증 근거를 남겨야 합니다.</p><div class="actions"><button class="btn" type="submit">이력 저장</button><button class="btn secondary" id="printReport" type="button">A4 인쇄 · PDF 저장</button><a class="btn secondary" href="index.html#history">저장 이력 보기</a><button class="btn secondary" id="newReport" type="button">새 보고서</button></div><p class="helper print-help">휴대폰에서 “A4 인쇄 · PDF 저장”을 누른 뒤 인쇄 화면의 프린터를 “PDF로 저장”으로 선택하세요. 저장은 휴대폰의 PDF 파일로 이루어집니다.</p><p aria-live="polite" id="status" role="status"></p></form></main><footer><strong>PRDA S&amp;T</strong><span>정압설비 통합 플랫폼 · SEO TECH</span><small>진단 결과는 참고자료이며 현장 안전절차와 제작사 매뉴얼을 우선합니다.</small></footer>
+<textarea id="followup" name="followup" placeholder="미확인 사항, 재발 방지 및 추후 확인 계획"></textarea></div><div class="field wide"><label for="reference">참고 자료</label><input id="reference" name="reference" placeholder="제조사 매뉴얼명 · 출처"/></div></div><p class="helper report-cause-notice" id="causeNotice">원인은 검증 전까지 미확정 또는 추정으로 기록하세요. 확정 시 검증 근거를 남겨야 합니다.</p><section aria-labelledby="photoHeading" class="prda-photo-panel" id="reportPhotoPanel">
+<h3 id="photoHeading">8차 · 정비사진 첨부</h3>
+<p class="helper">명판 · 정비 전 · 정비 후 사진을 최대 3장 첨부할 수 있습니다. 휴대폰 저장공간 보호를 위해 사진은 자동 축소됩니다. 민감한 설비번호·회사 내부정보는 첨부하지 마세요.</p>
+<div class="prda-photo-toolbar">
+<label class="btn secondary prda-photo-pick" for="reportPhotoInput">사진 추가</label>
+<input accept="image/jpeg,image/png,image/webp" aria-label="정비사진 추가" hidden="" id="reportPhotoInput" multiple="" type="file"/>
+<span aria-live="polite" id="reportPhotoCount">0 / 3장</span>
+</div>
+<div class="prda-photo-grid" id="reportPhotoPreview"></div>
+<p aria-live="polite" class="helper" id="reportPhotoStatus" role="status"></p>
+</section><div class="actions"><button class="btn" type="submit">이력 저장</button><button class="btn secondary" id="printReport" type="button">A4 인쇄 · PDF 저장</button><a class="btn secondary" href="index.html#history">저장 이력 보기</a><button class="btn secondary" id="newReport" type="button">새 보고서</button></div><p class="helper print-help">휴대폰에서 “A4 인쇄 · PDF 저장”을 누른 뒤 인쇄 화면의 프린터를 “PDF로 저장”으로 선택하세요. 저장은 휴대폰의 PDF 파일로 이루어집니다.</p><p aria-live="polite" id="status" role="status"></p></form></main><footer><strong>PRDA S&amp;T</strong><span>정압설비 통합 플랫폼 · SEO TECH</span><small>진단 결과는 참고자료이며 현장 안전절차와 제작사 매뉴얼을 우선합니다.</small></footer>
 <nav aria-label="모바일 빠른 메뉴" class="bottom-nav"><a class="active" href="index.html"><span>⌂</span>홈</a><a href="index.html#diagnosis"><span>◈</span>진단</a><a href="index.html#report"><span>▤</span>보고서</a><a href="index.html#history"><span>◷</span>이력</a><button id="bottomMenu" type="button"><span>☷</span>전체</button></nav>
 <div class="menu-overlay" hidden="" id="menuOverlay"><div class="menu-shade" id="menuShade"></div><aside aria-labelledby="menuTitle" aria-modal="true" class="menu-drawer" role="dialog"><div class="drawer-head"><h2 id="menuTitle">전체 메뉴</h2><button aria-label="메뉴 닫기" id="menuClose">✕</button></div><div class="drawer-search"><form action="search.html"><input aria-label="통합검색" name="q" placeholder="통합검색"/><button>검색</button></form></div><div class="drawer-list">
 <details><summary>AI 진단분석</summary><a href="index.html#diagnosis">진단 시작</a><a href="photo.html">사진 참고</a></details>
@@ -213,9 +242,89 @@ const form=document.getElementById('reportForm');
 const records=document.getElementById('records');
 const filter=document.getElementById('filter');
 let editingId=null;
+let reportPhotos=[];
+
+
+// 8차: client-side photo compression and per-report storage.
+// Images remain in browser storage and are included in the existing JSON backup.
+const MAX_PHOTOS=3;
+const MAX_PHOTO_CHARS=180000;
+const PHOTO_KINDS=['명판','정비 전','정비 후'];
+const photoInput=document.getElementById('reportPhotoInput');
+const photoPreview=document.getElementById('reportPhotoPreview');
+const photoStatus=document.getElementById('reportPhotoStatus');
+let photoBusy=false;
+function validPhotos(arr){
+ if(!Array.isArray(arr))return [];
+ return arr.slice(0,MAX_PHOTOS).filter(p=>
+  p&&typeof p==='object'&&PHOTO_KINDS.includes(p.kind)&&
+  typeof p.data==='string'&&p.data.length<=MAX_PHOTO_CHARS&&
+  /^data:image\/jpeg;base64,[a-zA-Z0-9+/]+=*$/.test(p.data)
+ ).map(p=>({kind:p.kind,data:p.data}));
+}
+function renderReportPhotos(){
+ photoPreview.replaceChildren();
+ document.getElementById('reportPhotoCount').textContent=`${reportPhotos.length} / ${MAX_PHOTOS}장`;
+ reportPhotos.forEach((p,i)=>{
+  const item=document.createElement('div');item.className='prda-photo-item';
+  const img=document.createElement('img');img.src=p.data;img.alt=`${p.kind} 정비사진 ${i+1}`;
+  const label=document.createElement('label');label.textContent=`사진 ${i+1} 분류`;
+  const select=document.createElement('select');label.htmlFor=`reportPhotoKind${i}`;select.id=`reportPhotoKind${i}`;
+  PHOTO_KINDS.forEach(k=>select.add(new Option(k,k)));
+  select.value=p.kind;
+  select.addEventListener('change',()=>{p.kind=select.value;img.alt=`${p.kind} 정비사진 ${i+1}`});
+  const del=document.createElement('button');del.type='button';del.className='btn secondary';del.textContent='사진 삭제';
+  del.addEventListener('click',()=>{reportPhotos.splice(i,1);renderReportPhotos();photoStatus.textContent='사진을 목록에서 제외했습니다. 보고서 저장 후 이력에 반영됩니다.'});
+  item.append(img,label,select,del);photoPreview.append(item);
+ });
+}
+async function compressPhoto(file){
+ if(!['image/jpeg','image/png','image/webp'].includes(file.type))throw Error('JPG·PNG·WebP 사진만 선택하세요.');
+ if(file.size>12*1024*1024)throw Error('사진 원본은 12MB 이하만 지원합니다.');
+ const bitmap=await createImageBitmap(file);
+ try{
+  for(const maxEdge of [900,720,560,420]){
+   const scale=Math.min(1,maxEdge/Math.max(bitmap.width,bitmap.height));
+   const canvas=document.createElement('canvas');
+   canvas.width=Math.max(1,Math.round(bitmap.width*scale));
+   canvas.height=Math.max(1,Math.round(bitmap.height*scale));
+   const ctx=canvas.getContext('2d');
+   if(!ctx)throw Error('이미지 변환을 지원하지 않는 브라우저입니다.');
+   ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);
+   ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);
+   for(const quality of [0.72,0.54,0.40]){
+    const data=canvas.toDataURL('image/jpeg',quality);
+    if(data.startsWith('data:image/jpeg;base64,')&&data.length<=MAX_PHOTO_CHARS)return data;
+   }
+  }
+  throw Error('사진 크기를 줄일 수 없습니다. 다른 사진을 선택하세요.');
+ }finally{bitmap.close();}
+}
+photoInput.addEventListener('change',async()=>{
+ if(photoBusy)return;
+ const files=[...(photoInput.files||[])];
+ photoInput.value='';
+ if(!files.length)return;
+ if(files.length+reportPhotos.length>MAX_PHOTOS){
+  photoStatus.textContent=`사진은 최대 ${MAX_PHOTOS}장입니다. 기존 사진을 삭제한 뒤 추가해 주세요.`;return;
+ }
+ photoBusy=true;photoStatus.textContent='사진을 휴대폰에서 축소 처리 중입니다...';
+ try{
+  for(const file of files){
+   const data=await compressPhoto(file);
+   const kind=PHOTO_KINDS[Math.min(reportPhotos.length,2)];
+   reportPhotos.push({kind,data});
+   renderReportPhotos();
+  }
+  photoStatus.textContent=`${files.length}장 추가했습니다. “이력 저장”을 눌러야 보관됩니다.`;
+ }catch(e){photoStatus.textContent=`사진 처리 실패: ${e.message}`;}
+ finally{photoBusy=false;}
+});
+
 function newReport(){
  editingId=null;
  form.reset();
+ reportPhotos=[];renderReportPhotos();
  form.elements.namedItem('caseId').value=makeId();
  form.elements.namedItem('date').value=now();
  document.getElementById('status').textContent='';
@@ -224,6 +333,8 @@ function editReport(id){
  const r=getAll().find(x=>x.caseId===id);
  if(!r)return;
  editingId=id;
+ reportPhotos=validPhotos(r.photos);
+ renderReportPhotos();
  fields.forEach(f=>{const el=form.elements.namedItem(f);if(el)el.value=r[f]||(f==='causeStatus'?'미확정':'')});
  location.hash='report';
 }
@@ -249,7 +360,9 @@ function draw(){
   const edit=document.createElement('button');edit.className='btn secondary';edit.textContent='조회·수정';edit.type='button';edit.addEventListener('click',()=>editReport(r.caseId));
   const del=document.createElement('button');del.className='btn danger';del.textContent='삭제';del.type='button';
   del.addEventListener('click',()=>{if(confirm('이 보고서를 삭제하시겠습니까? 복구할 수 없습니다.')){saveAll(getAll().filter(x=>x.caseId!==r.caseId));draw();}});
-  actions.append(edit,del);box.append(title,meta,symptom,actions);records.append(box);
+  const photoCount=document.createElement('p');
+  photoCount.className='meta';photoCount.textContent=`정비사진: ${validPhotos(r.photos).length}장`;
+  actions.append(edit,del);box.append(title,meta,symptom,photoCount,actions);records.append(box);
  });
 }
 function route(){
@@ -264,11 +377,13 @@ function route(){
 }
 form.addEventListener('submit',e=>{
  e.preventDefault();if(!form.reportValidity())return;
+ if(photoBusy){document.getElementById('status').textContent='사진 처리 완료 후 다시 저장해 주세요.';return;}
  const data=Object.fromEntries(fields.map(f=>[f,form.elements.namedItem(f).value.trim()]));
  if(data.causeStatus==='확정'&&!data.verification){
   document.getElementById('status').textContent='확정 원인은 검증 근거를 먼저 기록해 주세요.';
   form.elements.namedItem('verification').focus();return;
  }
+ data.photos=validPhotos(reportPhotos);
  data.updatedAt=new Date().toISOString();
  const all=getAll();const idx=all.findIndex(r=>r.caseId===data.caseId);
  if(idx>=0)all[idx]=data;else all.unshift(data);
@@ -310,7 +425,7 @@ const backupPreview=document.getElementById('backupPreviewV7');
 const backupPreviewText=document.getElementById('backupPreviewTextV7');
 const restoreInput=document.getElementById('restoreBackupV7');
 let pendingRestore=null;
-const MAX_BACKUP_BYTES=5*1024*1024;
+const MAX_BACKUP_BYTES=10*1024*1024;
 const MAX_RECORDS=1000;
 const safeReportId=id=>typeof id==='string'&&id.length>0&&id.length<=120&&/^RPT-[A-Za-z0-9_-]+$/.test(id);
 function normalizedRecords(records){
@@ -328,6 +443,11 @@ function normalizedRecords(records){
    if(copy[f].length>20000)throw Error(`${i+1}번째 기록의 ${f} 입력이 너무 깁니다.`);
   });
   copy.caseId=row.caseId;
+  if(row.photos!==undefined){
+   if(!Array.isArray(row.photos)||row.photos.length>MAX_PHOTOS||validPhotos(row.photos).length!==row.photos.length)
+    throw Error(`${i+1}번째 기록의 정비사진 데이터가 올바르지 않습니다.`);
+  }
+  copy.photos=validPhotos(row.photos);
   if(!['미확정','추정','확정'].includes(copy.causeStatus))copy.causeStatus='미확정';
   if(copy.causeStatus==='확정'&&!copy.verification)copy.causeStatus='추정';
   if(typeof row.updatedAt==='string')copy.updatedAt=row.updatedAt.slice(0,80);
@@ -351,7 +471,7 @@ restoreInput.addEventListener('change',async()=>{
  pendingRestore=null;backupPreview.hidden=true;
  const file=restoreInput.files?.[0];
  if(!file)return;
- if(file.size>MAX_BACKUP_BYTES){backupStatus.textContent='파일이 너무 큽니다. 5MB 이하 JSON 파일을 선택하세요.';restoreInput.value='';return;}
+ if(file.size>MAX_BACKUP_BYTES){backupStatus.textContent='파일이 너무 큽니다. 10MB 이하 JSON 파일을 선택하세요.';restoreInput.value='';return;}
  try{
   const raw=JSON.parse(await file.text());
   const records=Array.isArray(raw)?raw:(

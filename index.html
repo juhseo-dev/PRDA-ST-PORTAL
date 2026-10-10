@@ -100,6 +100,52 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
  body.view-report .prda-photo-item img{height:190px!important;object-fit:contain!important}
  body.view-report .prda-photo-item select{border:0!important;appearance:none!important}
 }
+</style><style>
+/* V9: structured A4 report, rendered only from user-entered information */
+.prda9-sheet{font-family:Arial,"Noto Sans KR","Malgun Gothic",sans-serif;color:#183047;background:#fff}
+.prda9-sheet[hidden]{display:none!important}
+.prda9-sheet.prda9-preview{display:block;border:1px solid #b9ccdc;border-radius:14px;box-shadow:0 12px 35px #0b35551c;margin:24px 0;padding:24px}
+.prda9-banner{border-bottom:3px solid #0b467b;padding-bottom:15px;margin-bottom:18px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.prda9-brand{font-size:11px;letter-spacing:2px;color:#386e97;font-weight:800}
+.prda9-title{font-size:25px;line-height:1.35;color:#0b3156;font-weight:900;margin:5px 0}
+.prda9-subtitle{font-size:12px;color:#698196}
+.prda9-badge{display:inline-block;padding:6px 10px;border-radius:20px;border:1px solid #bccddb;font-size:11px;font-weight:800;white-space:nowrap}
+.prda9-badge[data-status="미확정"]{color:#8c5814;background:#fff4db}
+.prda9-badge[data-status="추정"]{color:#75541d;background:#fff6e4}
+.prda9-badge[data-status="확정"]{color:#145c4e;background:#e8f6ef}
+.prda9-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#dbe5ee;border:1px solid #dbe5ee;border-radius:9px;overflow:hidden;margin:14px 0 18px}
+.prda9-fact{background:#f5f9fc;padding:10px 12px;min-width:0}
+.prda9-label{font-size:10px;color:#58768e;font-weight:800;margin-bottom:4px}
+.prda9-value{font-size:12px;color:#142d42;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55}
+.prda9-section{margin:15px 0;break-inside:avoid-page}
+.prda9-section-title{font-size:13px;font-weight:900;color:#123e65;border-left:4px solid #0a76bc;padding:7px 10px;background:#eef6fc;margin:0 0 8px}
+.prda9-section-content{font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.75;padding:2px 9px;color:#203b52;min-height:20px}
+.prda9-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.prda9-pair .prda9-section{margin:0}
+.prda9-photo-section{margin-top:18px;break-before:auto}
+.prda9-photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.prda9-photo{border:1px solid #d4e1ea;border-radius:8px;padding:8px;break-inside:avoid}
+.prda9-photo img{display:block;width:100%;height:175px;object-fit:contain;background:#f2f6f9;border-radius:5px}
+.prda9-photo-label{font-size:11px;font-weight:800;margin-bottom:7px;color:#275575}
+.prda9-photo-empty{font-size:12px;color:#718497;padding:14px;border:1px dashed #c7d4de;border-radius:7px}
+.prda9-note{font-size:10px;line-height:1.6;color:#61788c;border-top:1px solid #d8e3ed;padding-top:10px;margin-top:22px}
+.prda9-empty{color:#8a9cab}
+@media(max-width:600px){.prda9-sheet.prda9-preview{padding:14px}.prda9-title{font-size:21px}.prda9-pair{grid-template-columns:1fr}.prda9-photo-grid{grid-template-columns:1fr}.prda9-photo img{height:210px}}
+@media print{
+ body.view-report #reportForm>:not(#reportPrintSheet){display:none!important}
+ body.view-report #reportPrintSheet,body.view-report #reportPrintSheet[hidden]{display:block!important}
+ body.view-report .prda9-sheet{display:block!important;border:0!important;border-radius:0!important;box-shadow:none!important;margin:0!important;padding:0!important;color:#111!important}
+ body.view-report .prda9-banner{margin-bottom:12px;padding-bottom:10px}
+ body.view-report .prda9-facts{margin:10px 0 13px}
+ body.view-report .prda9-fact{padding:7px 10px}
+ body.view-report .prda9-section{margin:11px 0}
+ body.view-report .prda9-section-content{font-size:11px;line-height:1.6}
+ body.view-report .prda9-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body.view-report .prda9-photo img{height:170px}
+ body.view-report .prda9-section-title{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ body.view-report .prda9-photo{break-inside:avoid-page}
+ @page{size:A4;margin:13mm}
+}
 </style></head><body>
 <a class="skip" href="#content">본문으로 이동</a>
 <header class="topbar"><div class="top-inner"><a aria-label="PRDA S&amp;T 홈" class="brand" href="index.html"><b>PRDA <span>S&amp;T</span></b><small>정압설비 통합 플랫폼</small></a><nav aria-label="주요 메뉴" class="desktop-nav"><a class="selected" href="index.html">홈</a><a href="index.html#diagnosis">AI 진단분석</a><a href="index.html#report">정비보고서</a><a href="index.html#history">정비이력</a><a href="regulator.html">정압기</a><a href="equipment.html">정압설비</a><a href="cases.html">정비사례</a><a href="manuals.html">매뉴얼·기술자료</a><a href="safety.html">정비안전</a><a href="qna.html">Q&amp;A</a></nav><button aria-label="전체 메뉴 열기" class="menu-top" id="menuOpen">☰</button></div></header>
@@ -216,7 +262,7 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 </div>
 <div class="prda-photo-grid" id="reportPhotoPreview"></div>
 <p aria-live="polite" class="helper" id="reportPhotoStatus" role="status"></p>
-</section><div class="actions"><button class="btn" type="submit">이력 저장</button><button class="btn secondary" id="printReport" type="button">A4 인쇄 · PDF 저장</button><a class="btn secondary" href="index.html#history">저장 이력 보기</a><button class="btn secondary" id="newReport" type="button">새 보고서</button></div><p class="helper print-help">휴대폰에서 “A4 인쇄 · PDF 저장”을 누른 뒤 인쇄 화면의 프린터를 “PDF로 저장”으로 선택하세요. 저장은 휴대폰의 PDF 파일로 이루어집니다.</p><p aria-live="polite" id="status" role="status"></p></form></main><footer><strong>PRDA S&amp;T</strong><span>정압설비 통합 플랫폼 · SEO TECH</span><small>진단 결과는 참고자료이며 현장 안전절차와 제작사 매뉴얼을 우선합니다.</small></footer>
+</section><section aria-label="정비보고서 A4 미리보기" class="prda9-sheet" hidden="" id="reportPrintSheet"></section><div class="actions"><button class="btn" type="submit">이력 저장</button><button class="btn secondary" id="previewReportV9" type="button">A4 보고서 미리보기</button><button class="btn secondary" id="printReport" type="button">A4 인쇄 · PDF 저장</button><a class="btn secondary" href="index.html#history">저장 이력 보기</a><button class="btn secondary" id="newReport" type="button">새 보고서</button></div><p class="helper print-help">휴대폰에서 “A4 인쇄 · PDF 저장”을 누른 뒤 인쇄 화면의 프린터를 “PDF로 저장”으로 선택하세요. 저장은 휴대폰의 PDF 파일로 이루어집니다.</p><p aria-live="polite" id="status" role="status"></p></form></main><footer><strong>PRDA S&amp;T</strong><span>정압설비 통합 플랫폼 · SEO TECH</span><small>진단 결과는 참고자료이며 현장 안전절차와 제작사 매뉴얼을 우선합니다.</small></footer>
 <nav aria-label="모바일 빠른 메뉴" class="bottom-nav"><a class="active" href="index.html"><span>⌂</span>홈</a><a href="index.html#diagnosis"><span>◈</span>진단</a><a href="index.html#report"><span>▤</span>보고서</a><a href="index.html#history"><span>◷</span>이력</a><button id="bottomMenu" type="button"><span>☷</span>전체</button></nav>
 <div class="menu-overlay" hidden="" id="menuOverlay"><div class="menu-shade" id="menuShade"></div><aside aria-labelledby="menuTitle" aria-modal="true" class="menu-drawer" role="dialog"><div class="drawer-head"><h2 id="menuTitle">전체 메뉴</h2><button aria-label="메뉴 닫기" id="menuClose">✕</button></div><div class="drawer-search"><form action="search.html"><input aria-label="통합검색" name="q" placeholder="통합검색"/><button>검색</button></form></div><div class="drawer-list">
 <details><summary>AI 진단분석</summary><a href="index.html#diagnosis">진단 시작</a><a href="photo.html">사진 참고</a></details>
@@ -263,6 +309,7 @@ function validPhotos(arr){
  ).map(p=>({kind:p.kind,data:p.data}));
 }
 function renderReportPhotos(){
+ if(typeof renderV9Report==='function'&&typeof previewVisible!=='undefined'&&previewVisible)renderV9Report();
  photoPreview.replaceChildren();
  document.getElementById('reportPhotoCount').textContent=`${reportPhotos.length} / ${MAX_PHOTOS}장`;
  reportPhotos.forEach((p,i)=>{
@@ -390,12 +437,88 @@ form.addEventListener('submit',e=>{
  try{saveAll(all);document.getElementById('status').textContent='이 기기에 저장했습니다. PDF도 별도로 보관하세요.'}
  catch{document.getElementById('status').textContent='저장 실패: 브라우저 저장 공간을 확인하세요.'}
 });
+
+// V9: printable report preview from the current form; no inferred or fabricated findings.
+const printSheet=document.getElementById('reportPrintSheet');
+const previewButton=document.getElementById('previewReportV9');
+let previewVisible=false;
+function reportText(value){return typeof value==='string'&&value.trim()?value.trim():'미기록';}
+function makeV9(tag,cls,value){
+ const el=document.createElement(tag);
+ if(cls)el.className=cls;
+ if(value!==undefined)el.textContent=value;
+ return el;
+}
+function reportSection(title,value){
+ const section=makeV9('section','prda9-section');
+ section.append(makeV9('h3','prda9-section-title',title));
+ const content=makeV9('div','prda9-section-content',reportText(value));
+ if(!value||!String(value).trim())content.classList.add('prda9-empty');
+ section.append(content);
+ return section;
+}
+function makeV9Fact(label,value){
+ const box=makeV9('div','prda9-fact');
+ box.append(makeV9('div','prda9-label',label),makeV9('div','prda9-value',reportText(value)));
+ return box;
+}
+function renderV9Report(){
+ printSheet.replaceChildren();
+ const values=Object.fromEntries(fields.map(f=>[f,form.elements.namedItem(f)?.value||'']));
+ const header=makeV9('header','prda9-banner');
+ const left=makeV9('div');
+ left.append(makeV9('div','prda9-brand','PRDA S&T  /  SEO TECH'),makeV9('h2','prda9-title','정압설비 정비보고서'),makeV9('div','prda9-subtitle','REGULATOR MAINTENANCE REPORT'));
+ const status=makeV9('span','prda9-badge',`원인 ${reportText(values.causeStatus)}`);
+ status.dataset.status=values.causeStatus||'미확정';
+ header.append(left,status);printSheet.append(header);
+ const facts=makeV9('div','prda9-facts');
+ [['보고서 ID',values.caseId],['정비일자',values.date],['제작사',values.manufacturer],['모델',values.model]].forEach(([a,b])=>facts.append(makeV9Fact(a,b)));
+ printSheet.append(facts);
+ printSheet.append(reportSection('01  발생 증상',values.symptoms));
+ printSheet.append(reportSection('02  점검 내용',values.inspection));
+ const causePair=makeV9('div','prda9-pair');
+ causePair.append(reportSection('03  원인 분석 · '+reportText(values.causeStatus),values.cause),reportSection('원인 검증 근거',values.verification));
+ printSheet.append(causePair);
+ printSheet.append(reportSection('04  정비 조치',values.action));
+ printSheet.append(reportSection('05  정비 결과 및 재시험',values.result));
+ printSheet.append(reportSection('06  추가 점검 · 후속 조치',values.followup));
+ printSheet.append(reportSection('07  참고 자료 · 출처',values.reference));
+ const photos=validPhotos(reportPhotos);
+ const photoSection=makeV9('section','prda9-photo-section');
+ photoSection.append(makeV9('h3','prda9-section-title','08  정비사진 · 전후 비교'));
+ if(photos.length){
+  const grid=makeV9('div','prda9-photo-grid');
+  photos.forEach((p,i)=>{
+   const box=makeV9('figure','prda9-photo');
+   const caption=makeV9('figcaption','prda9-photo-label',`${p.kind} · 사진 ${i+1}`);
+   const img=makeV9('img');
+   img.src=p.data;img.alt=`${p.kind} 정비사진`;
+   box.append(caption,img);grid.append(box);
+  });
+  photoSection.append(grid);
+ }else photoSection.append(makeV9('div','prda9-photo-empty','첨부된 정비사진 없음'));
+ printSheet.append(photoSection);
+ printSheet.append(makeV9('p','prda9-note','본 보고서는 사용자가 직접 입력한 정비기록을 정리한 문서입니다. 미기록 항목은 확인되지 않았으며, 원인 판정은 입력된 구분 및 검증 근거에 따릅니다. 현장 안전조치·제조사 절차·승인 체계를 대신하지 않습니다.'));
+}
+previewButton.addEventListener('click',()=>{
+ previewVisible=!previewVisible;
+ if(previewVisible)renderV9Report();
+ printSheet.hidden=!previewVisible;
+ printSheet.classList.toggle('prda9-preview',previewVisible);
+ previewButton.textContent=previewVisible?'미리보기 닫기':'A4 보고서 미리보기';
+ if(previewVisible)printSheet.scrollIntoView({behavior:'smooth',block:'start'});
+});
+form.addEventListener('input',()=>{if(previewVisible)renderV9Report();});
+form.addEventListener('change',()=>{if(previewVisible)renderV9Report();});
+
 document.getElementById('printReport').addEventListener('click',()=>{
  location.hash='report';
+ renderV9Report();
  window.print();
 });
 let printSizes=[];
 window.addEventListener('beforeprint',()=>{
+ renderV9Report();
  printSizes=[...form.querySelectorAll('textarea')].map(el=>[el,el.style.height]);
  printSizes.forEach(([el])=>{el.style.height='auto';el.style.height=(el.scrollHeight+10)+'px'});
 });

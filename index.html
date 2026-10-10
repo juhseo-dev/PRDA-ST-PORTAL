@@ -47,6 +47,17 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 .prda-guided-box p{line-height:1.7;margin:7px 0;overflow-wrap:anywhere}
 .prda-caution{background:#fff7e6;border-left:4px solid #d08b17;padding:12px;line-height:1.65;border-radius:6px}
 @media(max-width:680px){.prda-guided-grid{grid-template-columns:1fr}.prda-guided{padding:12px}}
+</style><style>
+.prda-field-check{margin:20px 0;background:#f7fbff;border:1px solid #d5e4f3;border-radius:16px;padding:20px}
+.prda-field-check h3{margin:0 0 12px;color:#123d69}
+.prda-checklist{display:grid;gap:11px;margin:16px 0}
+.prda-check-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(128px,180px);align-items:center;gap:12px;background:#fff;border:1px solid #dfeaf3;border-radius:12px;padding:12px 14px}
+.prda-check-row label{font-weight:600;line-height:1.5}
+.prda-check-row select{width:100%;min-height:43px;border:1px solid #c9d8e6;border-radius:9px;padding:8px;background:#fff;color:#153453;font:inherit}
+.prda-check-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.prda-check-footer p{margin:0;font-size:14px;color:#41627e}
+.prda-safety-banner{padding:14px 16px;background:#fff2e8;border:1px solid #f3b78f;border-radius:11px;color:#7c3111;font-weight:600;line-height:1.65}
+@media(max-width:520px){.prda-check-row{grid-template-columns:1fr}.prda-field-check{padding:15px}}
 </style></head><body>
 <a class="skip" href="#content">본문으로 이동</a>
 <header class="topbar"><div class="top-inner"><a aria-label="PRDA S&amp;T 홈" class="brand" href="index.html"><b>PRDA <span>S&amp;T</span></b><small>정압설비 통합 플랫폼</small></a><nav aria-label="주요 메뉴" class="desktop-nav"><a class="selected" href="index.html">홈</a><a href="index.html#diagnosis">AI 진단분석</a><a href="index.html#report">정비보고서</a><a href="index.html#history">정비이력</a><a href="regulator.html">정압기</a><a href="equipment.html">정압설비</a><a href="cases.html">정비사례</a><a href="manuals.html">매뉴얼·기술자료</a><a href="safety.html">정비안전</a><a href="qna.html">Q&amp;A</a></nav><button aria-label="전체 메뉴 열기" class="menu-top" id="menuOpen">☰</button></div></header>
@@ -110,6 +121,17 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 <div class="prda-guided-box"><strong>제작사 · 모델 · PILOT 확인</strong><div id="diagIdentity"></div></div>
 <div class="prda-guided-box"><strong>공개 정비사례 근거</strong><div id="diagEvidence"></div></div>
 <p class="prda-caution">주의: 추정 원인과 확인된 원인은 별개입니다. 가스누설·비정상 압력·보호장치 이상 시 현장 안전절차 및 승인된 조치를 우선하세요. 이 화면은 원격 조작·설정값 변경 지시가 아닙니다.</p>
+</section><section aria-live="polite" class="prda-field-check" hidden="" id="diagFieldCheck">
+<h3>5차 · 현장 점검 기록표</h3>
+<p class="helper">증상에 따라 우선 확인할 항목을 제시합니다. 실제 확인 여부는 직접 선택하세요. 자동으로 정상·고장 확정하지 않습니다.</p>
+<div class="prda-safety-banner" hidden="" id="diagSafetyBanner"></div>
+<div class="prda-checklist" id="diagChecklist"></div>
+<div class="prda-check-footer">
+<p aria-live="polite" id="diagCheckProgress">점검 상태 미입력</p>
+<button class="btn secondary" id="diagCopyChecklist" type="button">점검 기록 복사</button>
+</div>
+<p aria-live="polite" class="helper" id="diagCopyStatus"></p>
+<p class="prda-caution">점검 기록은 현재 화면에만 임시 표시됩니다. 보고서로 이동하면 작성 중인 보고서에 추가되며, 보고서 저장 전에는 정비이력에 저장되지 않습니다.</p>
 </section><div class="actions"><button class="btn" id="diagToReport" type="button">이 결과로 정비보고서 작성 →</button><a class="btn secondary" href="cases.html">관련 정비사례</a><a class="btn secondary" href="manuals.html">제작사 매뉴얼</a><a class="btn secondary" href="index.html#search">공개 유사사례 검색</a></div>
 </section>
 </main><main class="standalone-view page-wrap" id="history-view"><div class="page-head"><h1>정비이력관리</h1><p>이 기기에 저장된 정비보고서를 검색·조회·수정합니다.</p></div><div class="helper">이력은 현재 브라우저에만 저장됩니다. 기존 V10 앱의 진단이력과는 별도이며, 자동 동기화되지 않습니다. 공개 홈페이지에는 비공개 시설명·설비번호·회사 내부정보를 입력하지 마세요.</div><div class="form-panel"><div class="field"><label for="filter">보고서 검색</label><input id="filter" placeholder="보고서 ID · 제작사 · 모델 · 증상"/></div><div class="actions"><a class="btn" href="index.html#report">새 보고서 작성</a><button class="btn secondary" id="exportRecords" type="button">이력 JSON 백업</button></div><p id="count" role="status"></p><div id="records"></div></div></main><main class="standalone-view page-wrap" id="report-view"><div class="page-head"><h1>정비보고서 작성</h1><p>진단 결과와 별도로 실제 정비내용을 기록하고 A4로 출력합니다.</p></div><div class="helper">1차 버전은 이 기기의 브라우저에만 저장됩니다. 다른 기기와 자동 동기화되지 않으며 브라우저 데이터 삭제 시 사라질 수 있습니다. 중요 보고서는 PDF로 별도 보관하세요. 공개 홈페이지에는 비공개 시설명·설비번호·회사 내부정보를 입력하지 마세요.</div><form class="form-panel" id="reportForm"><div class="print-header"><h1>PRDA S&amp;T · 정비보고서</h1><p>SEO TECH / 정압설비 정비기록</p></div><div class="form-grid"><div class="field"><label for="caseId">보고서 ID</label><input id="caseId" name="caseId" readonly=""/></div><div class="field"><label for="date">정비일자</label><input id="date" name="date" required="" type="date"/></div><div class="field"><label for="manufacturer">제작사</label><input id="manufacturer" name="manufacturer" placeholder="예: TARTARINI"/></div><div class="field"><label for="model">모델</label><input id="model" name="model" placeholder="예: FL/100-SR-SRS"/></div><div class="field wide"><label for="symptoms">발생 증상</label><textarea id="symptoms" name="symptoms" placeholder="헌팅, 후단압 상승 등" required=""></textarea></div><div class="field wide"><label for="inspection">점검 내용</label><textarea id="inspection" name="inspection" placeholder="점검 결과와 확인된 사항을 기록하세요"></textarea></div><div class="field wide"><label for="cause">원인 및 확인 상태</label><textarea id="cause" name="cause" placeholder="확정 원인 / 추정 원인을 구분하여 기록하세요"></textarea></div><div class="field wide"><label for="action">정비 조치</label><textarea id="action" name="action" placeholder="제조사 매뉴얼에 따른 실제 수행 내용을 기록하세요"></textarea></div><div class="field wide"><label for="result">정비 결과 및 재시험</label><textarea id="result" name="result" placeholder="정비 후 결과, 재시험 확인 사항"></textarea></div><div class="field wide"><label for="reference">참고 자료</label><input id="reference" name="reference" placeholder="제조사 매뉴얼명 · 출처"/></div></div><div class="actions"><button class="btn" type="submit">이력 저장</button><button class="btn secondary" id="printReport" type="button">A4 PDF / 인쇄</button><a class="btn secondary" href="index.html#history">저장 이력 보기</a><button class="btn secondary" id="newReport" type="button">새 보고서</button></div><p aria-live="polite" id="status" role="status"></p></form></main><footer><strong>PRDA S&amp;T</strong><span>정압설비 통합 플랫폼 · SEO TECH</span><small>진단 결과는 참고자료이며 현장 안전절차와 제작사 매뉴얼을 우선합니다.</small></footer>
@@ -397,5 +419,77 @@ function refresh(){
 // The existing diagnosis and report handoff listeners remain unchanged.
 by('quickDiagnosis').addEventListener('submit',e=>{if(!e.defaultPrevented)return;if(by('quickDiagnosis').reportValidity())refresh()});
 by('quickDiagnosis').addEventListener('reset',()=>{by('diagGuided').hidden=true});
+})();
+</script><script>
+(()=>{
+'use strict';
+const by=id=>document.getElementById(id);
+const categories={
+ hunting:['전·후단압력과 유량의 동시 추이','PILOT 제어압력·감지라인 상태','저유량 등 증상 발생 조건','구동부 진동·마찰 징후','제작사 매뉴얼 및 정비이력'],
+ high:['후단압력 계측값과 상승 추이','보호장치·경보 작동 이력','시트부 기밀 이상 징후','PILOT 및 감지라인 상태','제작사 허용범위·승인 절차'],
+ low:['전단 공급압력·후단압력·유량 추이','필터 차압 등 유로 저항 징후','PILOT·구동부 응답 징후','압력 계기 측정 신뢰성','제작사 매뉴얼 및 정비이력'],
+ leak:['현장 안전절차 및 관계자 보고','승인된 검지방법으로 누설 징후 확인','튜빙·피팅 등 누설 의심 부위 기록','관련 경보·검지 기록','작업허가·접근통제 필요성 확인'],
+ operation:['작동 불량 발생 조건·시점','PILOT 제어압력 추이','감지라인·튜빙 이상 징후','구동부 동작 이상 징후','제작사 점검 절차'],
+ ssv:['SSV 작동·경보·트립 이력','감지라인·계기 신뢰성','보호기능 정상 유지 여부','기계적 구동부 이상 징후','제작사 승인 점검 절차'],
+ noise:['소음 발생 위치와 시점','전·후단압력·유량·차압 조건','배관·지지부 진동 징후','내부 부품 이상 징후','제작사 허용 운전조건'],
+ other:['증상 발생 시점·빈도','전·후단압력·유량 기록','관련 경보·보호장치 이력','제작사·모델·PILOT 식별','정비이력 및 공식 기술자료']
+};
+const states=['미확인','확인 완료(이상 없음)','이상 징후 관찰','해당 없음'];
+const panel=by('diagFieldCheck'),wrap=by('diagChecklist'),progress=by('diagCheckProgress'),banner=by('diagSafetyBanner');
+const form=by('quickDiagnosis');
+let activeSymptom='';
+function readRows(){
+ return [...wrap.querySelectorAll('.prda-check-row')].map(row=>({name:row.querySelector('label').textContent,state:row.querySelector('select').value}));
+}
+function updateProgress(){
+ const rows=readRows(),done=rows.filter(r=>r.state!=='미확인').length,alerts=rows.filter(r=>r.state==='이상 징후 관찰').length;
+ progress.textContent=`점검 상태 입력 ${done}/${rows.length}건 · 이상 징후 기록 ${alerts}건 (원인 확정 아님)`;
+}
+function render(){
+ const symptom=by('diagSymptom').value;
+ if(!symptom){panel.hidden=true;return}
+ activeSymptom=symptom;wrap.replaceChildren();
+ const items=categories[symptom]||categories.other;
+ items.forEach((item,i)=>{
+  const row=document.createElement('div');row.className='prda-check-row';
+  const label=document.createElement('label');label.textContent=`${i+1}. ${item}`;label.htmlFor=`prdaCheck_${i}`;
+  const select=document.createElement('select');select.id=`prdaCheck_${i}`;
+  select.setAttribute('aria-label',`${item} 점검 상태`);
+  states.forEach(st=>select.add(new Option(st,st)));
+  select.addEventListener('change',updateProgress);
+  row.append(label,select);wrap.append(row);
+ });
+ const critical=['leak','high','ssv'].includes(symptom);
+ banner.hidden=!critical;
+ if(critical)banner.textContent='안전 우선: 누설 의심·후단압력 상승·보호장치 이상은 현장 비상대응 및 승인된 안전절차를 우선합니다. 이 페이지는 운전 지속 여부나 현장 조작을 결정하지 않습니다.';
+ by('diagCopyStatus').textContent='';
+ panel.hidden=false;updateProgress();
+}
+function summary(){
+ const maker=by('diagMaker').value||'미입력',model=by('diagModel').value||'미입력',pilot=by('diagPilot').value||'미입력';
+ const title=by('diagSymptom').selectedOptions[0]?.textContent||'미입력';
+ return [`[PRDA S&T · 현장 점검 참고기록]`,`증상: ${title}`,`제작사: ${maker} / 모델: ${model} / PILOT: ${pilot}`,
+  ...readRows().map(r=>`- ${r.name}: ${r.state}`),
+  '※ 사용자 선택 상태 기록이며 원인 확정·정비 완료·안전 승인 기록이 아닙니다.'].join('\n');
+}
+form.addEventListener('submit',()=>{if(!form.checkValidity())return;render()});
+form.addEventListener('reset',()=>{activeSymptom='';panel.hidden=true;wrap.replaceChildren()});
+by('diagCopyChecklist').addEventListener('click',async()=>{
+ const content=summary();
+ try{
+  if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(content);
+  else{
+   const t=document.createElement('textarea');t.value=content;t.style.position='fixed';t.style.opacity='0';document.body.append(t);t.select();
+   const ok=document.execCommand('copy');t.remove();if(!ok)throw Error('copy unavailable');
+  }
+  by('diagCopyStatus').textContent='점검 기록이 복사됐습니다.';
+ }catch(e){by('diagCopyStatus').textContent='자동 복사가 제한됩니다. 보고서 작성 버튼을 이용해 기록을 옮기세요.'}
+});
+by('diagToReport').addEventListener('click',()=>{
+ if(panel.hidden||!activeSymptom||activeSymptom!==by('diagSymptom').value)return;
+ const inspection=document.getElementById('reportForm').elements.namedItem('inspection');
+ if(!inspection)return;
+ inspection.value+='\n\n'+summary();
+});
 })();
 </script></body></html>

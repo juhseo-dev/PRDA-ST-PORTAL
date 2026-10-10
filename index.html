@@ -146,6 +146,17 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
  body.view-report .prda9-photo{break-inside:avoid-page}
  @page{size:A4;margin:13mm}
 }
+</style><style>
+/* 10th final polish: compact mobile status and test guidance. */
+.prda-final-status{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:14px 0 18px;padding:12px 14px;background:#edf6fd;border:1px solid #d0e5f3;border-radius:12px;color:#1b4566;font-size:12px;line-height:1.5}
+.prda-final-status strong{font-size:13px}
+.prda-final-status a{margin-left:auto;color:#12609b;font-weight:800;text-decoration:underline;text-underline-offset:2px}
+.prda-final-dot{width:9px;height:9px;border-radius:50%;background:#238b66;flex-shrink:0}
+.prda-final-checklist{margin:22px 0 38px;border:1px solid #d6e3ee;border-radius:12px;padding:14px 17px;background:#f7fafc;color:#304e65}
+.prda-final-checklist summary{cursor:pointer;font-weight:800}
+.prda-final-checklist p{font-size:12px;line-height:1.7}
+@media(max-width:480px){.prda-final-status a{margin-left:18px}}
+@media print{.prda-final-status,.prda-final-checklist{display:none!important}}
 </style></head><body>
 <a class="skip" href="#content">본문으로 이동</a>
 <header class="topbar"><div class="top-inner"><a aria-label="PRDA S&amp;T 홈" class="brand" href="index.html"><b>PRDA <span>S&amp;T</span></b><small>정압설비 통합 플랫폼</small></a><nav aria-label="주요 메뉴" class="desktop-nav"><a class="selected" href="index.html">홈</a><a href="index.html#diagnosis">AI 진단분석</a><a href="index.html#report">정비보고서</a><a href="index.html#history">정비이력</a><a href="regulator.html">정압기</a><a href="equipment.html">정압설비</a><a href="cases.html">정비사례</a><a href="manuals.html">매뉴얼·기술자료</a><a href="safety.html">정비안전</a><a href="qna.html">Q&amp;A</a></nav><button aria-label="전체 메뉴 열기" class="menu-top" id="menuOpen">☰</button></div></header>
@@ -229,7 +240,7 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 <option value="">전체</option><option value="미확정">미확정</option>
 <option value="추정">추정</option><option value="확정">확정</option>
 </select></div></div><div class="actions"><a class="btn" href="index.html#report">새 보고서 작성</a><button class="btn secondary" id="clearHistoryFilter" type="button">검색 초기화</button><button class="btn secondary" id="exportRecords" type="button">이력 JSON 백업</button></div><p id="count" role="status"></p><div id="records"></div></div><section aria-labelledby="backupHeading" class="form-panel prda-backup">
-<h2 id="backupHeading">7차 · 정비이력 백업 및 복원</h2>
+<h2 id="backupHeading">정비이력 백업 및 복원</h2>
 <p class="helper">정비이력은 이 브라우저에만 저장됩니다. 휴대폰 교체·브라우저 데이터 삭제에 대비하여 JSON 백업 파일을 별도로 보관하세요. 기존 Android 앱의 진단이력과는 별개입니다.</p>
 <div class="actions">
 <button class="btn" id="downloadBackupV7" type="button">정비이력 백업 다운로드</button>
@@ -245,7 +256,12 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 </div>
 </div>
 <p aria-live="polite" class="helper" id="backupStatusV7" role="status"></p>
-</section></main><main class="standalone-view page-wrap" id="report-view"><div class="page-head"><h1>정비보고서 작성</h1><p>진단 결과와 별도로 실제 정비내용을 기록하고 A4로 출력합니다.</p></div><div class="helper">1차 버전은 이 기기의 브라우저에만 저장됩니다. 다른 기기와 자동 동기화되지 않으며 브라우저 데이터 삭제 시 사라질 수 있습니다. 중요 보고서는 PDF로 별도 보관하세요. 공개 홈페이지에는 비공개 시설명·설비번호·회사 내부정보를 입력하지 마세요.</div><form class="form-panel" id="reportForm"><div class="print-header"><h1>PRDA S&amp;T · 정비보고서</h1><p>SEO TECH / 정압설비 정비기록</p></div><div class="form-grid"><div class="field"><label for="caseId">보고서 ID</label><input id="caseId" name="caseId" readonly=""/></div><div class="field"><label for="date">정비일자</label><input id="date" name="date" required="" type="date"/></div><div class="field"><label for="manufacturer">제작사</label><input id="manufacturer" name="manufacturer" placeholder="예: TARTARINI"/></div><div class="field"><label for="model">모델</label><input id="model" name="model" placeholder="예: FL/100-SR-SRS"/></div><div class="field wide"><label for="symptoms">발생 증상</label><textarea id="symptoms" name="symptoms" placeholder="헌팅, 후단압 상승 등" required=""></textarea></div><div class="field wide"><label for="inspection">점검 내용</label><textarea id="inspection" name="inspection" placeholder="점검 결과와 확인된 사항을 기록하세요"></textarea></div><div class="field"><label for="causeStatus">원인 판정 구분</label>
+</section></main><main class="standalone-view page-wrap" id="report-view"><div class="page-head"><h1>정비보고서 작성</h1><p>현장 정비내용을 기록하고 사진을 첨부하여 A4 보고서로 출력합니다.</p></div><div aria-live="polite" class="prda-final-status" role="status">
+<span aria-hidden="true" class="prda-final-dot"></span>
+<strong>PRDA S&amp;T 홈페이지 최종 10차</strong>
+<span id="finalReportCount">이 기기의 정비이력 확인 중</span>
+<a href="index.html#history">이력·백업 확인 →</a>
+</div><div class="helper">1차 버전은 이 기기의 브라우저에만 저장됩니다. 다른 기기와 자동 동기화되지 않으며 브라우저 데이터 삭제 시 사라질 수 있습니다. 중요 보고서는 PDF로 별도 보관하세요. 공개 홈페이지에는 비공개 시설명·설비번호·회사 내부정보를 입력하지 마세요.</div><form class="form-panel" id="reportForm"><div class="print-header"><h1>PRDA S&amp;T · 정비보고서</h1><p>SEO TECH / 정압설비 정비기록</p></div><div class="form-grid"><div class="field"><label for="caseId">보고서 ID</label><input id="caseId" name="caseId" readonly=""/></div><div class="field"><label for="date">정비일자</label><input id="date" name="date" required="" type="date"/></div><div class="field"><label for="manufacturer">제작사</label><input id="manufacturer" name="manufacturer" placeholder="예: TARTARINI"/></div><div class="field"><label for="model">모델</label><input id="model" name="model" placeholder="예: FL/100-SR-SRS"/></div><div class="field wide"><label for="symptoms">발생 증상</label><textarea id="symptoms" name="symptoms" placeholder="헌팅, 후단압 상승 등" required=""></textarea></div><div class="field wide"><label for="inspection">점검 내용</label><textarea id="inspection" name="inspection" placeholder="점검 결과와 확인된 사항을 기록하세요"></textarea></div><div class="field"><label for="causeStatus">원인 판정 구분</label>
 <select id="causeStatus" name="causeStatus">
 <option value="미확정">미확정 · 추가 점검 필요</option>
 <option value="추정">추정 · 검증 전</option>
@@ -253,7 +269,7 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 </select></div><div class="field"><label for="verification">원인 검증 근거</label>
 <input id="verification" name="verification" placeholder="확정 시 확인한 객관적 근거"/></div><div class="field wide"><label for="cause">원인 및 확인 상태</label><textarea id="cause" name="cause" placeholder="확정 원인 / 추정 원인을 구분하여 기록하세요"></textarea></div><div class="field wide"><label for="action">정비 조치</label><textarea id="action" name="action" placeholder="제조사 매뉴얼에 따른 실제 수행 내용을 기록하세요"></textarea></div><div class="field wide"><label for="result">정비 결과 및 재시험</label><textarea id="result" name="result" placeholder="정비 후 결과, 재시험 확인 사항"></textarea></div><div class="field wide"><label for="followup">추가 점검·후속 조치</label>
 <textarea id="followup" name="followup" placeholder="미확인 사항, 재발 방지 및 추후 확인 계획"></textarea></div><div class="field wide"><label for="reference">참고 자료</label><input id="reference" name="reference" placeholder="제조사 매뉴얼명 · 출처"/></div></div><p class="helper report-cause-notice" id="causeNotice">원인은 검증 전까지 미확정 또는 추정으로 기록하세요. 확정 시 검증 근거를 남겨야 합니다.</p><section aria-labelledby="photoHeading" class="prda-photo-panel" id="reportPhotoPanel">
-<h3 id="photoHeading">8차 · 정비사진 첨부</h3>
+<h3 id="photoHeading">정비사진 첨부</h3>
 <p class="helper">명판 · 정비 전 · 정비 후 사진을 최대 3장 첨부할 수 있습니다. 휴대폰 저장공간 보호를 위해 사진은 자동 축소됩니다. 민감한 설비번호·회사 내부정보는 첨부하지 마세요.</p>
 <div class="prda-photo-toolbar">
 <label class="btn secondary prda-photo-pick" for="reportPhotoInput">사진 추가</label>
@@ -262,7 +278,11 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 </div>
 <div class="prda-photo-grid" id="reportPhotoPreview"></div>
 <p aria-live="polite" class="helper" id="reportPhotoStatus" role="status"></p>
-</section><section aria-label="정비보고서 A4 미리보기" class="prda9-sheet" hidden="" id="reportPrintSheet"></section><div class="actions"><button class="btn" type="submit">이력 저장</button><button class="btn secondary" id="previewReportV9" type="button">A4 보고서 미리보기</button><button class="btn secondary" id="printReport" type="button">A4 인쇄 · PDF 저장</button><a class="btn secondary" href="index.html#history">저장 이력 보기</a><button class="btn secondary" id="newReport" type="button">새 보고서</button></div><p class="helper print-help">휴대폰에서 “A4 인쇄 · PDF 저장”을 누른 뒤 인쇄 화면의 프린터를 “PDF로 저장”으로 선택하세요. 저장은 휴대폰의 PDF 파일로 이루어집니다.</p><p aria-live="polite" id="status" role="status"></p></form></main><footer><strong>PRDA S&amp;T</strong><span>정압설비 통합 플랫폼 · SEO TECH</span><small>진단 결과는 참고자료이며 현장 안전절차와 제작사 매뉴얼을 우선합니다.</small></footer>
+</section><section aria-label="정비보고서 A4 미리보기" class="prda9-sheet" hidden="" id="reportPrintSheet"></section><div class="actions"><button class="btn" type="submit">이력 저장</button><button class="btn secondary" id="previewReportV9" type="button">A4 보고서 미리보기</button><button class="btn secondary" id="printReport" type="button">A4 인쇄 · PDF 저장</button><a class="btn secondary" href="index.html#history">저장 이력 보기</a><button class="btn secondary" id="newReport" type="button">새 보고서</button></div><p class="helper print-help">휴대폰에서 “A4 인쇄 · PDF 저장”을 누른 뒤 인쇄 화면의 프린터를 “PDF로 저장”으로 선택하세요. 저장은 휴대폰의 PDF 파일로 이루어집니다.</p><p aria-live="polite" id="status" role="status"></p></form><details class="prda-final-checklist">
+<summary>최종 점검 안내 · 10차 완료 기준</summary>
+<p>홈·진단·검색·Q&amp;A·정비이력·보고서 메뉴를 확인하고, 실제 보고서 저장·사진 재조회·A4 PDF 출력·JSON 백업·복원까지 휴대폰에서 점검하세요.</p>
+<p>정비기록은 현재 브라우저에만 저장됩니다. Android 앱의 진단이력과 자동 동기화되지 않습니다. 비공개 설비정보는 입력하지 마세요.</p>
+</details></main><footer><strong>PRDA S&amp;T</strong><span>정압설비 통합 플랫폼 · SEO TECH</span><small>진단 결과는 참고자료이며 현장 안전절차와 제작사 매뉴얼을 우선합니다.</small></footer>
 <nav aria-label="모바일 빠른 메뉴" class="bottom-nav"><a class="active" href="index.html"><span>⌂</span>홈</a><a href="index.html#diagnosis"><span>◈</span>진단</a><a href="index.html#report"><span>▤</span>보고서</a><a href="index.html#history"><span>◷</span>이력</a><button id="bottomMenu" type="button"><span>☷</span>전체</button></nav>
 <div class="menu-overlay" hidden="" id="menuOverlay"><div class="menu-shade" id="menuShade"></div><aside aria-labelledby="menuTitle" aria-modal="true" class="menu-drawer" role="dialog"><div class="drawer-head"><h2 id="menuTitle">전체 메뉴</h2><button aria-label="메뉴 닫기" id="menuClose">✕</button></div><div class="drawer-search"><form action="search.html"><input aria-label="통합검색" name="q" placeholder="통합검색"/><button>검색</button></form></div><div class="drawer-list">
 <details><summary>AI 진단분석</summary><a href="index.html#diagnosis">진단 시작</a><a href="photo.html">사진 참고</a></details>
@@ -319,7 +339,7 @@ function renderReportPhotos(){
   const select=document.createElement('select');label.htmlFor=`reportPhotoKind${i}`;select.id=`reportPhotoKind${i}`;
   PHOTO_KINDS.forEach(k=>select.add(new Option(k,k)));
   select.value=p.kind;
-  select.addEventListener('change',()=>{p.kind=select.value;img.alt=`${p.kind} 정비사진 ${i+1}`});
+  select.addEventListener('change',()=>{p.kind=select.value;img.alt=`${p.kind} 정비사진 ${i+1}`;if(previewVisible)renderV9Report();});
   const del=document.createElement('button');del.type='button';del.className='btn secondary';del.textContent='사진 삭제';
   del.addEventListener('click',()=>{reportPhotos.splice(i,1);renderReportPhotos();photoStatus.textContent='사진을 목록에서 제외했습니다. 보고서 저장 후 이력에 반영됩니다.'});
   item.append(img,label,select,del);photoPreview.append(item);
@@ -375,6 +395,7 @@ function newReport(){
  form.elements.namedItem('caseId').value=makeId();
  form.elements.namedItem('date').value=now();
  document.getElementById('status').textContent='';
+ if(previewVisible)renderV9Report();
 }
 function editReport(id){
  const r=getAll().find(x=>x.caseId===id);
@@ -383,9 +404,19 @@ function editReport(id){
  reportPhotos=validPhotos(r.photos);
  renderReportPhotos();
  fields.forEach(f=>{const el=form.elements.namedItem(f);if(el)el.value=r[f]||(f==='causeStatus'?'미확정':'')});
+ if(previewVisible)renderV9Report();
  location.hash='report';
 }
+
+function updateFinalStatus(){
+ const el=document.getElementById('finalReportCount');
+ if(!el)return;
+ const n=getAll().length;
+ el.textContent=`이 기기에 저장된 정비보고서 ${n}건 · 다른 기기와 동기화되지 않음`;
+}
+
 function draw(){
+ updateFinalStatus();
  const q=filter.value.trim().toLowerCase();
  const from=document.getElementById('filterFrom').value;
  const to=document.getElementById('filterTo').value;
@@ -434,7 +465,7 @@ form.addEventListener('submit',e=>{
  data.updatedAt=new Date().toISOString();
  const all=getAll();const idx=all.findIndex(r=>r.caseId===data.caseId);
  if(idx>=0)all[idx]=data;else all.unshift(data);
- try{saveAll(all);document.getElementById('status').textContent='이 기기에 저장했습니다. PDF도 별도로 보관하세요.'}
+ try{saveAll(all);document.getElementById('status').textContent='정비이력을 이 브라우저에 저장했습니다. A4 PDF와 JSON 백업도 별도로 보관하세요.';updateFinalStatus();}
  catch{document.getElementById('status').textContent='저장 실패: 브라우저 저장 공간을 확인하세요.'}
 });
 
@@ -513,6 +544,7 @@ form.addEventListener('change',()=>{if(previewVisible)renderV9Report();});
 
 document.getElementById('printReport').addEventListener('click',()=>{
  location.hash='report';
+ route();
  renderV9Report();
  window.print();
 });
@@ -631,6 +663,7 @@ document.getElementById('confirmRestoreV7').addEventListener('click',()=>{
 });
 
 newReport();
+updateFinalStatus();
 window.addEventListener('hashchange',route);
 route();
 })();

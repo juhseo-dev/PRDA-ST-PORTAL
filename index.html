@@ -37,6 +37,16 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 .prda-case button{cursor:pointer}
 #caseSearchForm select{width:100%;padding:12px;border:1px solid #d2dfeb;border-radius:10px;background:#fff;font:inherit;color:#122744}
 @media(max-width:650px){.prda-case{padding:16px}}
+</style><style>
+.prda-guided{margin-top:18px;padding:18px;background:#f3f8fc;border:1px solid #cfdeeb;border-radius:14px}
+.prda-guided h3{margin:0 0 10px;color:#123d66}
+.prda-guided-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.prda-guided-box{background:white;border:1px solid #dbe5ee;border-radius:12px;padding:14px;margin:10px 0;min-width:0}
+.prda-guided-box strong{display:block;margin-bottom:9px;color:#153d64}
+.prda-guided-box ul{padding-left:20px;margin:0}.prda-guided-box li{margin:6px 0;line-height:1.65;overflow-wrap:anywhere}
+.prda-guided-box p{line-height:1.7;margin:7px 0;overflow-wrap:anywhere}
+.prda-caution{background:#fff7e6;border-left:4px solid #d08b17;padding:12px;line-height:1.65;border-radius:6px}
+@media(max-width:680px){.prda-guided-grid{grid-template-columns:1fr}.prda-guided{padding:12px}}
 </style></head><body>
 <a class="skip" href="#content">본문으로 이동</a>
 <header class="topbar"><div class="top-inner"><a aria-label="PRDA S&amp;T 홈" class="brand" href="index.html"><b>PRDA <span>S&amp;T</span></b><small>정압설비 통합 플랫폼</small></a><nav aria-label="주요 메뉴" class="desktop-nav"><a class="selected" href="index.html">홈</a><a href="index.html#diagnosis">AI 진단분석</a><a href="index.html#report">정비보고서</a><a href="index.html#history">정비이력</a><a href="regulator.html">정압기</a><a href="equipment.html">정압설비</a><a href="cases.html">정비사례</a><a href="manuals.html">매뉴얼·기술자료</a><a href="safety.html">정비안전</a><a href="qna.html">Q&amp;A</a></nav><button aria-label="전체 메뉴 열기" class="menu-top" id="menuOpen">☰</button></div></header>
@@ -90,7 +100,17 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 <p class="helper">아래 항목은 검토 후보이며 원인 확정 또는 현장 조작 지시가 아닙니다.</p>
 <h3>가능 원인 (추정)</h3><ul id="diagCauses"></ul>
 <h3>우선 확인할 사항</h3><ul id="diagChecks"></ul>
-<div class="actions"><button class="btn" id="diagToReport" type="button">이 결과로 정비보고서 작성 →</button><a class="btn secondary" href="cases.html">관련 정비사례</a><a class="btn secondary" href="manuals.html">제작사 매뉴얼</a><a class="btn secondary" href="index.html#search">공개 유사사례 검색</a></div>
+<section aria-live="polite" class="prda-guided" hidden="" id="diagGuided">
+<h3>설비별 진단 검토 · 4차</h3>
+<p class="helper">입력값·모델·PILOT 및 공개 정비사례를 구분하여 표시합니다. 제작사별 공식 고장 판정 기준을 대체하지 않습니다.</p>
+<div class="prda-guided-grid">
+<div class="prda-guided-box"><strong>입력정보 점검</strong><ul id="diagQuality"></ul></div>
+<div class="prda-guided-box"><strong>우선 점검 방향</strong><ul id="diagPriority"></ul></div>
+</div>
+<div class="prda-guided-box"><strong>제작사 · 모델 · PILOT 확인</strong><div id="diagIdentity"></div></div>
+<div class="prda-guided-box"><strong>공개 정비사례 근거</strong><div id="diagEvidence"></div></div>
+<p class="prda-caution">주의: 추정 원인과 확인된 원인은 별개입니다. 가스누설·비정상 압력·보호장치 이상 시 현장 안전절차 및 승인된 조치를 우선하세요. 이 화면은 원격 조작·설정값 변경 지시가 아닙니다.</p>
+</section><div class="actions"><button class="btn" id="diagToReport" type="button">이 결과로 정비보고서 작성 →</button><a class="btn secondary" href="cases.html">관련 정비사례</a><a class="btn secondary" href="manuals.html">제작사 매뉴얼</a><a class="btn secondary" href="index.html#search">공개 유사사례 검색</a></div>
 </section>
 </main><main class="standalone-view page-wrap" id="history-view"><div class="page-head"><h1>정비이력관리</h1><p>이 기기에 저장된 정비보고서를 검색·조회·수정합니다.</p></div><div class="helper">이력은 현재 브라우저에만 저장됩니다. 기존 V10 앱의 진단이력과는 별도이며, 자동 동기화되지 않습니다. 공개 홈페이지에는 비공개 시설명·설비번호·회사 내부정보를 입력하지 마세요.</div><div class="form-panel"><div class="field"><label for="filter">보고서 검색</label><input id="filter" placeholder="보고서 ID · 제작사 · 모델 · 증상"/></div><div class="actions"><a class="btn" href="index.html#report">새 보고서 작성</a><button class="btn secondary" id="exportRecords" type="button">이력 JSON 백업</button></div><p id="count" role="status"></p><div id="records"></div></div></main><main class="standalone-view page-wrap" id="report-view"><div class="page-head"><h1>정비보고서 작성</h1><p>진단 결과와 별도로 실제 정비내용을 기록하고 A4로 출력합니다.</p></div><div class="helper">1차 버전은 이 기기의 브라우저에만 저장됩니다. 다른 기기와 자동 동기화되지 않으며 브라우저 데이터 삭제 시 사라질 수 있습니다. 중요 보고서는 PDF로 별도 보관하세요. 공개 홈페이지에는 비공개 시설명·설비번호·회사 내부정보를 입력하지 마세요.</div><form class="form-panel" id="reportForm"><div class="print-header"><h1>PRDA S&amp;T · 정비보고서</h1><p>SEO TECH / 정압설비 정비기록</p></div><div class="form-grid"><div class="field"><label for="caseId">보고서 ID</label><input id="caseId" name="caseId" readonly=""/></div><div class="field"><label for="date">정비일자</label><input id="date" name="date" required="" type="date"/></div><div class="field"><label for="manufacturer">제작사</label><input id="manufacturer" name="manufacturer" placeholder="예: TARTARINI"/></div><div class="field"><label for="model">모델</label><input id="model" name="model" placeholder="예: FL/100-SR-SRS"/></div><div class="field wide"><label for="symptoms">발생 증상</label><textarea id="symptoms" name="symptoms" placeholder="헌팅, 후단압 상승 등" required=""></textarea></div><div class="field wide"><label for="inspection">점검 내용</label><textarea id="inspection" name="inspection" placeholder="점검 결과와 확인된 사항을 기록하세요"></textarea></div><div class="field wide"><label for="cause">원인 및 확인 상태</label><textarea id="cause" name="cause" placeholder="확정 원인 / 추정 원인을 구분하여 기록하세요"></textarea></div><div class="field wide"><label for="action">정비 조치</label><textarea id="action" name="action" placeholder="제조사 매뉴얼에 따른 실제 수행 내용을 기록하세요"></textarea></div><div class="field wide"><label for="result">정비 결과 및 재시험</label><textarea id="result" name="result" placeholder="정비 후 결과, 재시험 확인 사항"></textarea></div><div class="field wide"><label for="reference">참고 자료</label><input id="reference" name="reference" placeholder="제조사 매뉴얼명 · 출처"/></div></div><div class="actions"><button class="btn" type="submit">이력 저장</button><button class="btn secondary" id="printReport" type="button">A4 PDF / 인쇄</button><a class="btn secondary" href="index.html#history">저장 이력 보기</a><button class="btn secondary" id="newReport" type="button">새 보고서</button></div><p aria-live="polite" id="status" role="status"></p></form></main><footer><strong>PRDA S&amp;T</strong><span>정압설비 통합 플랫폼 · SEO TECH</span><small>진단 결과는 참고자료이며 현장 안전절차와 제작사 매뉴얼을 우선합니다.</small></footer>
 <nav aria-label="모바일 빠른 메뉴" class="bottom-nav"><a class="active" href="index.html"><span>⌂</span>홈</a><a href="index.html#diagnosis"><span>◈</span>진단</a><a href="index.html#report"><span>▤</span>보고서</a><a href="index.html#history"><span>◷</span>이력</a><button id="bottomMenu" type="button"><span>☷</span>전체</button></nav>
@@ -307,5 +327,75 @@ diagForm.addEventListener('submit',()=>{
   updateModels();show();
  };
 });
+})();
+</script><script>
+(()=>{
+'use strict';
+const by=id=>document.getElementById(id);
+const text=x=>String(x??'').trim();
+const norm=x=>text(x).toLocaleLowerCase('ko').replace(/[\s/\-_]+/g,'');
+const add=(el,tag,s)=>{const n=document.createElement(tag);n.textContent=s;el.append(n);return n};
+const bullets=(id,items)=>{const el=by(id);el.replaceChildren();items.forEach(x=>add(el,'li',x))};
+const read=id=>text(by(id).value);
+const number=id=>{const v=read(id);return v===''?null:Number(v)};
+const publicCases=()=>typeof getPublicPRDACases==='function'?getPublicPRDACases():[];
+const symptomWords={hunting:['헌팅','진동'],high:['상승','고압'],low:['저하','저압'],leak:['누설'],operation:['작동 불량','작동불량'],ssv:['ssv'],noise:['소음'],other:[]};
+const directions={
+ hunting:['압력·유량 변동의 동시 기록과 발생 시점을 우선 비교','PILOT 제어압력·감지라인 및 구동부 상태를 제작사 기준으로 검토'],
+ high:['후단압력 측정값의 신뢰성 및 상승 추세 확인','시트부 기밀·제어계통·보호장치 상태를 승인된 절차로 검토'],
+ low:['전단압력·유량·후단압력의 동시 변화 확인','필터 차압·상류 공급조건·PILOT 응답을 구분하여 검토'],
+ leak:['현장 가스누설 대응·작업허가·출입통제 등 안전절차 우선','승인된 검지 방법으로 위치·범위 확인, 임의 조작 금지'],
+ operation:['작동 불량 발생 조건과 제어압력 추이 기록','구동부·PILOT·감지라인의 점검기준 확인'],
+ ssv:['보호장치 우회 없이 경보·트립 이력과 계측상태 확인','감지라인·기계적 구동부 점검은 제작사 승인 절차에 따름'],
+ noise:['소음 발생 위치·시간·유량·차압 조건을 함께 기록','유동 소음과 기계적 진동 가능성을 구분해 검토'],
+ other:['증상 발생 시점과 압력·유량·경보 이력 확보','제작사 공식 매뉴얼과 공개 사례 비교']
+};
+function refresh(){
+ const sym=read('diagSymptom'), maker=read('diagMaker'),model=read('diagModel'),pilot=read('diagPilot');
+ if(!sym){by('diagGuided').hidden=true;return}
+ const up=number('diagUpstream'),down=number('diagDownstream'),set=number('diagSetpoint'),flow=number('diagFlow');
+ const quality=[];
+ if(!maker)quality.push('제작사 미입력: 제작사별 구분이 제한됩니다.');
+ if(!model)quality.push('정압기 모델 미입력: 모델별 자료 연결이 제한됩니다.');
+ if(!pilot)quality.push('PILOT 모델 미입력: PILOT별 자료 연결이 제한됩니다.');
+ if(up===null||down===null)quality.push('전·후단압력을 모두 입력하면 측정값의 관계를 검토할 수 있습니다.');
+ if(flow===null)quality.push('유량 미입력: 저유량·부하 변동 관련 검토가 제한됩니다.');
+ if(set===null)quality.push('설정압력 미입력: 후단 측정값과 설정값의 차이를 표시할 수 없습니다.');
+ if(up!==null&&down!==null&&up<=down)quality.push('입력값 재확인: 전단압력이 후단압력 이하입니다. 측정 위치·단위·운전상태를 확인하세요.');
+ if(set!==null&&down!==null){const delta=down-set;quality.push(`후단 측정압력과 설정압력 차이: ${delta>=0?'+':''}${Number(delta.toFixed(4))} MPa. 허용오차·계기정확도 미입력으로 정상/비정상 판정 불가.`)}
+ if(!quality.length)quality.push('주요 입력항목이 입력되었습니다. 측정 신뢰성과 제작사 기준은 별도 확인이 필요합니다.');
+ bullets('diagQuality',quality);
+ const pri=[...(directions[sym]||directions.other)];
+ if(model)pri.push(`정압기 모델 '${model}'의 제작사 공식 매뉴얼·형식별 운전조건 확인`);
+ if(pilot)pri.push(`PILOT '${pilot}'의 감지·제어계통 점검 기준 확인 (모델 고유 고장패턴은 자료 검증 전 미적용)`);
+ bullets('diagPriority',pri);
+ const identity=by('diagIdentity');identity.replaceChildren();
+ add(identity,'p',`제작사: ${maker||'미입력'} · 모델: ${model||'미입력'} · PILOT: ${pilot||'미입력'}`);
+ add(identity,'p','현재 공개 DB에 해당 모델·PILOT의 검증된 개별 진단 규칙이 등록되지 않은 경우, 일반 증상 기반 검토만 제공합니다.');
+ const data=publicCases();
+ const candidates=data.filter(r=>{
+  if(maker&&norm(r.manufacturer)!==norm(maker))return false;
+  if(model&&norm(r.model)!==norm(model))return false;
+  if(pilot&&(!r.pilot||norm(r.pilot)!==norm(pilot)))return false;
+  const terms=symptomWords[sym]||[];
+  if(terms.length&&!terms.some(w=>norm([r.title,r.symptom].join(' ')).includes(norm(w))))return false;
+  return true;
+ });
+ const evidence=by('diagEvidence');evidence.replaceChildren();
+ if(!maker||!model){add(evidence,'p','제작사·모델을 입력하면 동일 설비의 공개 사례를 확인할 수 있습니다.');}
+ else if(!data.length){add(evidence,'p','현재 공개 정비사례 DB에 비교 가능한 사례가 등록되지 않았습니다.');}
+ else if(!candidates.length){add(evidence,'p','입력한 제작사·모델·PILOT·증상에 모두 일치하는 공개 사례가 없습니다. 원인이 없거나 해당 설비가 정상이라는 뜻은 아닙니다.');}
+ else{
+  add(evidence,'p',`입력조건과 일치하는 공개 사례 ${candidates.length}건 (원인 자동 확정 불가)`);
+  candidates.slice(0,5).forEach(r=>{
+   const p=add(evidence,'p',`${r.id||'사례'} · ${r.title||r.symptom||'제목 미기록'} / 검증: ${r.verificationStatus||'확인 필요'}`);
+   p.style.borderBottom='1px solid #e6edf4';p.style.paddingBottom='8px';
+  });
+ }
+ by('diagGuided').hidden=false;
+}
+// The existing diagnosis and report handoff listeners remain unchanged.
+by('quickDiagnosis').addEventListener('submit',e=>{if(!e.defaultPrevented)return;if(by('quickDiagnosis').reportValidity())refresh()});
+by('quickDiagnosis').addEventListener('reset',()=>{by('diagGuided').hidden=true});
 })();
 </script></body></html>

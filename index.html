@@ -157,6 +157,31 @@ body.view-search #diagnosis-view,body.view-search #report-view,body.view-search 
 .prda-final-checklist p{font-size:12px;line-height:1.7}
 @media(max-width:480px){.prda-final-status a{margin-left:18px}}
 @media print{.prda-final-status,.prda-final-checklist{display:none!important}}
+</style><style>/* MOBILE HERO ONLY: keep PC MASTER, services, menus and functionality unchanged. */
+@media (max-width:780px) {
+  .hero {
+    min-height:655px;
+    background-image:linear-gradient(180deg,rgba(3,18,37,.72) 0%,rgba(3,22,45,.72) 40%,rgba(3,21,43,.30) 75%,rgba(3,18,37,.85) 100%),url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAwIDcwMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgc2xpY2UiPgo8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9InNreSIgeDI9IjAiIHkyPSIxIj48c3RvcCBzdG9wLWNvbG9yPSIjMTUyZTYwIi8+PHN0b3Agb2Zmc2V0PSIuNDgiIHN0b3AtY29sb3I9IiMzYjRkNzgiLz48c3RvcCBvZmZzZXQ9Ii43NiIgc3RvcC1jb2xvcj0iI2M0Nzg0ZSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzEwMjc0NCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJzdGVlbCIgeDI9IjEiIHkyPSIwIj48c3RvcCBzdG9wLWNvbG9yPSIjMDkxZDM2Ii8+PHN0b3Agb2Zmc2V0PSIuNDUiIHN0b3AtY29sb3I9IiMzNjUzNmMiLz48c3RvcCBvZmZzZXQ9Ii43IiBzdG9wLWNvbG9yPSIjMWMzNDRjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMGIyMDNiIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9Imdyb3VuZCIgeDI9IjAiIHkyPSIxIj48c3RvcCBzdG9wLWNvbG9yPSIjMWIzNjUzIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDcxYzM2Ii8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjcwMCIgZmlsbD0idXJsKCNza3kpIi8+CjxjaXJjbGUgY3g9IjEwMzAiIGN5PSIyNzUiIHI9IjExNSIgZmlsbD0iI2Y0YWU2ZSIgb3BhY2l0eT0iLjMiLz4KPHBhdGggZD0iTTAgMzYwUTE2MCAzMzUgMjgwIDM1NVQ1NTAgMzUyVDg1MCAzNDBUMTIwMCAzNjBWNzAwSDBaIiBmaWxsPSIjMTAyYTQ4IiBvcGFjaXR5PSIuNjUiLz4KPHBhdGggZD0iTTAgNTE1SDEyMDBWNzAwSDBaIiBmaWxsPSJ1cmwoI2dyb3VuZCkiLz4KPGcgc3Ryb2tlPSIjNTU3MzhiIiBzdHJva2Utd2lkdGg9IjQiIGZpbGw9InVybCgjc3RlZWwpIiBvcGFjaXR5PSIuOTIiPgo8cmVjdCB4PSI5NSIgeT0iMzAwIiB3aWR0aD0iNzQiIGhlaWdodD0iMjE1Ii8+PHJlY3QgeD0iMTA1IiB5PSIyOTAiIHdpZHRoPSI1NCIgaGVpZ2h0PSIxMiIvPjxyZWN0IHg9IjExNSIgeT0iMjQwIiB3aWR0aD0iMzUiIGhlaWdodD0iNTAiLz48cmVjdCB4PSIxMjYiIHk9IjIwNSIgd2lkdGg9IjEyIiBoZWlnaHQ9IjM1Ii8+CjxyZWN0IHg9IjMxNSIgeT0iMzU1IiB3aWR0aD0iMTI1IiBoZWlnaHQ9IjE2MCIgcng9IjYiLz48cGF0aCBkPSJNMzE1IDM1NVEzNzcgMzIyIDQ0MCAzNTUiLz48cmVjdCB4PSIzNTMiIHk9IjI5NiIgd2lkdGg9IjQ5IiBoZWlnaHQ9IjQ4Ii8+CjxyZWN0IHg9IjU0MCIgeT0iMjQ1IiB3aWR0aD0iNTIiIGhlaWdodD0iMjcwIi8+PHJlY3QgeD0iNTQ5IiB5PSIyMjQiIHdpZHRoPSIzNSIgaGVpZ2h0PSIyMCIvPjxyZWN0IHg9IjU2MiIgeT0iMTY1IiB3aWR0aD0iMTAiIGhlaWdodD0iNjAiLz4KPHJlY3QgeD0iNzcwIiB5PSIzMzAiIHdpZHRoPSIxNjUiIGhlaWdodD0iMTg1IiByeD0iOCIvPjxwYXRoIGQ9Ik03NzAgMzMwUTg1MCAyODAgOTM1IDMzMCIvPjxyZWN0IHg9IjgzOCIgeT0iMjU1IiB3aWR0aD0iMjUiIGhlaWdodD0iNTUiLz4KPHJlY3QgeD0iMTAyMCIgeT0iMjkwIiB3aWR0aD0iNDUiIGhlaWdodD0iMjI1Ii8+PHJlY3QgeD0iMTAyOCIgeT0iMjU4IiB3aWR0aD0iMjkiIGhlaWdodD0iMzEiLz48cmVjdCB4PSIxMDM2IiB5PSIyMDIiIHdpZHRoPSIxMyIgaGVpZ2h0PSI1NyIvPgo8L2c+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzZmOTJhOSIgc3Ryb2tlLXdpZHRoPSI2IiBvcGFjaXR5PSIuNyI+CjxwYXRoIGQ9Ik0wIDQ2NUgyNjBWNDM1SDQ3MFY0ODBINzM1VjQyMEgxMjAwIi8+PHBhdGggZD0iTTAgNDk1SDMwMFY0NjdINDg1VjUwMEg3NjBWNDUwSDEyMDAiLz4KPHBhdGggZD0iTTE0MCAzMDBWMTgwSDU2MFYyNDVNMzc4IDMwMFYyMjBIMTA0NVYyOTAiLz4KPHBhdGggZD0iTTgwIDM3NUgxMTMwTTg1IDQwNUgxMTE1IiBzdHJva2Utd2lkdGg9IjIiLz4KPC9nPgo8ZyBzdHJva2U9IiM3ODk4YWQiIHN0cm9rZS13aWR0aD0iMiIgb3BhY2l0eT0iLjUiPgo8cGF0aCBkPSJNOTYgMzMwSDE2OE05NiAzNjBIMTY4TTk2IDM5MEgxNjhNOTYgNDIwSDE2OE05NiA0NTBIMTY4TTk2IDQ4MEgxNjgiLz4KPHBhdGggZD0iTTU0MCAyNzVINTkyTTU0MCAzMTVINTkyTTU0MCAzNTVINTkyTTU0MCAzOTVINTkyTTU0MCA0MzVINTkyIi8+CjxwYXRoIGQ9Ik0xMDIwIDMyMEgxMDY1TTEwMjAgMzYwSDEwNjVNMTAyMCA0MDBIMTA2NU0xMDIwIDQ0MEgxMDY1Ii8+CjwvZz4KPGcgZmlsbD0iI2Y3YmY3MyIgb3BhY2l0eT0iLjg1Ij48Y2lyY2xlIGN4PSIxNDIiIGN5PSIzNjAiIHI9IjMiLz48Y2lyY2xlIGN4PSIzNzgiIGN5PSI0MDAiIHI9IjMiLz48Y2lyY2xlIGN4PSI1NjQiIGN5PSIzMTAiIHI9IjMiLz48Y2lyY2xlIGN4PSI4NTAiIGN5PSIzNzAiIHI9IjMiLz48Y2lyY2xlIGN4PSIxMDQwIiBjeT0iMzMwIiByPSIzIi8+PGNpcmNsZSBjeD0iNzUwIiBjeT0iNDgwIiByPSIzIi8+PC9nPgo8cGF0aCBkPSJNMCA1NzVIMTIwME0wIDYyMEgxMjAwTTAgNjY1SDEyMDAiIHN0cm9rZT0iIzFkNDk2OSIgc3Ryb2tlLXdpZHRoPSI4IiBvcGFjaXR5PSIuNSIvPgo8L3N2Zz4=");
+    background-size:cover;
+    background-position:center center;
+  }
+  .hero-inner {min-height:655px;padding:57px 20px 102px;align-items:flex-start}
+  .hero-copy {width:100%;}
+  .hero h1 {margin-top:28px;}
+  .hero-copy p {max-width:320px;}
+  .hero-visual {right:6%;bottom:118px;width:min(55vw,225px);opacity:1;z-index:2;pointer-events:none}
+  .hero-visual img {max-height:260px;filter:drop-shadow(0 14px 15px rgba(0,0,0,.75))}
+  .hero-search {position:absolute;left:20px;right:20px;bottom:21px;margin:0;max-width:none;z-index:3}
+  .hero-search input {min-width:0}
+  .hero:before {opacity:.12}
+  .hero:after {opacity:.13}
+  .slogan {top:10px;right:17px}
+}
+@media (max-width:360px) {
+  .hero,.hero-inner {min-height:640px}
+  .hero-search {left:14px;right:14px;bottom:16px}
+  .hero-visual {bottom:108px;width:52vw}
+}
 </style></head><body>
 <a class="skip" href="#content">본문으로 이동</a>
 <header class="topbar"><div class="top-inner"><a aria-label="PRDA S&amp;T 홈" class="brand" href="index.html"><b>PRDA <span>S&amp;T</span></b><small>정압설비 통합 플랫폼</small></a><nav aria-label="주요 메뉴" class="desktop-nav"><a class="selected" href="index.html">홈</a><a href="index.html#diagnosis">AI 진단분석</a><a href="index.html#report">정비보고서</a><a href="index.html#history">정비이력</a><a href="regulator.html">정압기</a><a href="equipment.html">정압설비</a><a href="cases.html">정비사례</a><a href="manuals.html">매뉴얼·기술자료</a><a href="safety.html">정비안전</a><a href="qna.html">Q&amp;A</a></nav><button aria-label="전체 메뉴 열기" class="menu-top" id="menuOpen">☰</button></div></header>
